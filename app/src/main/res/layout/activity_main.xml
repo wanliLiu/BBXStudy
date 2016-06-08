@@ -1,0 +1,63 @@
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"></TabWidget>
+
+        <RadioGroup
+            android:id="@+id/groupTab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/tab_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/menu_check"
+                style="@style/main_tab_bottom"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/home_category_selector"
+                android:text="分类" />
+
+            <RadioButton
+                android:id="@+id/favorite_check"
+                style="@style/main_tab_bottom"
+                android:layout_weight="1"
+                android:checked="true"
+                android:drawableTop="@drawable/home_topic_selector"
+                android:text="说吧" />
+
+            <RadioButton
+                android:id="@+id/history_check"
+                style="@style/main_tab_bottom"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/home_hisory_selector"
+                android:text="记录" />
+
+            <RadioButton
+                android:id="@+id/more_check"
+                style="@style/main_tab_bottom"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/home_more_selector"
+                android:text="更多" />
+        </RadioGroup>
+    </LinearLayout>
+
+</TabHost>

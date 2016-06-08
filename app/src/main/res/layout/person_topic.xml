@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgound"
+    android:orientation="vertical">
+
+    <com.hyx.android.Game351.view.HeadView
+        android:id="@+id/headView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.hyx.android.Game351.view.HeadView>
+
+    <RadioGroup
+        android:id="@+id/radiochose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="5dip"
+        android:background="@drawable/btn_check_background"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/ChosePost"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_check_left_selector"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center_horizontal"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip"
+            android:text="我发表的"
+            android:textColor="@drawable/btn_radio_selector" />
+
+        <RadioButton
+            android:id="@+id/ChoseRelay"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_check_right_selector"
+            android:button="@null"
+            android:gravity="center_horizontal"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip"
+            android:text="我回复的"
+            android:textColor="@drawable/btn_radio_selector" />
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:layout_alignParentTop="true"
+        android:background="#C4C4C4" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

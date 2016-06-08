@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.hyx.android.Game351.view.HeadView
+        android:id="@+id/headView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+
+    <LinearLayout
+        android:id="@+id/bottomAction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/ChannelFast"
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_margin="5dip"
+            android:layout_weight="1"
+            android:background="@drawable/smssdk_corners_bg"
+            android:gravity="center"
+            android:padding="10dip"
+            android:text="挑战最快"
+            android:textSize="@dimen/text_small" />
+
+        <Button
+            android:id="@+id/NewChannel"
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_margin="5dip"
+            android:layout_weight="1"
+            android:background="@drawable/smssdk_corners_bg"
+            android:gravity="center"
+            android:padding="10dip"
+            android:text="新的挑战"
+            android:textSize="@dimen/text_small" />
+
+        <Button
+            android:id="@+id/ReadAll"
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_margin="5dip"
+            android:layout_weight="1"
+            android:background="@drawable/smssdk_corners_bg"
+            android:gravity="center"
+            android:padding="10dip"
+            android:text="阅读全文"
+            android:textSize="@dimen/text_small" />
+
+        <Button
+            android:id="@+id/ShareFrieds"
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_margin="5dip"
+            android:layout_weight="1"
+            android:background="@drawable/smssdk_corners_bg"
+            android:gravity="center"
+            android:padding="10dip"
+            android:text="分享好友"
+            android:textSize="@dimen/text_small" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/incopyRead"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomAction"
+        android:layout_below="@id/headView">
+
+        <TextView
+            android:id="@+id/scorePaixu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:gravity="center_horizontal"
+            android:padding="15dip"
+            android:text="点击下一题或选错或自动播放不能参加排名" />
+
+        <LinearLayout
+            android:id="@+id/dslkd0212"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/scorePaixu"
+            android:background="@color/color_line"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:gravity="center_vertical|left"
+                android:padding="10dip"
+                android:text="排名" />
+
+            <TextView
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:gravity="center_vertical|left"
+                android:padding="10dip"
+                android:text="用户名" />
+
+            <TextView
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:gravity="center_vertical|left"
+                android:padding="10dip"
+                android:text="用时（秒）" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/scoreList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@id/dslkd0212"
+            android:background="@color/color_line"
+            android:listSelector="@android:color/transparent" />
+    </RelativeLayout>
+
+</RelativeLayout>

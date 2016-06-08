@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="fram" type="id" />
+    <item name="headView" type="id" />
+    <item name="kdlksd12" type="id" />
+    <item name="dklskld" type="id" />
+    <item name="dklsl12" type="id" />
+    <item name="takdTime" type="id" />
+    <item name="kstes" type="id" />
+    <item name="ids_temp" type="id" />
+
+</resources>

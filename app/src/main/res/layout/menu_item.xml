@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dip"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/menuTit"
+        android:layout_width="match_parent"
+        android:layout_height="60dip"
+        android:background="@drawable/smssdk_corners_bg"
+        android:gravity="center"
+        android:padding="10dip"
+        android:text="测试"
+        android:textSize="@dimen/text_normal"
+        android:visibility="visible" />
+
+    <RelativeLayout
+        android:id="@+id/item_fast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:paddingBottom="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="10dp"
+            android:text="收藏"
+            android:textSize="@dimen/text_normal" />
+
+        <TextView
+            android:id="@+id/englishDis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/favorite"
+            android:padding="5dp"
+            android:textSize="@dimen/text_normal"
+            tools:text="This is an engl ishenglish englishe nglish engli shenglish" />
+
+        <TextView
+            android:id="@+id/chineseDis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/englishDis"
+            android:layout_toLeftOf="@id/favorite"
+            android:padding="5dp"
+            android:textSize="@dimen/text_normal"
+            tools:text="这里显示中文这里显示中文这里显示中文这里显示中文这里显示中文这里显示中文" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/chineseDis"
+            android:background="@color/color_line" />
+    </RelativeLayout>
+
+</LinearLayout>

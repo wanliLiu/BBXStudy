@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.hyx.android.Game351.view.HeadView
+        android:id="@+id/headView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"></com.hyx.android.Game351.view.HeadView>
+
+    <FrameLayout
+        android:id="@+id/dklsdk"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/takdTime"
+        android:layout_below="@id/headView">
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView xmlns:ptr="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/topicListRelay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:listSelector="@android:color/transparent"
+            android:scrollbars="none"
+            android:visibility="visible"
+            ptr:ptrDrawable="@drawable/icon_pull_progressbar"
+            ptr:ptrMode="both"></com.handmark.pulltorefresh.library.PullToRefreshListView>
+
+        <RelativeLayout
+            android:id="@+id/voiceRecodAtte"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="100dip"
+                android:layout_height="100dip"
+                android:background="@drawable/voice_record_backroud"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/icon_record_s" />
+
+                    <ImageView
+                        android:id="@+id/voiceLevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/tt_sound_volume_01" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/recordTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="开始录音了哦"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/color_white" />
+            </LinearLayout>
+        </RelativeLayout>
+    </FrameLayout>
+
+    <include
+        android:id="@+id/takdTime"
+        layout="@layout/buttom_action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

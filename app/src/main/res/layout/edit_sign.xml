@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgound"
+    android:orientation="vertical">
+
+    <com.hyx.android.Game351.view.HeadView
+        android:id="@+id/headView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.hyx.android.Game351.view.HeadView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dip">
+
+        <EditText
+            android:id="@+id/input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/content_input"
+            android:gravity="top|left"
+            android:inputType="textMultiLine"
+            android:maxLength="140"
+            android:minHeight="200dip"
+            android:textColor="@color/color_light_black"
+            android:textSize="@dimen/text_normal" />
+
+        <TextView
+            android:id="@+id/inputAttention"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="10dip"
+            android:layout_marginRight="10dip"
+            android:text="你还能输入140字"
+            android:textColor="@color/color_line1"
+            android:textSize="@dimen/text_small" />
+    </FrameLayout>
+
+</LinearLayout>

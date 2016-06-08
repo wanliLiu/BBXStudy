@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">铁杆英语</string>
+    <string name="error_network_Unavailable">同学,你的网络连接不可用！！！</string>
+    <string name="FAILED">获取数据失败，请稍后重试！</string>
+    <string name="Login_account">账号</string>
+    <string name="Login_password">密码</string>
+    <string name="Login_password_sure">密码确认</string>
+    <string name="LOGIN_SIGN_IN">登 录</string>
+    <string name="LOGIN_register_1">注  册</string>
+    <string name="LOGIN_register_2">重置密码</string>
+    <string name="LOGIN_pwd_back">找回密码</string>
+    <string name="LOGIN_pwd_back_1">登陆账号</string>
+    <string name="LOGIN_register">注册账号</string>
+    <string name="Login_account_hint">输入账号</string>
+    <string name="Login_password_hint">输入密码</string>
+    <string name="Login_password_hint_agagin">再次输入密码</string>
+    <string name="home_menu">分类</string>
+    <string name="home_favorite">收藏</string>
+    <string name="home_favorite_clear">清除</string>
+    <string name="home_record">记录</string>
+    <string name="home_more">更多</string>
+    <string name="app_exit_atteniton">再按一次退出程序</string>
+    <string name="about_us">铁杆英语--全中国最简单,最快英语学习方法,10句60秒。\n\n
+我们通过10年的教育实践，从成人到中小学生。我们发现唯一的真理是：
+\n\n
+学习一定是一个人自己的事情，必须要靠自己用正确方法坚持不断提高。
+ \n\n
+用正确的方法自己坚持不断提高无疑是一个人最重要的能力。
+ \n\n
+爱因斯坦、乔布斯没人可以教得出来，新东方名师也不是新东方教出来的。
+ \n\n
+都是自己花时间刻苦学出来的。
+ \n\n
+十年中我们做过英语沙龙,外教班,中小学辅导班，卖过英语教材和英语软件。
+ \n\n
+我们不得不现实的告诉大家，绝大部分人通过上面的途径是学不出来的。
+ \n\n
+我们也相信其它英语培训和英语学习产品，绝大部分不同程度地忽悠了我们。
+ \n\n
+绝大部分人是坚持不下来的,各种培训班,真正坚持一直学的肯定是很少的。
+ \n\n
+各种免费、付费的英语教材、软件，没几个人可以坚持一直用到学出来。
+ \n\n
+因此一个人要真正学出来，首先必须要自己想学，自己愿意用心去学。
+ \n\n
+一个人对自己喜欢或关心的内容，肯定会用心去学和钻研。
+ \n\n
+我们创新地让你在国内和像国外一样，完全用英语工作、生活和娱乐。
+ \n\n
+我们将制作国内热门新闻和话题的英语talk show（国内版的英语脱口秀），
+ \n\n
+国内热门电影,歌曲,连续剧,动画片我们都会翻译成英语版本.国外的也会提供。
+ \n\n
+想学是第一步，第二步是方法。按照正确方法每天坚持，最后肯定到达山顶。
+ \n\n
+我们用10年完善了我们认为目前是全人类最简单，最快的英语学习方法。
+ \n\n
+我们将和大家一起来完善这个学习方法，让我们学的更简单，更快。
+ \n\n
+再好的方法一个人学习是孤独的,我们需要一群铁杆学习爱好者,共同爬到山顶.
+ \n\n
+终身会员费用600元,软件永久免费更新,海量学习内容,定期面对面交流活动.
+ \n\n
+600元你买的是学习方法和内容,和一群志同道合的人共同爬到山顶的服务。
+ \n\n
+铁杆英语十年磨一剑历程，访问官网www.tgbbx.com。
+\n\n
+官方qq群 4984097.  联系电话025-51860065\n\n</string>
+    <string name="InputAttention">你还能输入%#d字</string>
+
+</resources>

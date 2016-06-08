@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/topic_item_selector"
+        android:padding="10dip">
+
+        <RelativeLayout
+            android:id="@+id/dksslll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <br.com.dina.ui.model.RoundImageView
+                android:id="@+id/topicPicture"
+                android:layout_width="80dip"
+                android:layout_height="80dip"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="15dip"
+                android:scaleType="centerCrop"
+                android:src="@drawable/female_b" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@id/topicPicture"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/topicTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="left"
+                    android:maxLines="2"
+                    android:text="求高手帮我读这篇"
+                    android:textColor="#616161"
+                    android:textSize="@dimen/text_normal_big"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/voiceContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.hyx.android.Game351.view.VoiceView
+                        android:id="@+id/voicePlay"
+                        android:layout_width="80dip"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dip"
+                        android:visibility="visible"></com.hyx.android.Game351.view.VoiceView>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/topicContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
+                    android:ellipsize="end"
+                    android:gravity="left"
+                    android:maxLines="3"
+                    android:text="this my dkdl skdkt for noe kdnskk ldksi kdlsidklkd klskdjk dksl"
+                    android:textColor="@color/color_light_black"
+                    android:textSize="@dimen/text_normal" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/kstes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dksslll"
+            android:paddingBottom="10dip"
+            android:paddingTop="10dip">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My friend"
+                android:textColor="@color/color_light_black"
+                android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_toRightOf="@id/name"
+                android:text="24小时之前"
+                android:textColor="@color/color_line1"
+                android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:id="@+id/relyNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="10dip"
+                android:text="434回复"
+                android:textColor="@color/color_yellow"
+                android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:id="@+id/goodNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/relyNum"
+                android:text="62赞"
+                android:textColor="@color/color_yellow"
+                android:textSize="@dimen/text_small" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <include
+        layout="@layout/listview_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/kstes" />
+
+</LinearLayout>

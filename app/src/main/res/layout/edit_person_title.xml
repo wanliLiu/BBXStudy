@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/itemContainer"
+    style="@style/list_item"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center_vertical"
+        android:minHeight="48dip"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/LeftSide"
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:duplicateParentState="true"
+            android:gravity="center_vertical|left">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:duplicateParentState="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="头像"
+                    android:textColor="@color/color_line1"
+                    android:textSize="@dimen/text_normal" />
+
+                <TextView
+                    android:id="@+id/content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="点击更换"
+                    android:textColor="@color/color_line1"
+                    android:textSize="@dimen/text_normal" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/RightSide"
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:duplicateParentState="true"
+            android:gravity="center_vertical|right">
+
+            <br.com.dina.ui.model.RoundImageView
+                android:id="@+id/imageRight"
+                android:layout_width="35dip"
+                android:layout_height="35dip"
+                android:layout_marginRight="10dip"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/logo_qq" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/chevron"
+            style="@style/list_item_chevron"
+            android:duplicateParentState="true"
+            android:visibility="visible" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/lineCross"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/layout"
+        android:background="@drawable/background_view_rounded_item_line"></View>
+
+</RelativeLayout>

@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:switch="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgound"
+    android:orientation="vertical">
+
+    <com.hyx.android.Game351.view.HeadView
+        android:id="@+id/headView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.hyx.android.Game351.view.HeadView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/con"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/inCopy"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dip"
+                android:background="@color/color_white"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:id="@+id/layout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="48dip"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/LeftSide"
+                        android:layout_width="0.0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.6"
+                        android:duplicateParentState="true"
+                        android:gravity="center_vertical|left">
+
+                        <TextView
+                            style="@style/content_page_large_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="连续播放" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/RightSide"
+                        android:layout_width="0.0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
+                        android:duplicateParentState="true"
+                        android:gravity="center_vertical|right"
+                        android:paddingLeft="5dip"
+                        android:visibility="visible">
+
+                        <com.hyx.android.Game351.view.UISwitchButton
+                            android:id="@+id/toggleButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            switch:bmHeight="33dip"
+                            switch:bmWidth="66dip" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/layout"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/background_view_rounded_item_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/inCopy1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:id="@+id/kdl"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="48dip"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/timeProgress"
+                        style="@style/content_page_large_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="15dp"
+                        android:text="连续播放时间间隔（0.2秒）" />
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:background="@drawable/background_view_rounded_item_line" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:gravity="center_horizontal">
+
+                        <TextView
+                            android:layout_width="0.0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:text="短"
+                            android:textColor="@color/color_light_black"
+                            android:textSize="@dimen/text_normal" />
+
+                        <SeekBar
+                            android:id="@+id/seekbar"
+                            android:layout_width="0.0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dip"
+                            android:layout_marginTop="10dip"
+                            android:layout_weight="0.8"
+                            android:max="4800"
+                            android:paddingLeft="10dip"
+                            android:paddingRight="10dip"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/bg_bar"
+                            android:thumb="@drawable/thumb_bar" />
+
+                        <TextView
+                            android:layout_width="0.0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:text="长"
+                            android:textColor="@color/color_light_black"
+                            android:textSize="@dimen/text_normal" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/inCopy2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dip"
+                android:background="@color/color_white"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:id="@+id/layoutAutoDisplay"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="48dip"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/LeftSideAutoDisplay"
+                        android:layout_width="0.0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.6"
+                        android:duplicateParentState="true"
+                        android:gravity="center_vertical|left">
+
+                        <TextView
+                            style="@style/content_page_large_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="自动播放" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/RightSideAutoDisplay"
+                        android:layout_width="0.0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
+                        android:duplicateParentState="true"
+                        android:gravity="center_vertical|right"
+                        android:paddingLeft="5dip"
+                        android:visibility="visible">
+
+                        <com.hyx.android.Game351.view.UISwitchButton
+                            android:id="@+id/toggleButtonAutoDisplay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            switch:bmHeight="33dip"
+                            switch:bmWidth="66dip" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/layoutAutoDisplay"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/background_view_rounded_item_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/inCopy3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:id="@+id/layoutShowtime"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="48dip"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/showtimeProgress"
+                        style="@style/content_page_large_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="15dp"
+                        android:text="自动显示时间间隔（0.5秒）" />
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:background="@drawable/background_view_rounded_item_line" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:gravity="center_horizontal">
+
+                        <TextView
+                            android:layout_width="0.0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:text="短"
+                            android:textColor="@color/color_light_black"
+                            android:textSize="@dimen/text_normal" />
+
+                        <SeekBar
+                            android:id="@+id/showtimeSeekBar"
+                            android:layout_width="0.0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dip"
+                            android:layout_marginTop="10dip"
+                            android:layout_weight="0.8"
+                            android:max="4800"
+                            android:paddingLeft="10dip"
+                            android:paddingRight="10dip"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/bg_bar"
+                            android:thumb="@drawable/thumb_bar" />
+
+                        <TextView
+                            android:layout_width="0.0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:text="长"
+                            android:textColor="@color/color_light_black"
+                            android:textSize="@dimen/text_normal" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/inCopy4"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dip"
+                android:background="@color/color_white"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:id="@+id/kdlds"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="48dip"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/fontProgress"
+                        style="@style/content_page_large_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:text="做题字体的大小(25)" />
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dip"
+                        android:background="@drawable/background_view_rounded_item_line"></View>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:gravity="center_horizontal">
+
+                        <TextView
+                            android:layout_width="0.0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:text="小"
+                            android:textColor="@color/color_light_black"
+                            android:textSize="@dimen/text_litte" />
+
+                        <SeekBar
+                            android:id="@+id/Fontseekbar"
+                            android:layout_width="0.0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dip"
+                            android:layout_marginTop="10dip"
+                            android:layout_weight="0.8"
+                            android:max="80"
+                            android:paddingLeft="10dip"
+                            android:paddingRight="10dip"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/bg_bar"
+                            android:thumb="@drawable/thumb_bar" />
+
+                        <TextView
+                            android:layout_width="0.0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:text="大"
+                            android:textColor="@color/color_light_black"
+                            android:textSize="@dimen/text_normal_big" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/switchzh"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dip"
+                android:background="@color/color_white"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/tem1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="48dip"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0.0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.6"
+                        android:duplicateParentState="true"
+                        android:gravity="center_vertical|left">
+
+                        <TextView
+                            style="@style/content_page_large_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="显示中文" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0.0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
+                        android:duplicateParentState="true"
+                        android:gravity="center_vertical|right"
+                        android:paddingLeft="5dip"
+                        android:visibility="visible">
+
+                        <com.hyx.android.Game351.view.UISwitchButton
+                            android:id="@+id/switchCopyZh"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            switch:bmHeight="33dip"
+                            switch:bmWidth="66dip" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tem1"
+                    android:layout_marginLeft="20dp"
+                    android:background="@color/color_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/switchAnswer"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/tem2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="48dip"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0.0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.6"
+                        android:duplicateParentState="true"
+                        android:gravity="center_vertical|left">
+
+                        <TextView
+                            style="@style/content_page_large_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="显示答案" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0.0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
+                        android:duplicateParentState="true"
+                        android:gravity="center_vertical|right"
+                        android:paddingLeft="5dip"
+                        android:visibility="visible">
+
+                        <com.hyx.android.Game351.view.UISwitchButton
+                            android:id="@+id/switchCopyAnswer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            switch:bmHeight="33dip"
+                            switch:bmWidth="66dip" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tem2"
+                    android:layout_marginLeft="20dp"
+                    android:background="@color/color_line" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/switchPic"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="48dip"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0.0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.6"
+                        android:duplicateParentState="true"
+                        android:gravity="center_vertical|left">
+
+                        <TextView
+                            style="@style/content_page_large_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="显示图片" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0.0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
+                        android:duplicateParentState="true"
+                        android:gravity="center_vertical|right"
+                        android:paddingLeft="5dip"
+                        android:visibility="visible">
+
+                        <com.hyx.android.Game351.view.UISwitchButton
+                            android:id="@+id/switchCopypic"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            switch:bmHeight="33dip"
+                            switch:bmWidth="66dip" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <br.com.dina.ui.widget.UITableView
+                android:id="@+id/moreSetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dip" />
+
+            <LinearLayout
+                android:id="@+id/exit"
+                style="@style/list_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dip"
+                android:layout_marginTop="20dip"
+                android:gravity="center"
+                android:minHeight="48dip"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:duplicateParentState="true"
+                    android:text="退出登录"
+                    android:textSize="@dimen/text_normal" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

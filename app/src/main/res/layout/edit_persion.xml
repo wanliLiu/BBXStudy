@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_white"
+            android:orientation="vertical"
+            android:padding="10dip">
+
+            <com.hyx.android.Game351.view.NonScrollGridView
+                android:id="@+id/PictureLoad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:horizontalSpacing="6dip"
+                android:listSelector="@drawable/transparent"
+                android:numColumns="4"
+                android:verticalSpacing="6dip"></com.hyx.android.Game351.view.NonScrollGridView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:text="点击上传照片(丰富你的照片墙，共8张)"
+                android:textColor="@color/color_line1"
+                android:textSize="@dimen/text_litte" />
+        </LinearLayout>
+
+        <include
+            layout="@layout/listview_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/Editcontainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dip"
+            android:orientation="vertical"></LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

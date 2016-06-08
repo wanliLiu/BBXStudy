@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/itemContainer"
+    style="@style/list_item"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center_vertical"
+        android:minHeight="48dip"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/LeftSide"
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:duplicateParentState="true"
+            android:gravity="center_vertical|left" >
+
+            <br.com.dina.ui.model.RoundImageView
+                android:id="@+id/image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:minHeight="35dip"
+                android:minWidth="35dip"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:duplicateParentState="true"
+                android:gravity="center_vertical"
+                android:orientation="vertical" >
+
+                <br.com.dina.ui.model.MarqueeTextView
+                    android:id="@+id/title"
+                    style="@style/content_page_large_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="title" />
+
+                <TextView
+                    android:id="@+id/subtitle"
+                    style="@style/content_page_small_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="summary"
+                    android:visibility="visible" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/RightSide"
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:duplicateParentState="true"
+            android:gravity="center_vertical|right"
+            android:paddingLeft="5dip"
+            android:visibility="visible" >
+
+            <br.com.dina.ui.model.RoundImageView
+                android:id="@+id/imageRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dip"
+                android:minHeight="35dip"
+                android:minWidth="35dip"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/itemCount"
+                style="@style/content_page_large_count_text"
+                android:text="32"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <br.com.dina.ui.model.RoundImageView
+            android:id="@+id/waring"
+            style="@style/list_item_chevron"
+            android:duplicateParentState="true"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/chevron"
+            style="@style/list_item_chevron"
+            android:duplicateParentState="true"
+            android:visibility="visible" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/layout"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/background_view_rounded_item_line" >
+    </View>
+
+    <View
+        android:id="@+id/lineCross"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/layout"
+        android:background="@drawable/background_view_rounded_item_line"
+        android:visibility="gone" >
+    </View>
+
+</RelativeLayout>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/itemContainer"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="5dip"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dip"
+        android:gravity="center_vertical"
+        android:minHeight="48dip"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/LeftSide"
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:duplicateParentState="true"
+            android:gravity="center_vertical|left">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:duplicateParentState="true"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="简单航空情报--mdkdlskddlksldksod "
+                    android:textColor="@color/color_light_black"
+                    android:textSize="@dimen/text_normal" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dip">
+
+                    <TextView
+                        android:id="@+id/postTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:text="7天前"
+                        android:textColor="@color/color_light_black"
+                        android:textSize="@dimen/text_litte" />
+
+                    <TextView
+                        android:id="@+id/NumRelay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="230回复"
+                        android:textColor="@color/color_yellow"
+                        android:textSize="@dimen/text_litte" />
+
+                    <TextView
+                        android:id="@+id/NumPost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dip"
+                        android:layout_toLeftOf="@id/NumRelay"
+                        android:text="135赞"
+                        android:textColor="@color/color_yellow"
+                        android:textSize="@dimen/text_litte" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/chevron"
+            style="@style/list_item_chevron"
+            android:duplicateParentState="true"
+            android:visibility="visible" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/lineCross"
+        android:layout_width="fill_parent"
+        android:layout_height="0.4dp"
+        android:layout_below="@id/layout"
+        android:background="#C4C4C4"></View>
+
+</RelativeLayout>

@@ -1,0 +1,93 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="android:Theme.Light">
+        <item name="android:textColorPrimaryInverse">@android:color/primary_text_light</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/system_theme_color</item>
+    </style>
+
+    <!-- Loding_dialog样式Start -->
+    <style name="Dialog_bocop">
+        <item name="android:windowBackground">@drawable/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+    </style>
+    <!-- 常见button的根sytle -->
+    <style name="btn_root_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">17dp</item>
+        <item name="android:layout_marginRight">17dp</item>
+        <item name="android:minHeight">50dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_normal</item>
+    </style>
+    <!-- 黄条白字按钮 -->
+    <style name="btn_yellow_style" parent="@style/btn_root_style">
+        <item name="android:background">@drawable/btn_yellow_selector</item>
+        <item name="android:textColor">@drawable/btn_text_white_gray_selector</item>
+    </style>
+
+    <!-- MainActivity 选项卡 -->
+    <style name="main_tab_bottom">
+        <item name="android:textSize">@dimen/bottom_tab_font_size</item>
+        <item name="android:textColor">@drawable/selector_maintab_textcolor</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingTop">@dimen/bottom_tab_padding_up</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:button">@null</item>
+        <item name="android:drawablePadding">@dimen/bottom_tab_padding_drawable</item>
+        <!-- 这句话很重要 -->
+        <item name="android:background">@drawable/transparent</item>
+    </style>
+
+    <!-- MainActivity 选项卡 -->
+    <style name="main_tab_category" parent="main_tab_bottom">
+        <item name="android:textSize">@dimen/bottom_tab_font_size</item>
+        <item name="android:textColor">@drawable/btn_radio_selector1</item>
+        <item name="android:drawablePadding">@dimen/bottom_tab_padding_drawable</item>
+        <item name="android:padding">10dip</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:background">@drawable/check_selector</item>
+    </style>
+
+    <style name="DialogTheme" parent="@android:style/Theme.Dialog">
+        <item name="android:backgroundDimAmount">0.5</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="btn_send_disableStyle">
+        <item name="android:background">@drawable/btn_send_disable</item>
+        <item name="android:textColor">@color/color_black</item>
+        <item name="android:enabled">false</item>
+        <item name="android:textSize">@dimen/text_normal</item>
+    </style>
+
+    <style name="btn_send_EnableStyle">
+        <item name="android:background">@drawable/btn_send_enable_selector</item>
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:enabled">true</item>
+        <item name="android:textSize">@dimen/text_normal</item>
+    </style>
+
+    <style name="reviews_picture_add">
+        <item name="android:layout_width">@dimen/reviews_picture_size</item>
+        <item name="android:layout_height">@dimen/reviews_picture_size</item>
+        <item name="android:maxHeight">@dimen/reviews_picture_size</item>
+        <item name="android:clickable">true</item>
+        <item name="android:maxWidth">@dimen/reviews_picture_size</item>
+        <item name="android:background">@drawable/transparent</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:src">@drawable/reviews_picture_add_selector</item>
+    </style>
+
+</resources>

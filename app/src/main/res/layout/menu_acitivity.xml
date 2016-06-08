@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/system_title_color">
+
+        <ImageButton
+            android:id="@+id/ibtn_back"
+            android:layout_width="@dimen/head_view_height"
+            android:layout_height="@dimen/head_view_height"
+            android:layout_alignParentLeft="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:background="@drawable/textbtn_bg_selector"
+            android:scaleType="centerInside"
+            android:src="@drawable/back" />
+
+        <LinearLayout
+            android:id="@+id/con_btn_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:layout_toLeftOf="@id/fram"
+            android:layout_toRightOf="@id/ibtn_back"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.hyx.android.Game351.view.CircularImageView
+                android:id="@+id/image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_avatar" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dip"
+                android:src="@drawable/arrow" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/fram"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:minWidth="42dip"
+            android:visibility="invisible">
+
+            <RelativeLayout
+                android:id="@+id/layouAction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textbtn_bg_selector"
+                android:clickable="true"
+                android:padding="10dip">
+
+                <Button
+                    android:id="@+id/btn_action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textbtn_bg_selector"
+                    android:clickable="false"
+                    android:duplicateParentState="true"
+                    android:text="   "
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/text_normal" />
+            </RelativeLayout>
+        </FrameLayout>
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_below="@id/con_btn_title"
+            android:background="@color/color_line"
+            android:visibility="gone"></View>
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/menuDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:horizontalSpacing="5dip"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="2"
+        android:padding="5dip"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="5dip"></GridView>
+
+</LinearLayout>

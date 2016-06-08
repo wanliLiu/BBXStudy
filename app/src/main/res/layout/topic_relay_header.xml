@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F4F4F4"
+        android:paddingBottom="5dip"
+        android:paddingLeft="5dip"
+        android:paddingRight="10dip"
+        android:paddingTop="5dip">
+
+        <com.hyx.android.Game351.view.CircularImageView
+            android:id="@+id/UserImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_avatar" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dip"
+            android:layout_toRightOf="@id/UserImage"
+            android:gravity="center_vertical|top"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="left"
+                android:text="请叫我小饼干哇"
+                android:textColor="@color/color_light_black"
+                android:textSize="@dimen/text_normal" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2.5dip"
+                android:layout_toRightOf="@id/name"
+                android:text="24小时之前"
+                android:textColor="@color/color_line1"
+                android:textSize="@dimen/text_litte" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="楼主"
+            android:textColor="@color/color_line1"
+            android:textSize="@dimen/text_litte" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="#C4C4C4" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="5dip"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:paddingTop="10dip">
+
+        <TextView
+            android:id="@+id/topicTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="求高手帮我读这篇文章 "
+            android:textColor="#616161"
+            android:textSize="@dimen/text_normal_big"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/containter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.hyx.android.Game351.view.VoiceView
+                android:id="@+id/voicePlay"
+                android:layout_width="80dip"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:visibility="visible"></com.hyx.android.Game351.view.VoiceView>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/topicContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:gravity="left"
+            android:text="this my dkdl skdkt for noe kd求高手帮我读这篇文章 求高手帮我读这篇文章 求高手帮我读这篇文章 求高手帮我读这篇文章 nskk ld求高手帮我读这篇文章 ksi kdlsidklkd klskdjk dksl"
+            android:textColor="@color/color_light_black"
+            android:textSize="@dimen/text_normal" />
+
+        <br.com.dina.ui.model.RoundImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dip"
+            android:adjustViewBounds="true"
+            android:maxHeight="@dimen/MaxImageHeight"
+            android:minHeight="@dimen/MinImageHeight"
+            android:scaleType="fitXY"
+            android:src="@drawable/default_320212" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="#C4C4C4" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dip"
+        android:paddingTop="10dip">
+
+        <LinearLayout
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right">
+
+                <RelativeLayout
+                    android:id="@+id/pariseBac"
+                    android:layout_width="110dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_horizontal"
+                    android:background="@drawable/btn_like"
+                    android:clickable="true"
+                    android:minWidth="110dip"></RelativeLayout>
+
+                <TextView
+                    android:id="@+id/PariseDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|right"
+                    android:layout_marginRight="15dip"
+                    android:text="赞楼主"
+                    android:textColor="#616161"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnRelay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_horizontal"
+                android:layout_marginLeft="5dip"
+                android:background="@drawable/btn_relay_selector"
+                android:minWidth="110dip"
+                android:text="回复楼主"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_small" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="#C4C4C4" />
+
+    <TextView
+        android:id="@+id/relayNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F4F4F4"
+        android:gravity="left"
+        android:padding="10dip"
+        android:text="跟帖(0)"
+        android:textColor="@color/color_light_black"
+        android:textSize="@dimen/text_normal" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="#C4C4C4" />
+
+</LinearLayout>

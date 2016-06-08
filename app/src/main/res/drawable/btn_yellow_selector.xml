@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:insetBottom="1.0px"
+    android:insetLeft="1.0px"
+    android:insetRight="1.0px"
+    android:insetTop="1.0px">
+
+    <selector>
+        <item android:state_pressed="true">
+            <shape>
+                <gradient
+                    android:angle="90.0"
+                    android:endColor="#FF8101"
+                    android:startColor="#ff8000" />
+
+                <corners
+                    android:bottomLeftRadius="@dimen/btn_root_radius"
+                    android:bottomRightRadius="@dimen/btn_root_radius"
+                    android:radius="2.0dip"
+                    android:topLeftRadius="@dimen/btn_root_radius"
+                    android:topRightRadius="@dimen/btn_root_radius" />
+            </shape>
+        </item>
+        <item>
+            <shape>
+                <gradient
+                    android:angle="90.0"
+                    android:endColor="#ff8000"
+                    android:startColor="#FF8101" />
+
+                <corners
+                    android:bottomLeftRadius="@dimen/btn_root_radius"
+                    android:bottomRightRadius="@dimen/btn_root_radius"
+                    android:radius="2.0dip"
+                    android:topLeftRadius="@dimen/btn_root_radius"
+                    android:topRightRadius="@dimen/btn_root_radius" />
+            </shape>
+        </item>
+    </selector>
+
+</inset>

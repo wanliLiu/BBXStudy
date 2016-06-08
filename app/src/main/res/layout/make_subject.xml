@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:marquee="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.hyx.android.Game351.view.HeadView
+        android:id="@+id/headView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+
+    <RelativeLayout
+        android:id="@+id/fastrecord"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/headView">
+
+        <FrameLayout
+            android:id="@+id/ids_temp"
+            android:layout_width="match_parent"
+            android:layout_height="210dip">
+
+            <ImageView
+                android:id="@+id/showimage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/no_image" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/OnimageTextDislay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerVertical="true"
+                    android:background="@color/color_white"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:textColor="#0000FF"
+                    android:textSize="@dimen/text_normal_big"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/inCopy2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/dklsl12"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <com.hyx.android.Game351.view.MarqueeView
+                android:id="@+id/chContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dip"
+                marquee:autoStart="true"
+                marquee:pause="700"
+                marquee:speed="10">
+
+                <TextView
+                    android:id="@+id/textChinestDis"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:text="  "
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_normal" />
+            </com.hyx.android.Game351.view.MarqueeView>
+
+            <com.hyx.android.Game351.view.MarqueeView
+                android:id="@+id/enContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dip"
+                marquee:autoStart="true"
+                marquee:pause="700"
+                marquee:speed="10">
+
+                <TextView
+                    android:id="@+id/textEnDis"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:text="  "
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_normal" />
+            </com.hyx.android.Game351.view.MarqueeView>
+
+            <View
+                android:id="@+id/dkldks"
+                android:layout_width="match_parent"
+                android:layout_height="5dip"
+                android:background="@drawable/transparent" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/inCopy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ids_temp"
+            android:visibility="visible">
+
+            <RelativeLayout
+                android:id="@+id/haveMp3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+
+                <ImageButton
+                    android:id="@+id/startPlay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dip"
+                    android:background="@drawable/transparent"
+                    android:src="@drawable/music_player_selector" />
+
+                <TextView
+                    android:id="@+id/useTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="20dip"
+                    android:padding="10dip"
+                    android:text="00:12"
+                    android:textColor="@color/color_black"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/haveNoMp3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/chinesase"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dip"
+                    android:text="test"
+                    android:textSize="@dimen/text_normal" />
+            </RelativeLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/inCopy1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/inCopy2"
+            android:layout_below="@id/inCopy"
+            android:visibility="visible">
+
+            <RelativeLayout
+                android:id="@+id/voiceRecodAtte"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="100dip"
+                    android:layout_height="100dip"
+                    android:background="@drawable/voice_record_backroud"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/icon_record_s" />
+
+                        <ImageView
+                            android:id="@+id/voiceLevel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/tt_sound_volume_01" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/recordTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="开始录音了哦"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/color_white" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/chose"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible">
+
+                <Button
+                    android:id="@+id/btn1"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/transparent"
+                    android:gravity="top|center_horizontal"
+                    android:paddingBottom="10dip"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:paddingTop="5dip"
+                    android:text="Left"
+                    android:textColor="#0000FF"
+                    android:textSize="@dimen/text_normal_big"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btn2"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/transparent"
+                    android:gravity="top|center_horizontal"
+                    android:paddingBottom="10dip"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:paddingTop="5dip"
+                    android:text="Right"
+                    android:textColor="#0000FF"
+                    android:textSize="@dimen/text_normal_big"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/copyReadAnswerDis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/dklsl12"
+            android:layout_below="@id/ids_temp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0.0dp"
+                android:layout_weight="0.6"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/copyEn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:maxLines="4"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:textColor="#0000FF"
+                    android:textSize="@dimen/text_normal_big"
+                    tools:text="sdsdsdklsdklskdsdsdsdklsdklskdsdsdsdklsdklskd" />
+
+                <TextView
+                    android:id="@+id/copyCh"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:maxLines="3"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:textColor="@color/color_light_black"
+                    android:textSize="@dimen/text_normal"
+                    tools:text="不是吧第四点凯沙罗顿看不是吧第四点凯沙罗顿看" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0.0dp"
+                android:layout_weight="0.4"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnNext"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/transparent"
+                    android:gravity="center_horizontal|top"
+                    android:text="下一题"
+                    android:textColor="#0000FF"
+                    android:textSize="@dimen/text_title"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnRepet"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/transparent"
+                    android:gravity="center_horizontal|top"
+                    android:text="重播"
+                    android:textColor="#0000FF"
+                    android:textSize="@dimen/text_title"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dklsl12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:padding="5dip">
+
+            <Button
+                android:id="@+id/answerDisplay"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip"
+                android:layout_weight="1"
+                android:background="@drawable/smssdk_corners_bg"
+                android:gravity="center_horizontal"
+                android:padding="10dip"
+                android:text="显示答案"
+                android:textSize="@dimen/text_normal" />
+
+            <Button
+                android:id="@+id/addFavorite"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip"
+                android:layout_weight="1"
+                android:background="@drawable/smssdk_corners_bg"
+                android:gravity="center_horizontal"
+                android:padding="10dip"
+                android:text="收藏"
+                android:textSize="@dimen/text_normal" />
+
+            <Button
+                android:id="@+id/chinesDis"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip"
+                android:layout_weight="1"
+                android:background="@drawable/smssdk_corners_bg"
+                android:gravity="center_horizontal"
+                android:padding="10dip"
+                android:text="显示中文"
+                android:textSize="@dimen/text_normal" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/fastlist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/headView"
+        android:gravity="center"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="1"
+        android:stretchMode="columnWidth"
+        android:visibility="gone"></GridView>
+
+</RelativeLayout>

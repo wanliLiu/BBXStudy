@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.hyx.android.Game351.view.HeadView
+        android:id="@+id/headView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.hyx.android.Game351.view.HeadView>
+
+    <ListView
+        android:id="@+id/favoriteList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/color_line"
+        android:dividerHeight="0.5dip"
+        android:listSelector="@android:color/transparent"></ListView>
+
+</LinearLayout>

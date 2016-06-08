@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/backgound"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/Imageback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:maxHeight="210dip"
+                android:minHeight="200dip"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_dashboard_default" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.hyx.android.Game351.view.CircularImageView
+                    android:id="@+id/persPic"
+                    android:layout_width="100dp"
+                    android:layout_height="100dip"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dip"
+                    android:clickable="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_avatar"
+                    app:border="true"
+                    app:border_color="@color/color_white"
+                    app:border_width="4dp"
+                    app:selector="false"
+                    app:shadow="false" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/persPic"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dip"
+                    android:text="I Miss you"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/other"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/name"
+                    android:layout_centerHorizontal="true"
+                    android:text="女 90后"
+                    android:textColor="@color/color_white"
+                    android:textSize="10dip" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="10dip"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnfan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/transparent"
+                        android:gravity="right|center_vertical"
+                        android:paddingBottom="2.5dip"
+                        android:paddingLeft="10dip"
+                        android:paddingRight="10dip"
+                        android:paddingTop="2.5dip"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/text_small" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingBottom="5dip"
+                        android:paddingTop="5dip">
+
+                        <View
+                            android:layout_width="0.8dip"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_white" />
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btnattention"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/transparent"
+                        android:gravity="left|center_vertical"
+                        android:paddingBottom="2.5dip"
+                        android:paddingLeft="10dip"
+                        android:paddingRight="10dip"
+                        android:paddingTop="2.5dip"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/text_small" />
+                </LinearLayout>
+            </RelativeLayout>
+        </FrameLayout>
+
+        <com.hyx.android.Game351.view.NonScrollGridView
+            android:id="@+id/picWal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:horizontalSpacing="5dip"
+            android:listSelector="@android:color/transparent"
+            android:numColumns="4"
+            android:padding="10dip"
+            android:scrollbars="none"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="5dip"
+            android:visibility="gone"></com.hyx.android.Game351.view.NonScrollGridView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dip"
+            android:background="#C4C4C4" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white"
+            android:gravity="center_horizontal"
+            android:padding="10dip">
+
+            <LinearLayout
+                android:layout_width="0.0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="全对次数"
+                    android:textColor="@color/color_light_black"
+                    android:textSize="@dimen/text_small" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/AllCorrectNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/text_small"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="次"
+                        android:textColor="@color/color_black"
+                        android:textSize="10sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0.0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="第一名次数"
+                    android:textColor="@color/color_light_black"
+                    android:textSize="@dimen/text_litte" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/FistNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/text_small"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="次"
+                        android:textColor="@color/color_black"
+                        android:textSize="10sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dip"
+            android:background="#C4C4C4" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dip"
+            android:background="@color/backgound" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dip"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dip"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip">
+
+                <TextView
+                    android:id="@+id/whoPost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:text="我的帖子"
+                    android:textColor="@color/color_light_black"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/NumRelay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="回复(12)"
+                    android:textColor="@color/color_light_black"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/NumPost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dip"
+                    android:layout_toLeftOf="@id/NumRelay"
+                    android:text="发表(23)"
+                    android:textColor="@color/color_light_black"
+                    android:textSize="@dimen/text_small" />
+            </RelativeLayout>
+
+            <com.hyx.android.Game351.view.NonScrollListView
+                android:id="@+id/menList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:listSelector="@android:color/transparent"
+                android:scrollbars="none"></com.hyx.android.Game351.view.NonScrollListView>
+
+            <TextView
+                android:id="@+id/Checkall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:gravity="center_horizontal"
+                android:padding="15dip"
+                android:text="查看全部帖子"
+                android:textColor="@color/color_light_black"
+                android:textSize="@dimen/text_small" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dip"
+                android:background="#C4C4C4" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

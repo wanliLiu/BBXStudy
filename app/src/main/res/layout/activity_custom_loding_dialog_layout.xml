@@ -15,7 +15,7 @@
             android:id="@+id/imageLoading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@anim/progress_round" />
+            android:src="@drawable/progress_round" />
     </LinearLayout>
 
 </RelativeLayout>

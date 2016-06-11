@@ -1,7 +1,5 @@
 package com.hyx.android.Game351.home;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
@@ -10,39 +8,21 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.chivox.AIEngine;
-import com.chivox.AIEngineHelper;
 import com.hyx.android.Game351.DBDevicesManger;
 import com.hyx.android.Game351.R;
 import com.hyx.android.Game351.base.BaseActivity;
-import com.hyx.android.Game351.base.BaseListAdapter;
 import com.hyx.android.Game351.base.Constants;
-import com.hyx.android.Game351.data.ApiCallBack;
-import com.hyx.android.Game351.data.ApiHelper;
-import com.hyx.android.Game351.data.ApiParams;
 import com.hyx.android.Game351.data.HttpUtil;
-import com.hyx.android.Game351.data.Result;
 import com.hyx.android.Game351.modle.HistoryBean;
-import com.hyx.android.Game351.modle.MenuDataBean;
-import com.hyx.android.Game351.modle.SubjectBean;
 import com.hyx.android.Game351.util.ApkType;
 import com.hyx.android.Game351.util.MLog;
 import com.hyx.android.Game351.util.MyTools;
@@ -57,14 +37,12 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
-public class MakeSubgect extends BaseActivity {
+public class MakeSubgectFavorite extends BaseActivity {
 
     /**
      * 后台下载文件
@@ -72,9 +50,9 @@ public class MakeSubgect extends BaseActivity {
     private static final int PictureDownload = 1;
     private static final int MP3Download = 2;
     private static final int NextOnew = 3;
-    private String TAG = "MakeSubgect";
+
     private HeadView headView;
-    private List<SubjectBean> dataBeans;
+    private List<HistoryBean> dataBeans;
     private ImageView headImag;
     private RelativeLayout haveMp3, noMp3;
     private ImageButton startPlay;
@@ -88,15 +66,12 @@ public class MakeSubgect extends BaseActivity {
     private TextView recordTime;
     private ImageView voiceLevel;
     private Button btnLeft, btnRight, answerDisplay, addFavorite, chinesDis;
-    private menuAdapter adapter;
-    private GridView faslist;
     private boolean isDisplayEn, isDisplayCH = true;
     private ImageLoader imageLoader;
     private DisplayImageOptions options;
-    private String FistId, secodeId;
     private int subjectNum = 0;
     private String[] answer;
-    private List<OneDisplay> answerDis = new ArrayList<MakeSubgect.OneDisplay>();
+    private List<OneDisplay> answerDis = new ArrayList<MakeSubgectFavorite.OneDisplay>();
     private int answerIndex = 0;
     // 记录时间
     private int seconds = 0;
@@ -105,51 +80,11 @@ public class MakeSubgect extends BaseActivity {
     private MediaPlayer mediaPlayer = null;
     private boolean isNextButtonClick = false;
     private int currentIndex = 0;
-    private MenuDataBean menu;
-    private String title;
     private boolean isRunning = true;
     private TextView OnimageTextDislay;
-    /**
-     * 第三方测试
-     */
-    private AIRecorder recorder = null;
-    private long engine = 0;
-    private String appKey = "141639166500000d";
-    private String secretKey = "1283dc28d41c7db4519902b647120112";
-    private String userId = "bbx_user_001";
-    //需要测评的文字
-    private String text = "";
-    private int errorTime = 0;
     private boolean isFromButton = false;
-    private Handler handler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
 
-            String tempMunites = "", tempSecond = "";
 
-            seconds++;
-
-            int mseconds = seconds % 60;
-            int munites = seconds / 60;
-
-            if (mseconds < 10) {
-                tempSecond = "0" + mseconds;
-            } else {
-                tempSecond = "" + mseconds;
-            }
-
-            if (munites < 10) {
-                tempMunites = "0" + munites;
-            } else {
-                tempMunites = "" + munites;
-            }
-
-            useTime.setText(tempMunites + ":" + tempSecond);
-
-            handler.sendEmptyMessageDelayed(0, 1000);
-        }
-
-        ;
-    };
     private Handler downLoadHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             if (!isRunning) {
@@ -167,11 +102,11 @@ public class MakeSubgect extends BaseActivity {
                             if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead && !app.getSwitch(SP.CopySwitchpic)) {
                                 downLoadHandler.sendEmptyMessage(MP3Download);
                             } else {
-                                temp = dataBeans.get(downloadIndex).getPic_addr();
+                                temp = dataBeans.get(downloadIndex).getFavorite().getPic_addr();
                                 if (TextUtils.isEmpty(temp)) {
                                     downLoadHandler.sendEmptyMessage(MP3Download);
                                 } else {
-                                    temp = Constants.ResourceAddress + "res" + FistId + "/res" + secodeId + "/pic/" + dataBeans.get(downloadIndex).getPic_addr();
+                                    temp = Constants.ResourceAddress + "res" + dataBeans.get(subjectNum).getFistId() + "/res" + dataBeans.get(subjectNum).getSecodeId() + "/pic/" + dataBeans.get(downloadIndex).getFavorite().getPic_addr();
                                     File file = createFilePath(temp);
                                     if (!file.exists()) {// 没有，那么就开始下载
                                         currentDownload = PictureDownload;
@@ -184,12 +119,11 @@ public class MakeSubgect extends BaseActivity {
                             }
                             break;
                         case MP3Download:
-                            temp = dataBeans.get(downloadIndex).getMp3_addr();
-                            if (TextUtils.isEmpty(temp)
-                                    || dataBeans.get(subjectNum).getIs_select() == 2) {
+                            temp = dataBeans.get(downloadIndex).getFavorite().getMp3_addr();
+                            if (TextUtils.isEmpty(temp) || dataBeans.get(subjectNum).getFavorite().getIs_select() == 2) {
                                 downLoadHandler.sendEmptyMessage(NextOnew);
                             } else {
-                                temp = Constants.ResourceAddress + "res" + FistId + "/res" + secodeId + "/audio/" + dataBeans.get(downloadIndex).getMp3_addr();
+                                temp = Constants.ResourceAddress + "res" + dataBeans.get(subjectNum).getFistId() + "/res" + dataBeans.get(subjectNum).getSecodeId() + "/audio/" + dataBeans.get(downloadIndex).getFavorite().getMp3_addr();
                                 File file = createFilePath(temp);
                                 if (!file.exists()) {// 没有，那么就开始下载
                                     currentDownload = MP3Download;
@@ -201,17 +135,10 @@ public class MakeSubgect extends BaseActivity {
                             }
                             break;
                         case NextOnew:
-                            if (downloadIndex == 0) {
+                            if (downloadIndex == currentIndex) {
                                 dismissProgress();
-                                if (MyTools.getCurrentApkType(ctx) != ApkType.TYPE_FastRecord) {
-                                    MLog.e("开始播放第一个");
-                                    showImageAndMp3();
-                                    if (!app.isPlayContinue()) {
-                                        handler.sendEmptyMessageDelayed(0, 1000);
-                                    }
-                                } else {
-                                    adapter.setList(dataBeans);
-                                }
+                                subjectNum = currentIndex;
+                                showImageAndMp3();
                             }
                             downloadIndex++;
                             if (downloadIndex < dataBeans.size()) {
@@ -228,91 +155,6 @@ public class MakeSubgect extends BaseActivity {
             }
         }
 
-        ;
-    };
-    private AIEngine.aiengine_callback callback = new AIEngine.aiengine_callback() {
-
-        @Override
-        public int run(byte[] id, int type, byte[] data, int size) {
-
-            if (type == AIEngine.AIENGINE_MESSAGE_TYPE_JSON) {
-
-                final String result = new String(data, 0, size).trim(); /* must trim the end '\0' */
-                try {
-                    JSONObject json = JSON.parseObject(result);
-                    if (json.containsKey("vad_status") || json.containsKey("volume")) {
-                        int status = json.getIntValue("vad_status");
-                        final int volume = json.getIntValue("volume");
-                        if (status == 2) {
-                            //表示录音结束
-                            new Thread(new Runnable() {
-
-                                @Override
-                                public void run() {
-                                    recorder.stop();
-                                }
-                            }).start();
-                        } else if (status == 1) {
-                            //录音正在进行
-                            runOnUiThread(new Runnable() {
-                                public void run() {
-                                    updateMicStatus(volume / 10);
-//									recordTime.setText("" + volume);
-                                }
-                            });
-                        }
-                    } else {
-                        if (recorder.isRunning()) {
-                            recorder.stop();
-                        }
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                dismissProgress();
-                                MLog.e(TAG, result);
-                                takeCareOfResult(result);
-                            }
-                        });
-                    }
-
-                } catch (Exception e) {
-                }
-            }
-            return 0;
-        }
-    };
-    /**
-     * ***********************************************************************************************************
-     */
-    AIRecorder.Callback recorderCallback = new AIRecorder.Callback() {
-        public void onStarted() {
-            byte[] id = new byte[64];
-            String param = "{\"vadEnable\": 1, \"volumeEnable\": 0, \"coreProvideType\": \"cloud\", \"app\": {\"userId\": \"" + userId + "\"}, \"audio\": {\"audioType\": \"wav\", \"channel\": 1, \"sampleBytes\": 2, \"sampleRate\": 16000}, \"request\": {\"coreType\": \"en.sent.score\", \"res\": \"eng.snt.g4\", \"refText\":\"" + text + "\", \"rank\": 100}}";
-            int rv = AIEngine.aiengine_start(engine, param, id, callback);
-
-            Log.d(TAG, "engine start: " + rv);
-            Log.d(TAG, "engine param: " + param);
-
-            runOnUiThread(new Runnable() {
-                public void run() {
-                    recordTime.setText("录音开始");
-                }
-            });
-        }
-
-        public void onStopped() {
-            AIEngine.aiengine_stop(engine);
-            Log.d(TAG, "engine stopped");
-            runOnUiThread(new Runnable() {
-                public void run() {
-                    recordTime.setText("录音结束");
-                    showProgress();
-                }
-            });
-        }
-
-        public void onData(byte[] data, int size) {
-            AIEngine.aiengine_feed(engine, data, size);
-        }
     };
 
     @Override
@@ -385,16 +227,6 @@ public class MakeSubgect extends BaseActivity {
             findViewById(R.id.btnNext).setOnClickListener(this);
 
         }
-
-        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_FastRecord) {
-            findViewById(R.id.fastrecord).setVisibility(View.GONE);
-            findViewById(R.id.fastlist).setVisibility(View.VISIBLE);
-
-            faslist = (GridView) findViewById(R.id.fastlist);
-            adapter = new menuAdapter(ctx);
-            faslist.setAdapter(adapter);
-        }
-
     }
 
     private void imageInit() {
@@ -490,7 +322,7 @@ public class MakeSubgect extends BaseActivity {
                 }
                 break;
             case R.id.addFavorite:
-                if (dataBeans.get(subjectNum).getIs_select() == 1) {
+                if (dataBeans.get(subjectNum).getFavorite().getIs_select() == 1) {
                     FavoriteRecord(subjectNum, addFavorite);
                 } else {
                     MyToast("亲，翻译题不能收藏！！！");
@@ -499,12 +331,12 @@ public class MakeSubgect extends BaseActivity {
                 break;
             case R.id.chinesDis:
                 if (subjectNum < dataBeans.size()) {
-                    if (dataBeans.get(subjectNum).getIs_select() == 1) {
+                    if (dataBeans.get(subjectNum).getFavorite().getIs_select() == 1) {
                         if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
-                            copyAnswerCh.setText(dataBeans.get(subjectNum).getQuestion());
+                            copyAnswerCh.setText(dataBeans.get(subjectNum).getFavorite().getQuestion());
                         } else {
                             chContainer.setVisibility(View.VISIBLE);
-                            textChinestDis.setText(dataBeans.get(subjectNum).getQuestion());
+                            textChinestDis.setText(dataBeans.get(subjectNum).getFavorite().getQuestion());
                             chContainer.startMarquee();
                         }
                     }
@@ -599,44 +431,9 @@ public class MakeSubgect extends BaseActivity {
     }
 
     /**
-     * 上传答题时间
-     */
-    private void upLoadScore() {
-        showProgress();
-
-        ApiParams params = new ApiParams();
-        params.put("action", "uploadScore");
-        params.put("username", app.getUserName());
-        params.put("sid", dataBeans.get(0).getSubject_sort_id());
-        params.put("score", seconds + "");
-        params.put("checkcode", MyTools.getMD5_32(app.getUserName() + dataBeans.get(0).getSubject_sort_id() + seconds + "" + Constants.checkCode));
-
-        ApiHelper.get(ctx, params, new ApiCallBack() {
-
-            @Override
-            public void receive(Result result) {
-                dismissProgress();
-
-                if (result.isSuccess()) {
-                    JSONObject json = JSON.parseObject(result.getObj().toString());
-                    if (json.getBooleanValue("success")) {
-                        StartScoreActivity(true);
-                    } else {
-                        MyToast(json.getString("info"));
-                    }
-                } else {
-                    MyToast(result.getObj().toString());
-                }
-            }
-        });
-    }
-
-    /**
      * 进行下一题目的播放
      */
     public void getIntoNext() {
-
-        errorTime = 0;
 
         isFromButton = false;
 
@@ -644,106 +441,8 @@ public class MakeSubgect extends BaseActivity {
         if (subjectNum < dataBeans.size()) {
             showImageAndMp3();
         } else {
-            // 当前题目都昨晚了，进行下一个题目的播放
-            if (app.isPlayContinue()) {
-                isPlayContinue();
-            } else {
-                handler.removeMessages(0);
-                if (!isNextButtonClick && !app.isAutoDisplay()) {
-                    upLoadScore();
-                } else {
-                    // 不能参加排名
-                    StartScoreActivity(false);
-                }
-            }
+            MyToast("全部播放完毕");
         }
-    }
-
-    /**
-     * 获取题目列表
-     */
-    private void GetdataSubject(String sid) {
-        showProgress();
-
-        ApiParams params = new ApiParams();
-        params.put("action", "getSubject");
-        params.put("username", app.getUserName());
-        params.put("sid", sid);
-        params.put("logindate", app.getUserLoginDate());
-        params.put("checkcode", MyTools.getMD5_32(app.getUserName() + Constants.checkCode));
-
-        ApiHelper.get(ctx, params, new ApiCallBack() {
-
-            @Override
-            public void receive(Result result) {
-                dismissProgress();
-
-                boolean isOkay = false;
-                if (result.isSuccess()) {
-                    JSONObject json = JSON.parseObject(result.getObj().toString());
-                    if (json.getBooleanValue("success")) {
-                        List<SubjectBean> temp = JSON.parseArray(json.getString("data"), SubjectBean.class);
-                        if (temp != null && temp.size() > 0) {
-
-                            headView.setTitle(title);
-
-                            subjectNum = 0;
-                            dataBeans = temp;
-
-                            downloadIndex = 0;
-                            downLoadHandler.sendEmptyMessage(PictureDownload);
-
-                            RecordHappen();
-
-                            isOkay = true;
-                        }
-                    } else {
-                        MyToast(json.getString("info"));
-                    }
-                } else {
-                    MyToast(result.getObj().toString());
-                }
-
-                if (!isOkay) {
-                    MyToast("获取数据失败，请重试！！！");
-                    finish();
-                }
-            }
-        });
-    }
-
-    /**
-     * 是否继续播放，下一个题目的播放
-     */
-    private void isPlayContinue() {
-        if (menu != null && menu.getData() != null & menu.getData().size() > 0) {
-            currentIndex++;
-            if (currentIndex < menu.getData().size()) {
-                title = menu.getData().get(currentIndex).getSort_name();
-                GetdataSubject(menu.getData().get(currentIndex).getSort_id());
-            } else {
-                MyToast("当前分类题目已经全部做完了！");
-                this.finish();
-            }
-        }
-    }
-
-    /**
-     * @param from 为true，可以参加排名 为false 不可以参加排名
-     */
-    private void StartScoreActivity(boolean from) {
-        Intent intent = new Intent(this, ScoreActivity.class);
-        intent.putExtra("way", from);
-        intent.putExtra("title", title);
-        intent.putExtra("data", getIntent().getStringExtra("data"));
-        intent.putExtra("sid", dataBeans.get(0).getSubject_sort_id());
-        intent.putExtra("useTime", seconds + "");
-        intent.putExtra("FistId", FistId);
-        intent.putExtra("secodeId", secodeId);
-        intent.putExtra("AllSubjects", JSON.toJSONString(menu));
-        intent.putExtra("currentPosition", currentIndex);
-        startActivity(intent);
-        this.finish();
     }
 
     /**
@@ -752,43 +451,24 @@ public class MakeSubgect extends BaseActivity {
     private void FavoriteRecord(int index, Button btn) {
         DBDevicesManger dataManager = app.getDBManger(Constants.FavoriteRecord);
 //		String soritString = dataBeans.get(index).getId();
-        if (dataManager.IsHaveTheRecord(dataBeans.get(index).getId())) {
-            if (dataManager.deleteAHistoryRecord(dataBeans.get(index).getId())) {
+        if (dataManager.IsHaveTheRecord(dataBeans.get(index).getFavorite().getId())) {
+            if (dataManager.deleteAHistoryRecord(dataBeans.get(index).getFavorite().getId())) {
                 btn.setTextColor(getResources().getColor(R.color.color_black));
             }
         } else {
             HistoryBean save = new HistoryBean();
-            save.setFistId(FistId);
-            save.setSecodeId(secodeId);
-            save.setSort_id(dataBeans.get(index).getId());
+            save.setFistId(dataBeans.get(index).getFistId());
+            save.setSecodeId(dataBeans.get(index).getSecodeId());
+            save.setSort_id(dataBeans.get(index).getFavorite().getId());
             // 保存该商品的浏览历史记录
             // 打包数据，然后放到数据库中去
-            save.setFavorite(dataBeans.get(index));
+            save.setFavorite(dataBeans.get(index).getFavorite());
             app.getDBManger(Constants.FavoriteRecord).AddHistory(save);
-            if (dataManager.IsHaveTheRecord(dataBeans.get(index).getId())) {
+            if (dataManager.IsHaveTheRecord(dataBeans.get(index).getFavorite().getId())) {
                 btn.setTextColor(getResources().getColor(R.color.color_silde_menu_diviver_2));
             }
         }
 
-        app.CloseDBManger();
-    }
-
-    /**
-     * 保存历史记录
-     */
-    private void RecordHappen() {
-        HistoryBean save = new HistoryBean();
-        save.setTitle(title);
-        save.setAllSubjects(menu);
-        save.setCurrentPosition(currentIndex);
-        save.setFistId(FistId);
-        save.setSecodeId(secodeId);
-        save.setData(dataBeans);
-        save.setSort_id(dataBeans.get(0).getSubject_sort_id());
-        save.setRecordTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-        // 保存该商品的浏览历史记录
-        // 打包数据，然后放到数据库中去
-        app.getDBManger(Constants.HistoryRecord).AddHistory(save);
         app.CloseDBManger();
     }
 
@@ -818,112 +498,23 @@ public class MakeSubgect extends BaseActivity {
             mediaPlayer = null;
         }
 
-        if (engine != 0) {
-
-            AIEngine.aiengine_delete(engine);
-            engine = 0;
-            Log.d(TAG, "engine deleted: " + engine);
-        }
-
-        if (recorder != null) {
-            recorder.stop();
-            recorder = null;
-        }
-
-
     }
 
     @Override
     protected void initData() {
 
-        dataBeans = JSON.parseArray(getIntent().getStringExtra("data"), SubjectBean.class);
-
+        dataBeans = app.getDBManger(Constants.FavoriteRecord).GetAllRecords();
+        app.CloseDBManger();
         if (dataBeans == null) {
             finish();
             return;
         }
 
-        title = getIntent().getStringExtra("title");
-        if (MyTools.getCurrentApkType(ctx) != ApkType.TYPE_FastRecord)
-            headView.setViewContent(title, "下一题");
-        else {
-            headView.setViewContent(title, "显示英文");
-            findViewById(R.id.layouAction).setPadding(0, 0, 0, 0);
-            findViewById(R.id.btn_action1).setVisibility(View.VISIBLE);
-            findViewById(R.id.fram).setVisibility(View.VISIBLE);
-            findViewById(R.id.layouAction).setClickable(false);
-            int piex = MyTools.dip2px(ctx, 15f);
-            int piexp = MyTools.dip2px(ctx, 5f);
-            ((Button) findViewById(R.id.btn_action1)).setPadding(piexp, piex, 0, piex);
-            ((Button) findViewById(R.id.btn_action)).setPadding(piexp, piex, piexp, piex);
-            ((Button) findViewById(R.id.btn_action1)).setDuplicateParentStateEnabled(false);
-            ((Button) findViewById(R.id.btn_action)).setDuplicateParentStateEnabled(false);
-            ((Button) findViewById(R.id.btn_action1)).setText("显示中文");
-            ((Button) findViewById(R.id.btn_action1)).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    isDisplayCH = !isDisplayCH;
-                    adapter.notifyDataSetChanged();
-                }
-            });
+        currentIndex = getIntent().getIntExtra("currentPosition", 0);
 
-            ((Button) findViewById(R.id.btn_action)).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    isDisplayEn = !isDisplayEn;
-                    adapter.notifyDataSetChanged();
-                }
-            });
-
-        }
-
-        menu = JSON.parseObject(getIntent().getStringExtra("AllSubjects"), MenuDataBean.class);
-        currentIndex = getIntent().getIntExtra("currentPosition", -1);
-
-        FistId = getIntent().getStringExtra("FistId");
-        secodeId = getIntent().getStringExtra("secodeId");
-
+        subjectNum = 0;
         downloadIndex = 0;
         downLoadHandler.sendEmptyMessage(PictureDownload);
-
-        RecordHappen();
-
-        if (dataBeans.get(subjectNum).getIs_select() == 3 ||
-                dataBeans.get(subjectNum).getIs_select() == 4) {
-            /* init aiengine and airecorder */
-            new Thread(new Runnable() {
-
-                @Override
-                public void run() {
-                    try {
-                        /* create aiengine instance */
-                        if (engine == 0) {
-
-                            String provisionPath = AIEngineHelper.extractResourceOnce(getApplicationContext(), "aiengine.provision", false);
-                            String vadResPath = AIEngineHelper.extractResourceOnce(getApplicationContext(), "vad.0.10.bin", false);
-
-                            Log.d(TAG, "provisionPath:" + provisionPath);
-
-                            String cfg = String.format("{\"appKey\": \"%s\", \"secretKey\": \"%s\", \"provision\": \"%s\", \"vad\": {\"enable\": 1, \"res\": \"%s\", \"speechLowSeek\": 40, \"sampleRate\": 16000, \"strip\": 0}, \"cloud\": {\"server\": \"http://s-edu.api.chivox.com/api/v3.0/score\"}}",
-                                    appKey, secretKey,
-                                    provisionPath,
-                                    vadResPath);
-                            engine = AIEngine.aiengine_new(cfg, ctx);
-                            Log.d(TAG, "aiengine: " + engine);
-                        }
-
-						/* create airecorder instance  */
-                        if (recorder == null) {
-                            recorder = new AIRecorder();
-                            Log.d(TAG, "airecorder: " + recorder);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-        }
-
     }
 
     /**
@@ -969,7 +560,7 @@ public class MakeSubgect extends BaseActivity {
     private boolean favoriteState(int index) {
         boolean ishave = false;
         DBDevicesManger dataManager = app.getDBManger(Constants.FavoriteRecord);
-        if (dataManager.IsHaveTheRecord(dataBeans.get(index).getId())) {
+        if (dataManager.IsHaveTheRecord(dataBeans.get(index).getFavorite().getId())) {
             ishave = true;
         } else {
             ishave = false;
@@ -995,10 +586,10 @@ public class MakeSubgect extends BaseActivity {
             OnimageTextDislay.setVisibility(View.GONE);
         }
 
-        if (dataBeans.get(subjectNum).getIs_select() == 1 ||
-                dataBeans.get(subjectNum).getIs_select() == 2) {
+        if (dataBeans.get(subjectNum).getFavorite().getIs_select() == 1 ||
+                dataBeans.get(subjectNum).getFavorite().getIs_select() == 2) {
             if (!isFromButton) {
-                answer = dataBeans.get(subjectNum).getAnswer().split("\\|");
+                answer = dataBeans.get(subjectNum).getFavorite().getAnswer().split("\\|");
                 putDataToDisplay();
                 ChangeAnswerDisplay();
             }
@@ -1021,17 +612,17 @@ public class MakeSubgect extends BaseActivity {
             }
 
             if (app.getSwitch(SP.CopySwitchZh)) {
-                copyAnswerCh.setText(dataBeans.get(subjectNum).getQuestion());
+                copyAnswerCh.setText(dataBeans.get(subjectNum).getFavorite().getQuestion());
             } else {
                 copyAnswerCh.setText("");
             }
         }
 
-        if (!TextUtils.isEmpty(dataBeans.get(subjectNum).getPic_addr())) {
+        if (!TextUtils.isEmpty(dataBeans.get(subjectNum).getFavorite().getPic_addr())) {
             if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead && !app.getSwitch(SP.CopySwitchpic)) {
                 headImag.setImageResource(R.drawable.no_image);
             } else {
-                String tempString = Constants.ResourceAddress + "res" + FistId + "/res" + secodeId + "/pic/" + dataBeans.get(subjectNum).getPic_addr();
+                String tempString = Constants.ResourceAddress + "res" + dataBeans.get(subjectNum).getFistId() + "/res" + dataBeans.get(subjectNum).getSecodeId() + "/pic/" + dataBeans.get(subjectNum).getFavorite().getPic_addr();
                 MLog.e(tempString);
                 File file = createFilePath(tempString);
                 if (file.exists()) {
@@ -1050,11 +641,11 @@ public class MakeSubgect extends BaseActivity {
             headImag.setImageResource(R.drawable.no_image);
         }
 
-        if (!(TextUtils.isEmpty(dataBeans.get(subjectNum).getMp3_addr())) && (dataBeans.get(subjectNum).getIs_select() == 1 || dataBeans.get(subjectNum).getIs_select() == 3)) {
+        if (!(TextUtils.isEmpty(dataBeans.get(subjectNum).getFavorite().getMp3_addr())) && (dataBeans.get(subjectNum).getFavorite().getIs_select() == 1 || dataBeans.get(subjectNum).getFavorite().getIs_select() == 3)) {
             haveMp3.setVisibility(View.VISIBLE);
             noMp3.setVisibility(View.GONE);
             chContainer.setVisibility(View.VISIBLE);
-            String tempString = Constants.ResourceAddress + "res" + FistId + "/res" + secodeId + "/audio/" + dataBeans.get(subjectNum).getMp3_addr();
+            String tempString = Constants.ResourceAddress + "res" + dataBeans.get(subjectNum).getFistId() + "/res" + dataBeans.get(subjectNum).getSecodeId() + "/audio/" + dataBeans.get(subjectNum).getFavorite().getMp3_addr();
             MLog.e(tempString);
             File file = createFilePath(tempString);
             if (file.exists()) {
@@ -1065,7 +656,7 @@ public class MakeSubgect extends BaseActivity {
                 }
                 try {
                     startPlay.setEnabled(false);
-                    if (dataBeans.get(subjectNum).getIs_select() == 3) {
+                    if (dataBeans.get(subjectNum).getFavorite().getIs_select() == 3) {
                         voiceRecod.setVisibility(View.INVISIBLE);
                         playIng.setVisibility(View.GONE);
                     } else {
@@ -1083,11 +674,9 @@ public class MakeSubgect extends BaseActivity {
                             mediaPlayer.stop();
                             mediaPlayer.release();
                             mediaPlayer = null;
-                            if (dataBeans.get(subjectNum).getIs_select() == 3) {
+                            if (dataBeans.get(subjectNum).getFavorite().getIs_select() == 3) {
                                 playIng.setVisibility(View.GONE);
                                 voiceRecod.setVisibility(View.VISIBLE);
-                                text = getString();
-                                StartRecord();
                             } else {
                                 startPlay.setEnabled(true);
                                 playIng.setVisibility(View.VISIBLE);
@@ -1114,40 +703,22 @@ public class MakeSubgect extends BaseActivity {
                 }
             }
         } else {
-            if (dataBeans.get(subjectNum).getIs_select() == 4) {
+            if (dataBeans.get(subjectNum).getFavorite().getIs_select() == 4) {
                 playIng.setVisibility(View.GONE);
                 voiceRecod.setVisibility(View.VISIBLE);
-                //这里也显示录音界面
-                text = getString();
-                StartRecord();
             } else {
                 playIng.setVisibility(View.VISIBLE);
                 voiceRecod.setVisibility(View.GONE);
 
-                if (dataBeans.get(subjectNum).getIs_select() == 2) {
+                if (dataBeans.get(subjectNum).getFavorite().getIs_select() == 2) {
                     autoDisplay();
                 }
             }
             haveMp3.setVisibility(View.GONE);
             noMp3.setVisibility(View.VISIBLE);
             chContainer.setVisibility(View.INVISIBLE);
-            noMp3chinesase.setText(dataBeans.get(subjectNum).getQuestion());
+            noMp3chinesase.setText(dataBeans.get(subjectNum).getFavorite().getQuestion());
         }
-
-
-    }
-
-    /**
-     * 开始录音
-     */
-    private void StartRecord() {
-        String wavPath = AIEngineHelper.getFilesDir(getApplicationContext()).getPath() + "/record/" + "cache_record.wav";
-        MLog.e(text);
-
-        if (recorder.isRunning()) {
-            recorder.stop();
-        }
-        recorder.start(wavPath, recorderCallback);
     }
 
     /**
@@ -1156,9 +727,9 @@ public class MakeSubgect extends BaseActivity {
     private String getString() {
         String temp = "";
 
-        if (dataBeans.get(subjectNum).getIs_select() == 3 ||
-                dataBeans.get(subjectNum).getIs_select() == 4) {
-            temp = dataBeans.get(subjectNum).getAnswer();
+        if (dataBeans.get(subjectNum).getFavorite().getIs_select() == 3 ||
+                dataBeans.get(subjectNum).getFavorite().getIs_select() == 4) {
+            temp = dataBeans.get(subjectNum).getFavorite().getAnswer();
         } else {
             for (int i = 0; i < answer.length; i++) {
 
@@ -1175,7 +746,6 @@ public class MakeSubgect extends BaseActivity {
      * Creates a constant cache file path given a target cache directory and an
      * image key.
      *
-     * @param cacheDir
      * @param key
      * @return
      */
@@ -1219,8 +789,7 @@ public class MakeSubgect extends BaseActivity {
             public void onProgress(long bytesWritten, long totalSize) {
                 super.onProgress(bytesWritten, totalSize);
                 if (totalSize != 1) {
-                    int percent = (int) (Math.round((bytesWritten * 1.0
-                            / totalSize * 1.0) * 100));
+                    int percent = (int) (Math.round((bytesWritten * 1.0 / totalSize * 1.0) * 100));
                     if (percent != lastPercent) {
                         lastPercent = percent;
 //						MLog.e("下载进度", String.valueOf(percent) + "%");
@@ -1266,151 +835,6 @@ public class MakeSubgect extends BaseActivity {
         }
     }
 
-    /**
-     * 更新mic状态
-     */
-    private void updateMicStatus(int db) {
-        if (db <= 1) {
-            voiceLevel.setImageResource(R.drawable.tt_sound_volume_01);
-        } else if (db == 2) {
-            voiceLevel.setImageResource(R.drawable.tt_sound_volume_02);
-        } else if (db == 3) {
-            voiceLevel.setImageResource(R.drawable.tt_sound_volume_03);
-        } else if (db == 4) {
-            voiceLevel.setImageResource(R.drawable.tt_sound_volume_04);
-        } else if (db == 5) {
-            voiceLevel.setImageResource(R.drawable.tt_sound_volume_05);
-        } else if (db == 6) {
-            voiceLevel.setImageResource(R.drawable.tt_sound_volume_06);
-        } else {
-            voiceLevel.setImageResource(R.drawable.tt_sound_volume_07);
-        }
-    }
-
-    /**
-     * 获取发音得分
-     *
-     * @param score
-     */
-    private void CheckResult(String score) {
-        JSONArray json = JSON.parseArray(score);
-        if (json != null && json.size() > 0 && !TextUtils.isEmpty(text)) {
-            SpannableString ss = new SpannableString(text);
-            boolean isAllPass = true;
-            for (int i = 0; i < json.size(); i++) {
-                JSONObject temp = json.getJSONObject(i);
-                String mchar = temp.getString("char");
-                int index = text.indexOf(mchar);
-                if (index != -1) {
-                    if (temp.getIntValue("score") < 60) {
-                        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.color_red)), index, index + mchar.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        isAllPass = false;
-                    }
-//		    		else {
-//						ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorb)), index, index + mchar.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//					}
-                }
-            }
-
-            OnimageTextDislay.setText(ss);
-            OnimageTextDislay.setVisibility(View.VISIBLE);
-
-            if (!isAllPass) {
-                errorTime++;
-                if (errorTime == 3) {//只有三次机会
-                    MyToast("继续努力，下次再来！");
-                    voiceDelayNext();
-                } else {
-                    OnimageTextDislay.postDelayed(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            StartRecord();
-                        }
-                    }, 1000);
-                    MyToast("发音不标准，再试一次");
-                }
-            } else {
-                //进入下一题
-                voiceDelayNext();
-            }
-        }
-    }
-
-    /**
-     * 延迟执行
-     */
-    private void voiceDelayNext() {
-        OnimageTextDislay.postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                getIntoNext();
-            }
-        }, 1000);
-    }
-
-    /**
-     * 分析处理结果
-     *
-     * @param result
-     */
-    private void takeCareOfResult(String result) {
-
-        JSONObject json = JSON.parseObject(result);
-        if (json.containsKey("result") && !TextUtils.isEmpty(json.getString("result"))) {
-            JSONObject jsonResult = JSON.parseObject(json.getString("result"));
-            if (jsonResult.containsKey("info") && !TextUtils.isEmpty(jsonResult.getString("info"))) {
-                JSONObject jsoninfo = JSON.parseObject(jsonResult.getString("info"));
-                if (jsoninfo.containsKey("tipId")) {
-                    switch (jsoninfo.getIntValue("tipId")) {
-                        //本次录音没有异常
-                        case 0:
-                            break;
-                        //音频数据为0，可提示未录音
-                        case 10000:
-                            MyToast("没有任何录音");
-                            break;
-                        //用户发音不完整如"i want an apple"，可能只发了"i want an"，可提示发音不完整
-                        case 10001:
-                            MyToast("亲，发音不完整");
-                            break;
-                        //识别不完整，出现这种情况大部分是静音，及音频偏短，可提示发音不完整
-                        case 10002:
-                        case 10003:
-                            MyToast("亲，发音不完整");
-                            break;
-                        //音量偏低，可能位置太远，可建议用户调整麦克风位置
-                        case 10004:
-                            MyToast("亲，离麦克风近一点");
-                            break;
-                        //音频截幅，可能位置太近，可建议用户调整麦克风位置
-                        case 10005:
-                            MyToast("亲，离麦克风远一点");
-                            break;
-                        //音频质量偏差（由录音环境嘈杂或语音不明显引起的信噪比低，或麦克风质量偏差), 可提示语音不明显。
-                        case 10006:
-                            break;
-                        default:
-                            break;
-                    }
-                    MLog.e("overall=" + jsonResult.getIntValue("overall"));
-                    if (jsonResult.containsKey("details") && !TextUtils.isEmpty(jsonResult.getString("details"))) {
-                        CheckResult(jsonResult.getString("details"));
-                    }
-                }
-            }
-        } else {
-            OnimageTextDislay.postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    StartRecord();
-                }
-            }, 500);
-//			MyToast("网络连接出错！");
-        }
-    }
 
     private void autoDisplay() {
         if (app.isAutoDisplay() && app.getShowtime() > 0) {
@@ -1478,87 +902,6 @@ public class MakeSubgect extends BaseActivity {
         public anArray(String answer, boolean isRight) {
             this.answer = answer;
             rightOrError = isRight;
-        }
-    }
-
-    /**
-     * 速记
-     */
-    private class menuAdapter extends BaseListAdapter<SubjectBean> {
-
-        public menuAdapter(Context context) {
-            super(context);
-
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            ViewHolder holder = null;
-            if (convertView == null) {
-                convertView = mInflater.inflate(R.layout.menu_item, null);
-                holder = new ViewHolder(convertView);
-            } else {
-                holder = (ViewHolder) convertView.getTag();
-            }
-
-            SubjectBean temp = getList().get(position);
-
-            holder.chineseDis.setVisibility(isDisplayCH ? View.VISIBLE : View.INVISIBLE);
-            holder.englishDis.setVisibility(isDisplayEn ? View.VISIBLE : View.INVISIBLE);
-
-            holder.chineseDis.setText(temp.getQuestion());
-            holder.englishDis.setText(temp.getEnglishStr());
-
-            if (favoriteState(position)) {
-                holder.favorite.setTextColor(getResources().getColor(R.color.color_silde_menu_diviver_2));
-            } else {
-                holder.favorite.setTextColor(getResources().getColor(R.color.color_black));
-            }
-
-            holder.favorite.setTag(position);
-            holder.favorite.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    if (getList().get((Integer) v.getTag()).getIs_select() == 1) {
-                        FavoriteRecord((Integer) v.getTag(), (Button) v);
-                    } else {
-                        MyToast("亲，翻译题不能收藏！！！");
-                    }
-                }
-            });
-
-            holder.item_fast.setTag(position);
-            holder.item_fast.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    subjectNum = (Integer) v.getTag() - 1;
-                    getIntoNext();
-                }
-            });
-            return convertView;
-        }
-
-        private class ViewHolder {
-            private View menuTit, item_fast;
-            private Button favorite;
-            private TextView englishDis, chineseDis;
-
-            public ViewHolder(View view) {
-                menuTit = view.findViewById(R.id.menuTit);
-                item_fast = view.findViewById(R.id.item_fast);
-
-                favorite = (Button) view.findViewById(R.id.favorite);
-                englishDis = (TextView) view.findViewById(R.id.englishDis);
-                chineseDis = (TextView) view.findViewById(R.id.chineseDis);
-
-                menuTit.setVisibility(View.GONE);
-                item_fast.setVisibility(View.VISIBLE);
-
-
-                view.setTag(this);
-            }
         }
     }
 }

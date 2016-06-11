@@ -370,6 +370,16 @@
         android:listSelector="@android:color/transparent"
         android:numColumns="1"
         android:stretchMode="columnWidth"
-        android:visibility="gone"></GridView>
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/btnbackCopyRead"
+        android:layout_width="@dimen/head_view_height"
+        android:layout_height="@dimen/head_view_height"
+        android:layout_gravity="top|left"
+        android:visibility="gone"
+        android:background="@drawable/textbtn_bg_selector"
+        android:scaleType="centerInside"
+        android:src="@drawable/back" />
 
 </RelativeLayout>

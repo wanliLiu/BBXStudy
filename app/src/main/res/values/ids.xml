@@ -10,4 +10,8 @@
     <item name="kstes" type="id" />
     <item name="ids_temp" type="id" />
 
+    <item name="idtemp1" type="id" />
+    <item name="idtemp2" type="id" />
+    <item name="idtemp3" type="id" />
+
 </resources>

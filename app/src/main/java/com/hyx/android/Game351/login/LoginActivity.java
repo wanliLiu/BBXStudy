@@ -17,6 +17,7 @@ import com.hyx.android.Game351.data.ApiCallBack;
 import com.hyx.android.Game351.data.ApiHelper;
 import com.hyx.android.Game351.data.ApiParams;
 import com.hyx.android.Game351.data.Result;
+import com.hyx.android.Game351.util.ApkType;
 import com.hyx.android.Game351.util.MyTools;
 
 import java.text.SimpleDateFormat;
@@ -59,6 +60,10 @@ public class LoginActivity extends BaseActivity {
             if (!TextUtils.isEmpty(app.getUserPassword())) {
                 pwdInput.setText(app.getUserPassword());
             }
+        }
+
+        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+            findViewById(R.id.actionBar).setVisibility(View.GONE);
         }
 
         SMSSDK.initSDK(this, APPKEY, APPSECRET);

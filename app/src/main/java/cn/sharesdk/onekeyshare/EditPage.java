@@ -42,6 +42,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hyx.android.Game351.R;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -193,7 +195,7 @@ public class EditPage extends FakeActivity implements OnClickListener, TextWatch
     // 标题栏
     private TitleLayout getPageTitle() {
         llTitle = new TitleLayout(getContext());
-        llTitle.setId(1);
+        llTitle.setId(R.id.idtemp1);
 //		int resId = getBitmapRes(activity, "title_back");
 //		if (resId > 0) {
 //			llTitle.setBackgroundResource(resId);
@@ -222,7 +224,7 @@ public class EditPage extends FakeActivity implements OnClickListener, TextWatch
     // 页面主体
     private LinearLayout getPageBody() {
         llBody = new LinearLayout(getContext());
-        llBody.setId(2);
+        llBody.setId(R.id.idtemp2);
         int resId = getBitmapRes(activity, "edittext_back");
         if (resId > 0) {
             llBody.setBackgroundResource(resId);
@@ -284,7 +286,7 @@ public class EditPage extends FakeActivity implements OnClickListener, TextWatch
     // 输入区域的图片
     private RelativeLayout getThumbView() {
         rlThumb = new RelativeLayout(getContext());
-        rlThumb.setId(1);
+        rlThumb.setId(R.id.idtemp3);
         int dp_82 = dipToPx(getContext(), 82);
         int dp_98 = dipToPx(getContext(), 98);
         LinearLayout.LayoutParams lpThumb

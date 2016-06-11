@@ -85,8 +85,8 @@ public class VoiceView extends RelativeLayout {
     public void StartPlayIng() {
         isLoading.setVisibility(View.INVISIBLE);
         isPlaying.setVisibility(View.VISIBLE);
-        isPlaying.setBackgroundResource(R.anim.playing_progress_round);
-        anDrawable = (AnimationDrawable) isPlaying.getBackground();
+        isPlaying.setImageResource(R.drawable.playing_progress_round);
+        anDrawable = (AnimationDrawable) isPlaying.getDrawable();
         anDrawable.start();
         playing = true;
     }
@@ -122,7 +122,7 @@ public class VoiceView extends RelativeLayout {
     /**
      * 保存音频播放文件
      *
-     * @param Path
+     * @param voiceFilePath
      */
     public void setVoiceFilePath(String voiceFilePath) {
         this.voiceFilePath = voiceFilePath;

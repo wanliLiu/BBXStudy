@@ -55,13 +55,13 @@ public class HistoryActivity extends BaseActivity {
     protected void initListener() {
 
         if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
-            headView.setOnBackBtnListener(new HeadView.OnBackBtnListener() {
-
-                @Override
-                public void onClick() {
-                    onBackPressed();
-                }
-            });
+//            headView.setOnBackBtnListener(new HeadView.OnBackBtnListener() {
+//
+//                @Override
+//                public void onClick() {
+//                    onBackPressed();
+//                }
+//            });
         }
 
         headView.setOnActionBtnListener(new OnActionBtnListener() {
@@ -88,7 +88,6 @@ public class HistoryActivity extends BaseActivity {
                 });
 
                 dialog.show();
-
             }
         });
     }

@@ -2,7 +2,6 @@ package com.hyx.android.Game351.more;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.pm.PackageStats;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
@@ -48,30 +47,14 @@ public class MoreActivity extends BaseActivity {
     private TextView timeProgress, fontTextView, showtimeProgress;
 
     private LinearLayout exit;
-    private Handler mHandler = new Handler() {
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case RQF_Display:
-                    PackageStats newPs = msg.getData().getParcelable(
-                            ATTR_PACKAGE_STATS);
-                    if (newPs != null) {
-                        BasicItem temp = moreSetting.getBasicItem(3);
-                        temp.setTitle("清除缓存(" + formatFileSize(app.getCacheFileSize()) + ")");
-                        moreSetting.updateBasicItem(temp, 3);
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
+
     /**
      * 异步处理删除文件，读文件的大小
      */
     private Handler cacheHander = new Handler() {
         public void handleMessage(Message msg) {
 
-            int index = MyTools.getCurrentApkType(ctx) == ApkType.TYPE_FastRecord ? 2 : 3;
+            int index = (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_FastRecord || MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) ? 2 : 3;
 
             switch (msg.what) {
                 case 1: {
@@ -138,8 +121,9 @@ public class MoreActivity extends BaseActivity {
         moreSetting = (UITableView) findViewById(R.id.moreSetting);
 
         if (MyTools.getCurrentApkType(ctx) != ApkType.TYPE_FastRecord) {
-            if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead)
-                moreSetting.addBasicItem("记录");// 0
+            if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+//                moreSetting.addBasicItem("记录");// 0
+            }
             else
                 moreSetting.addBasicItem("收藏");// 0
         }
@@ -302,6 +286,9 @@ public class MoreActivity extends BaseActivity {
             public void onItemClick(int index) {
 
                 if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_FastRecord)
+                    index += 1;
+
+                if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead)
                     index += 1;
 
                 switch (index) {

@@ -22,13 +22,13 @@ public class LoadingDialog extends Dialog {
         View contentView = View.inflate(getContext(), R.layout.activity_custom_loding_dialog_layout, null);
         setContentView(contentView);
         iv_route = (ImageView) contentView.findViewById(R.id.imageLoading);
-        getWindow().setWindowAnimations(R.anim.alpha_in);
+//        getWindow().setWindowAnimations(R.anim.alpha_in);
     }
 
 
     @Override
     public void show() {
-        AnimationDrawable animationDrawable = (AnimationDrawable) iv_route.getBackground();
+        AnimationDrawable animationDrawable = (AnimationDrawable) iv_route.getDrawable();
         animationDrawable.start();
         super.show();
     }

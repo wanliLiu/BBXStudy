@@ -40,12 +40,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="MainActivity"></activity>
-        <activity android:name=".login.LoginActivity"></activity>
-        <activity android:name=".home.MenuActivity"></activity>
-        <activity android:name=".favorite.WishActivity"></activity>
-        <activity android:name=".history.HistoryActivity"></activity>
-        <activity android:name=".more.MoreActivity"></activity>
+        <activity android:name="MainActivity" />
+        <activity android:name=".login.LoginActivity" />
+        <activity android:name=".home.MenuActivity" />
+        <activity android:name=".favorite.WishActivity" />
+        <activity android:name=".history.HistoryActivity" />
+        <activity android:name=".more.MoreActivity" />
         <activity
             android:name="cn.smssdk.SMSSDKUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -56,11 +56,11 @@
         <service
             android:name="cn.sharesdk.analysis.server.RemoteService"
             android:process=":remote" />
-        <service android:name=".login.CheckService"></service>
+        <service android:name=".login.CheckService" />
 
-        <activity android:name=".home.MakeSubgect"></activity>
-        <activity android:name=".home.ScoreActivity"></activity>
-        <activity android:name=".home.ReadAllActivity"></activity>
+        <activity android:name=".home.MakeSubgect" />
+        <activity android:name=".home.ScoreActivity" />
+        <activity android:name=".home.ReadAllActivity" />
         <activity
             android:name="cn.sharesdk.framework.ShareSDKUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -120,10 +120,10 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
-        <activity android:name=".more.InstructionActivity"></activity>
-        <activity android:name=".more.AboutUsActivity"></activity>
-        <activity android:name=".login.UserLoginActivity"></activity>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".more.InstructionActivity" />
+        <activity android:name=".more.AboutUsActivity" />
+        <activity android:name=".login.UserLoginActivity" />
 
         <meta-data
             android:name="CURRENT_APK_TYPE"
@@ -131,20 +131,21 @@
 
         <activity
             android:name=".Topic.TopicRelyActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
-        <activity android:name=".Topic.TopicActivity"></activity>
-        <activity android:name=".Topic.PostTopicActivity"></activity>
-        <activity android:name=".Topic.TopicCategoryActivity"></activity>
-        <activity android:name=".Personal.PersionPosition"></activity>
-        <activity android:name=".Personal.EditPersionIfo"></activity>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".Topic.TopicActivity" />
+        <activity android:name=".Topic.PostTopicActivity" />
+        <activity android:name=".Topic.TopicCategoryActivity" />
+        <activity android:name=".Personal.PersionPosition" />
+        <activity android:name=".Personal.EditPersionIfo" />
         <activity
             android:name=".Personal.EditSign"
-            android:windowSoftInputMode="adjustResize"></activity>
-        <activity android:name=".Personal.FullScreenTakePic"></activity>
-        <activity android:name=".Personal.CheckAllActitity"></activity>
-        <activity android:name=".Personal.PersonTopic"></activity>
-        <activity android:name=".Personal.PersonRelay"></activity>
-        <activity android:name=".Personal.FansAttention"></activity>
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".Personal.FullScreenTakePic" />
+        <activity android:name=".Personal.CheckAllActitity" />
+        <activity android:name=".Personal.PersonTopic" />
+        <activity android:name=".Personal.PersonRelay" />
+        <activity android:name=".Personal.FansAttention" />
+        <activity android:name=".home.MakeSubgectFavorite" />
     </application>
 
 </manifest>

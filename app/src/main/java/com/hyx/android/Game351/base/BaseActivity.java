@@ -99,11 +99,12 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
      */
     protected abstract void initData();
 
+    protected boolean isScreenLandsape = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(isScreenLandsape ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
-
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         ctx = this;
         app = (MyApplication) getApplication();

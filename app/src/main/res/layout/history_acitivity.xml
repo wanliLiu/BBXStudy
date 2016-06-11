@@ -7,7 +7,7 @@
     <com.hyx.android.Game351.view.HeadView
         android:id="@+id/headView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.hyx.android.Game351.view.HeadView>
+        android:layout_height="wrap_content" />
 
     <GridView
         android:id="@+id/menuDisplay"
@@ -19,6 +19,6 @@
         android:numColumns="2"
         android:padding="5dip"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="5dip"></GridView>
+        android:verticalSpacing="5dip" />
 
 </LinearLayout>

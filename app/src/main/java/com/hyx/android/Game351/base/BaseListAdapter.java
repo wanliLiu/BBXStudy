@@ -69,7 +69,7 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public T getItem(int position) {
         return mList == null ? null : mList.get(position);
     }
 

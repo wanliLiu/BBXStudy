@@ -18,6 +18,7 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Handler.Callback;
 import android.os.Message;
+import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -40,6 +41,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.Random;
 
 import cn.sharesdk.framework.CustomPlatform;
 import cn.sharesdk.framework.FakeActivity;
@@ -54,7 +56,7 @@ import static cn.sharesdk.framework.utils.R.getStringRes;
 
 /**
  * 快捷分享的入口
- * <p/>
+ * <p>
  * 通过不同的setter设置参数，然后调用{@link #show(Context)}方法启动快捷分享
  */
 public class OnekeyShare extends FakeActivity implements
@@ -773,17 +775,24 @@ public class OnekeyShare extends FakeActivity implements
     private void showNotification(long cancelTime, String text) {
         try {
             Context app = getContext().getApplicationContext();
-            NotificationManager nm = (NotificationManager) app
-                    .getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager nm = (NotificationManager) app.getSystemService(Context.NOTIFICATION_SERVICE);
             final int id = Integer.MAX_VALUE / 13 + 1;
             nm.cancel(id);
 
-            long when = System.currentTimeMillis();
-            Notification notification = new Notification(notifyIcon, text, when);
-            PendingIntent pi = PendingIntent.getActivity(app, 0, new Intent(), 0);
-            notification.setLatestEventInfo(app, notifyTitle, text, pi);
-            notification.flags = Notification.FLAG_AUTO_CANCEL;
-            nm.notify(id, notification);
+            PendingIntent contentIntent = PendingIntent.getActivity(app, new Random().nextInt(1000), new Intent(), PendingIntent.FLAG_CANCEL_CURRENT);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(app);
+            builder.setContentTitle(notifyTitle)
+                    .setContentText(notifyTitle)
+                    .setContentIntent(contentIntent)
+                    .setTicker(notifyTitle)
+                    .setWhen(System.currentTimeMillis())
+                    .setPriority(Notification.PRIORITY_HIGH)// 设置该通知优先级
+                    .setAutoCancel(true)
+                    .setOngoing(false)
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setSmallIcon(notifyIcon);
+
+            nm.notify(id, builder.build());
 
             if (cancelTime > 0) {
                 Message msg = new Message();

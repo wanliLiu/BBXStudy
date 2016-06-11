@@ -10,10 +10,10 @@ import com.hyx.android.Game351.util.MLog;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import org.apache.http.Header;
-
 import java.util.Iterator;
 import java.util.Map.Entry;
+
+import cz.msebera.android.httpclient.Header;
 
 public class ApiHelper {
 
@@ -83,9 +83,6 @@ public class ApiHelper {
 
                 }
 
-                @Override
-                public void onProgress(int bytesWritten, int totalSize) {
-                }
 
                 @Override
                 public void onFinish() {
@@ -173,10 +170,6 @@ public class ApiHelper {
                 }
 
                 @Override
-                public void onProgress(int bytesWritten, int totalSize) {
-                }
-
-                @Override
                 public void onFinish() {
                     super.onFinish();
 
@@ -226,7 +219,8 @@ public class ApiHelper {
                 }
 
                 @Override
-                public void onProgress(int bytesWritten, int totalSize) {
+                public void onProgress(long bytesWritten, long totalSize) {
+                    super.onProgress(bytesWritten, totalSize);
                     if (totalSize != 1) {
                         MLog.e("上传进度", String.valueOf(Math.round((bytesWritten * 1.0 / totalSize * 1.0) * 100)) + "%");
                     }

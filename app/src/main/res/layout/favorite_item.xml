@@ -20,6 +20,7 @@
             android:textSize="@dimen/text_normal" />
 
         <LinearLayout
+            android:id="@+id/takeAction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -28,7 +29,7 @@
                 android:layout_width="0.0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center_vertical|left"
+                android:gravity="center_vertical|right"
                 android:padding="5dip"
                 android:text="播放音频"
                 android:textSize="@dimen/text_small" />
@@ -38,7 +39,7 @@
                 android:layout_width="0.0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center_vertical|left"
+                android:gravity="center_vertical|right"
                 android:padding="5dip"
                 android:text="显示答案"
                 android:textSize="@dimen/text_small" />
@@ -48,7 +49,7 @@
                 android:layout_width="0.0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center_vertical|left"
+                android:gravity="center_vertical|right"
                 android:padding="5dip"
                 android:text="删除"
                 android:textSize="@dimen/text_small" />
@@ -103,4 +104,12 @@
             android:background="@color/color_line" />
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/actDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|right"
+        android:padding="5dp"
+        android:visibility="gone"
+        android:text="删除" />
 </FrameLayout>

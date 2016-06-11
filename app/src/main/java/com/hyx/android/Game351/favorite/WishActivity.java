@@ -1,11 +1,13 @@
 package com.hyx.android.Game351.favorite;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,6 +18,7 @@ import com.hyx.android.Game351.base.BaseListAdapter;
 import com.hyx.android.Game351.base.Constants;
 import com.hyx.android.Game351.data.HttpUtil;
 import com.hyx.android.Game351.home.MD5;
+import com.hyx.android.Game351.home.MakeSubgectFavorite;
 import com.hyx.android.Game351.modle.HistoryBean;
 import com.hyx.android.Game351.modle.SubjectBean;
 import com.hyx.android.Game351.util.ApkType;
@@ -26,10 +29,10 @@ import com.hyx.android.Game351.view.dialog.DefaultDialog;
 import com.hyx.android.Game351.view.dialog.DialogSelectListener;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 
-import org.apache.http.Header;
-
 import java.io.File;
 import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
 
 public class WishActivity extends BaseActivity {
 
@@ -93,6 +96,17 @@ public class WishActivity extends BaseActivity {
                 @Override
                 public void onClick() {
                     onBackPressed();
+                }
+            });
+        }
+
+        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+            favoriteList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(ctx, MakeSubgectFavorite.class);
+                    intent.putExtra("currentPosition", position);
+                    startActivity(intent);
                 }
             });
         }
@@ -189,7 +203,8 @@ public class WishActivity extends BaseActivity {
             }
 
             @Override
-            public void onProgress(int bytesWritten, int totalSize) {
+            public void onProgress(long bytesWritten, long totalSize) {
+                super.onProgress(bytesWritten, totalSize);
                 if (totalSize != 1) {
                     int percent = (int) (Math.round((bytesWritten * 1.0 / totalSize * 1.0) * 100));
                     if (percent != lastPercent) {
@@ -216,6 +231,9 @@ public class WishActivity extends BaseActivity {
         }
     }
 
+    /**
+     *
+     */
     private class favoriteAdapter extends BaseListAdapter<HistoryBean> {
 
         public favoriteAdapter(Context context) {
@@ -310,6 +328,23 @@ public class WishActivity extends BaseActivity {
                 });
             }
 
+            if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+                holder.takeAction.setVisibility(View.GONE);
+                holder.actDelete.setVisibility(View.VISIBLE);
+                holder.actDelete.setTag(position);
+                holder.actDelete.setOnClickListener(new OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        int index = (Integer) v.getTag();
+                        app.getDBManger(Constants.FavoriteRecord).deleteAHistoryRecord(favorite.get(index).getSort_id());
+                        app.CloseDBManger();
+                        favorite.remove(index);
+                        adapter.setList(favorite);
+                    }
+                });
+            }
+
 
             return convertView;
         }
@@ -336,12 +371,13 @@ public class WishActivity extends BaseActivity {
             public TextView showAnswer;
             public TextView delete;
 
-            private View inFastRecord, item_fast;
+            private View inFastRecord, item_fast, takeAction;
             private Button favorite;
-            private TextView englishDis, chineseDis;
+            private TextView englishDis, chineseDis, actDelete;
 
             public ViewHolder(View view) {
 
+                takeAction = view.findViewById(R.id.takeAction);
                 chinese = (TextView) view.findViewById(R.id.chinese);
                 playMusic = (TextView) view.findViewById(R.id.PlayMusic);
                 showAnswer = (TextView) view.findViewById(R.id.ShowAnswer);
@@ -350,6 +386,7 @@ public class WishActivity extends BaseActivity {
                 inFastRecord = view.findViewById(R.id.inFastRecord);
                 item_fast = view.findViewById(R.id.item_fast);
 
+                actDelete = (TextView) view.findViewById(R.id.actDelete);
                 favorite = (Button) view.findViewById(R.id.favorite);
                 englishDis = (TextView) view.findViewById(R.id.englishDis);
                 chineseDis = (TextView) view.findViewById(R.id.chineseDis);

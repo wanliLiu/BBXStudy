@@ -9,9 +9,9 @@ import com.hyx.android.Game351.data.HttpUtil;
 import com.hyx.android.Game351.view.VoiceView;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 
-import org.apache.http.Header;
-
 import java.io.File;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * 帖子音频播放工具
@@ -103,7 +103,8 @@ public class VoiceTool {
                 }
 
                 @Override
-                public void onProgress(int bytesWritten, int totalSize) {
+                public void onProgress(long bytesWritten, long totalSize) {
+                    super.onProgress(bytesWritten, totalSize);
                     if (totalSize != 1) {
                         int percent = (int) (Math.round((bytesWritten * 1.0 / totalSize * 1.0) * 100));
                         if (percent != lastPercent) {

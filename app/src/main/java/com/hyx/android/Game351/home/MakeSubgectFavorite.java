@@ -211,6 +211,8 @@ public class MakeSubgectFavorite extends BaseActivity {
         chinesDis = (Button) findViewById(R.id.chinesDis);
         chinesDis.setOnClickListener(this);
 
+        findViewById(R.id.favorite).setOnClickListener(this);
+
         OnimageTextDislay = (TextView) findViewById(R.id.OnimageTextDislay);
         OnimageTextDislay.setVisibility(View.GONE);
         imageInit();
@@ -321,6 +323,7 @@ public class MakeSubgectFavorite extends BaseActivity {
                     enContainer.startMarquee();
                 }
                 break;
+            case R.id.favorite:
             case R.id.addFavorite:
                 if (dataBeans.get(subjectNum).getFavorite().getIs_select() == 1) {
                     FavoriteRecord(subjectNum, addFavorite);
@@ -599,9 +602,17 @@ public class MakeSubgectFavorite extends BaseActivity {
         }
 
         if (favoriteState(subjectNum)) {
-            addFavorite.setTextColor(getResources().getColor(R.color.color_silde_menu_diviver_2));
+            if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+                ((ImageView) findViewById(R.id.favorite)).setImageResource(R.drawable.icon_favorite_have);
+            } else {
+                addFavorite.setTextColor(getResources().getColor(R.color.color_silde_menu_diviver_2));
+            }
         } else {
-            addFavorite.setTextColor(getResources().getColor(R.color.color_black));
+            if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+                ((ImageView) findViewById(R.id.favorite)).setImageResource(R.drawable.icon_favorite);
+            } else {
+                addFavorite.setTextColor(getResources().getColor(R.color.color_black));
+            }
         }
 
         if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {

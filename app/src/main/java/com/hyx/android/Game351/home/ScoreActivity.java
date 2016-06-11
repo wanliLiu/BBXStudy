@@ -2,6 +2,7 @@ package com.hyx.android.Game351.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -44,6 +45,14 @@ public class ScoreActivity extends BaseActivity {
     private scoreAdaper adaper;
 
     private String titleString = "";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        if (MyTools.getCurrentApkType(this) == ApkType.TYPE_CopyRead) {
+            isScreenLandsape = true;
+        }
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     protected void initView() {

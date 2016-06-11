@@ -43,7 +43,7 @@ public class MyApplication extends Application {
 
         if (IsFistTimeUse()) {
             MarketIsFirstTime();
-            SetFontSize(5);
+            SetFontSize(2);
         }
     }
 
@@ -250,7 +250,7 @@ public class MyApplication extends Application {
     }
 
     public int getFontSize() {
-        return SP.getSp(this).getInt(SP.SUBJECTFONT, 0) + 20;
+        return SP.getSp(this).getInt(SP.SUBJECTFONT, 0) + 14;
     }
 
     public void setUserPhonew(String phone) {

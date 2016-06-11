@@ -382,4 +382,14 @@
         android:scaleType="centerInside"
         android:src="@drawable/back" />
 
+    <ImageView
+        android:id="@+id/favorite"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="top|right"
+        android:layout_margin="10dip"
+        android:visibility="gone"
+        android:src="@drawable/icon_favorite"
+        android:textSize="@dimen/text_normal" />
+
 </RelativeLayout>

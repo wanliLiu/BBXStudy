@@ -237,7 +237,7 @@ public class MoreActivity extends BaseActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress,
                                           boolean fromUser) {
-                fontTextView.setText("做题字体的大小（" + (progress + 20) + "）");
+                fontTextView.setText("做题字体的大小（" + (progress + 14) + "）");
             }
         });
 
@@ -384,7 +384,7 @@ public class MoreActivity extends BaseActivity {
         // getpkginfo("com.hyx.android.Game351");
 
         seekBar.setProgress(app.getPlayTime() - 200);
-        fontSeekBar.setProgress(app.getFontSize() - 20);
+        fontSeekBar.setProgress(app.getFontSize() - 14);
         fontTextView.setText("做题字体的大小（" + app.getFontSize() + "）");
 
         timeProgress

@@ -15,6 +15,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -369,6 +370,8 @@ public class MakeSubgect extends BaseActivity {
         chinesDis = (Button) findViewById(R.id.chinesDis);
         chinesDis.setOnClickListener(this);
 
+        findViewById(R.id.favorite).setOnClickListener(this);
+
         OnimageTextDislay = (TextView) findViewById(R.id.OnimageTextDislay);
         OnimageTextDislay.setVisibility(View.GONE);
         imageInit();
@@ -489,6 +492,7 @@ public class MakeSubgect extends BaseActivity {
                     enContainer.startMarquee();
                 }
                 break;
+            case R.id.favorite:
             case R.id.addFavorite:
                 if (dataBeans.get(subjectNum).getIs_select() == 1) {
                     FavoriteRecord(subjectNum, addFavorite);
@@ -754,7 +758,10 @@ public class MakeSubgect extends BaseActivity {
 //		String soritString = dataBeans.get(index).getId();
         if (dataManager.IsHaveTheRecord(dataBeans.get(index).getId())) {
             if (dataManager.deleteAHistoryRecord(dataBeans.get(index).getId())) {
-                btn.setTextColor(getResources().getColor(R.color.color_black));
+                if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+                    ((ImageView) findViewById(R.id.favorite)).setImageResource(R.drawable.icon_favorite);
+                } else
+                    btn.setTextColor(getResources().getColor(R.color.color_black));
             }
         } else {
             HistoryBean save = new HistoryBean();
@@ -766,7 +773,10 @@ public class MakeSubgect extends BaseActivity {
             save.setFavorite(dataBeans.get(index));
             app.getDBManger(Constants.FavoriteRecord).AddHistory(save);
             if (dataManager.IsHaveTheRecord(dataBeans.get(index).getId())) {
-                btn.setTextColor(getResources().getColor(R.color.color_silde_menu_diviver_2));
+                if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+                    ((ImageView) findViewById(R.id.favorite)).setImageResource(R.drawable.icon_favorite_have);
+                } else
+                    btn.setTextColor(getResources().getColor(R.color.color_silde_menu_diviver_2));
             }
         }
 
@@ -1006,11 +1016,18 @@ public class MakeSubgect extends BaseActivity {
         } else {
             startPlay.setEnabled(false);
         }
-
         if (favoriteState(subjectNum)) {
-            addFavorite.setTextColor(getResources().getColor(R.color.color_silde_menu_diviver_2));
+            if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+                ((ImageView) findViewById(R.id.favorite)).setImageResource(R.drawable.icon_favorite_have);
+            } else {
+                addFavorite.setTextColor(getResources().getColor(R.color.color_silde_menu_diviver_2));
+            }
         } else {
-            addFavorite.setTextColor(getResources().getColor(R.color.color_black));
+            if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+                ((ImageView) findViewById(R.id.favorite)).setImageResource(R.drawable.icon_favorite);
+            } else {
+                addFavorite.setTextColor(getResources().getColor(R.color.color_black));
+            }
         }
 
         if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
@@ -1246,11 +1263,11 @@ public class MakeSubgect extends BaseActivity {
         isRunning = true;
 
         if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
-            copyAnswerCh.setTextSize(app.getFontSize());
-            copyAnswerEn.setTextSize(app.getFontSize());
+            copyAnswerCh.setTextSize(TypedValue.COMPLEX_UNIT_SP, app.getFontSize());
+            copyAnswerEn.setTextSize(TypedValue.COMPLEX_UNIT_SP, app.getFontSize());
         } else {
-            btnLeft.setTextSize(app.getFontSize());
-            btnRight.setTextSize(app.getFontSize());
+            btnLeft.setTextSize(TypedValue.COMPLEX_UNIT_SP, app.getFontSize());
+            btnRight.setTextSize(TypedValue.COMPLEX_UNIT_SP, app.getFontSize());
         }
         OnimageTextDislay.setTextSize(app.getFontSize());
     }

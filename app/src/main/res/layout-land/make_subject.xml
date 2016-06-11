@@ -176,7 +176,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="30dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -187,19 +187,19 @@
                     android:paddingLeft="10dip"
                     android:paddingRight="10dip"
                     android:textColor="@color/color_white"
-                    android:textSize="@dimen/text_normal_big"
-                    tools:text="sdsdsdklsdklskdsdsdsdklsdklskdsdsdsdklsdklskd" />
+                    android:textSize="14sp"
+                    tools:text="不是吧第四点凯沙罗顿看不是吧第四点凯沙罗顿看" />
 
                 <TextView
                     android:id="@+id/copyCh"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:maxLines="3"
                     android:paddingLeft="10dip"
                     android:paddingRight="10dip"
                     android:textColor="@color/color_white"
-                    android:textSize="@dimen/text_normal"
+                    android:textSize="14sp"
                     tools:text="不是吧第四点凯沙罗顿看不是吧第四点凯沙罗顿看" />
             </LinearLayout>
 
@@ -305,31 +305,53 @@
             android:gravity="center_horizontal"
             android:padding="10dip"
             android:text="收藏"
+            android:textSize="@dimen/text_normal"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/favorite"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="top|right"
+            android:background="@drawable/textbtn_bg_selector"
+            android:clickable="true"
+            android:padding="5dp"
+            android:src="@drawable/icon_favorite"
             android:textSize="@dimen/text_normal" />
 
-        <Button
-            android:id="@+id/chinesDis"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|left"
-            android:layout_margin="5dip"
-            android:background="@drawable/smssdk_corners_bg"
-            android:gravity="center_horizontal"
-            android:padding="10dip"
-            android:text="显示中文"
-            android:textSize="@dimen/text_normal" />
+            android:layout_gravity="bottom"
+            android:background="#96000000"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
-        <Button
-            android:id="@+id/answerDisplay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_margin="5dip"
-            android:background="@drawable/smssdk_corners_bg"
-            android:gravity="center_horizontal"
-            android:padding="10dip"
-            android:text="显示答案"
-            android:textSize="@dimen/text_normal" />
+            <Button
+                android:id="@+id/chinesDis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/transparent"
+                android:padding="5dp"
+                android:text="中文"
+                android:textColor="@color/color_white"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/answerDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/transparent"
+                android:padding="5dp"
+                android:text="英文"
+                android:textColor="@color/color_white"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
     </FrameLayout>
 
     <GridView

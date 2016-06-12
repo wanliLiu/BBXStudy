@@ -151,6 +151,7 @@ public class MakeSubgect extends BaseActivity {
 
         ;
     };
+
     private Handler downLoadHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             if (!isRunning) {

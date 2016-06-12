@@ -649,7 +649,7 @@ public class MakeSubgect extends BaseActivity {
             showImageAndMp3();
         } else {
             // 当前题目都昨晚了，进行下一个题目的播放
-            if (app.isPlayContinue()) {
+            if (app.isPlayContinue() || MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
                 isPlayContinue();
             } else {
                 handler.removeMessages(0);

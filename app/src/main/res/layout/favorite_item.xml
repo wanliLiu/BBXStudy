@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dip"
-            android:text="这里显示中文"
+            tools:text="这里显示中文"
             android:textSize="@dimen/text_normal" />
 
         <LinearLayout

@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -343,6 +345,10 @@ public class WishActivity extends BaseActivity {
                         adapter.setList(favorite);
                     }
                 });
+
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.chinese.getLayoutParams();
+                params.rightMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 35, getResources().getDisplayMetrics());
+                holder.chinese.setLayoutParams(params);
             }
 
 

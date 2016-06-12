@@ -142,22 +142,23 @@ public class DBDevicesManger {
         Cursor cursor = null;
         try {
             cursor = db.rawQuery("SELECT * FROM " + tableName, null);
-            //倒序拿数据
-            int count = cursor.getCount();
-            if (cursor.moveToLast()) {
-                do {
+            if (tableName.contains(Constants.HistoryRecord)) {
+                //倒序拿数据
+                int count = cursor.getCount();
+                if (cursor.moveToLast()) {
+                    do {
+                        HistoryBean ifo = JSON.parseObject(cursor.getString(cursor.getColumnIndex(DBDeviceHelper.HistoryIfo)), HistoryBean.class);
+                        devices.add(ifo);
+                        cursor.moveToPrevious();
+                    } while ((--count) > 0);
+                }
+            } else {
+                //顺序那数据
+                while (cursor.moveToNext()) {
                     HistoryBean ifo = JSON.parseObject(cursor.getString(cursor.getColumnIndex(DBDeviceHelper.HistoryIfo)), HistoryBean.class);
                     devices.add(ifo);
-                    cursor.moveToPrevious();
-                } while ((--count) > 0);
+                }
             }
-            //顺序那数据
-//			while (cursor.moveToNext()) {
-//				
-//				HistorySaveBean ifo = JSON.parseObject(cursor.getString(cursor.getColumnIndex(DBDeviceHelper.HistoryIfo)), HistorySaveBean.class);
-//				
-//				devices.add(ifo);
-//			}			
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

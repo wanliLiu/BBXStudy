@@ -76,8 +76,8 @@ android {
         CopyRead {
             applicationId "com.tgbbx"
             buildConfigField "int", "APK_TYPE", "1"
-            versionCode 20151219
-            versionName "9.0.3"
+            versionCode 20160612
+            versionName "9.1.3"
         }
 
         FastRecord {

@@ -261,6 +261,8 @@ public class MyTools {
                 return ApkType.TYPE_CopyRead;
             } else if (temp.equals("FastRecord") && temp.equals(BuildConfig.FLAVOR) && BuildConfig.APK_TYPE == 2) {
                 return ApkType.TYPE_FastRecord;
+            } else if (temp.equals("Meiju") && temp.equals(BuildConfig.FLAVOR) && BuildConfig.APK_TYPE == 3) {
+                return ApkType.TYPE_MEIJU;
             }
         } catch (Exception e) {
             e.printStackTrace();

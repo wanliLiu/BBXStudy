@@ -166,7 +166,7 @@ public class MakeSubgect extends BaseActivity {
                     }
                     switch (msg.what) {
                         case PictureDownload:
-                            if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead && !app.getSwitch(SP.CopySwitchpic)) {
+                            if ((MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU || MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) && !app.getSwitch(SP.CopySwitchpic)) {
                                 downLoadHandler.sendEmptyMessage(MP3Download);
                             } else {
                                 temp = dataBeans.get(downloadIndex).getPic_addr();
@@ -319,7 +319,7 @@ public class MakeSubgect extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (MyTools.getCurrentApkType(this) == ApkType.TYPE_CopyRead) {
+        if (MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
             isScreenLandsape = true;
         }
         super.onCreate(savedInstanceState);
@@ -377,7 +377,8 @@ public class MakeSubgect extends BaseActivity {
         OnimageTextDislay.setVisibility(View.GONE);
         imageInit();
 
-        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
+                MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
             findViewById(R.id.inCopy).setVisibility(View.GONE);
             findViewById(R.id.inCopy1).setVisibility(View.GONE);
             findViewById(R.id.inCopy2).setVisibility(View.GONE);
@@ -436,7 +437,7 @@ public class MakeSubgect extends BaseActivity {
     @Override
     protected void initListener() {
 
-        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+        if (MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
             headView.setVisibility(View.GONE);
             findViewById(R.id.btnbackCopyRead).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -485,7 +486,8 @@ public class MakeSubgect extends BaseActivity {
                 }
                 break;
             case R.id.answerDisplay:
-                if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+                if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
+                        MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
                     copyAnswerEn.setText(getString());
                 } else {
                     enContainer.setVisibility(View.VISIBLE);
@@ -505,7 +507,8 @@ public class MakeSubgect extends BaseActivity {
             case R.id.chinesDis:
                 if (subjectNum < dataBeans.size()) {
                     if (dataBeans.get(subjectNum).getIs_select() == 1) {
-                        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+                        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
+                                MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
                             copyAnswerCh.setText(dataBeans.get(subjectNum).getQuestion());
                         } else {
                             chContainer.setVisibility(View.VISIBLE);
@@ -649,8 +652,11 @@ public class MakeSubgect extends BaseActivity {
         if (subjectNum < dataBeans.size()) {
             showImageAndMp3();
         } else {
+            subjectNum = dataBeans.size() - 1;
             // 当前题目都昨晚了，进行下一个题目的播放
-            if (app.isPlayContinue() || MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+            if (app.isPlayContinue() ||
+                    MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
+                    MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
                 isPlayContinue();
             } else {
                 handler.removeMessages(0);
@@ -759,13 +765,15 @@ public class MakeSubgect extends BaseActivity {
 //		String soritString = dataBeans.get(index).getId();
         if (dataManager.IsHaveTheRecord(dataBeans.get(index).getId())) {
             if (dataManager.deleteAHistoryRecord(dataBeans.get(index).getId())) {
-                if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+                if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
+                        MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
                     ((ImageView) findViewById(R.id.favorite)).setImageResource(R.drawable.icon_favorite);
                 } else
                     btn.setTextColor(getResources().getColor(R.color.color_black));
             }
         } else {
             HistoryBean save = new HistoryBean();
+            save.setTitle(title);
             save.setFistId(FistId);
             save.setSecodeId(secodeId);
             save.setSort_id(dataBeans.get(index).getId());
@@ -774,7 +782,7 @@ public class MakeSubgect extends BaseActivity {
             save.setFavorite(dataBeans.get(index));
             app.getDBManger(Constants.FavoriteRecord).AddHistory(save);
             if (dataManager.IsHaveTheRecord(dataBeans.get(index).getId())) {
-                if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+                if (MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
                     ((ImageView) findViewById(R.id.favorite)).setImageResource(R.drawable.icon_favorite_have);
                 } else
                     btn.setTextColor(getResources().getColor(R.color.color_silde_menu_diviver_2));
@@ -1018,20 +1026,21 @@ public class MakeSubgect extends BaseActivity {
             startPlay.setEnabled(false);
         }
         if (favoriteState(subjectNum)) {
-            if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+            if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU) {
                 ((ImageView) findViewById(R.id.favorite)).setImageResource(R.drawable.icon_favorite_have);
             } else {
                 addFavorite.setTextColor(getResources().getColor(R.color.color_silde_menu_diviver_2));
             }
         } else {
-            if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+            if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU) {
                 ((ImageView) findViewById(R.id.favorite)).setImageResource(R.drawable.icon_favorite);
             } else {
                 addFavorite.setTextColor(getResources().getColor(R.color.color_black));
             }
         }
 
-        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
+                MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
             if (app.getSwitch(SP.CopySwitchAnswer)) {
                 copyAnswerEn.setText(getString());
             } else {
@@ -1046,7 +1055,7 @@ public class MakeSubgect extends BaseActivity {
         }
 
         if (!TextUtils.isEmpty(dataBeans.get(subjectNum).getPic_addr())) {
-            if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead && !app.getSwitch(SP.CopySwitchpic)) {
+            if ((MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU || MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) && !app.getSwitch(SP.CopySwitchpic)) {
                 headImag.setImageResource(R.drawable.no_image);
             } else {
                 String tempString = Constants.ResourceAddress + "res" + FistId + "/res" + secodeId + "/pic/" + dataBeans.get(subjectNum).getPic_addr();
@@ -1263,7 +1272,8 @@ public class MakeSubgect extends BaseActivity {
         super.onResume();
         isRunning = true;
 
-        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
+                MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
             copyAnswerCh.setTextSize(TypedValue.COMPLEX_UNIT_SP, app.getFontSize());
             copyAnswerEn.setTextSize(TypedValue.COMPLEX_UNIT_SP, app.getFontSize());
         } else {

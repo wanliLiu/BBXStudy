@@ -54,7 +54,8 @@ public class HistoryActivity extends BaseActivity {
     @Override
     protected void initListener() {
 
-        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
+                MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
 //            headView.setOnBackBtnListener(new HeadView.OnBackBtnListener() {
 //
 //                @Override

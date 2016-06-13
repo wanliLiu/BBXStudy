@@ -102,7 +102,8 @@ public class WishActivity extends BaseActivity {
             });
         }
 
-        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
+                MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
             favoriteList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -330,7 +331,8 @@ public class WishActivity extends BaseActivity {
                 });
             }
 
-            if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+            if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
+                    MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU) {
                 holder.takeAction.setVisibility(View.GONE);
                 holder.actDelete.setVisibility(View.VISIBLE);
                 holder.actDelete.setTag(position);

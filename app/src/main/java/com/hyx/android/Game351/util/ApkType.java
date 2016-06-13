@@ -6,5 +6,6 @@ package com.hyx.android.Game351.util;
 public enum ApkType {
     TYPE_21,//二选一
     TYPE_CopyRead,//复读机
-    TYPE_FastRecord//速记
+    TYPE_FastRecord,//速记
+    TYPE_MEIJU //铁杆美剧
 }

@@ -62,7 +62,9 @@ public class LoginActivity extends BaseActivity {
             }
         }
 
-        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
+                MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU ||
+                MyTools.getCurrentApkType(this) == ApkType.TYPE_21) {
             findViewById(R.id.actionBar).setVisibility(View.GONE);
         }
 

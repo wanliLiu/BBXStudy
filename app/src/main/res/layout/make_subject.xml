@@ -290,6 +290,18 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/btnRepet"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/transparent"
+                    android:gravity="center_horizontal|top"
+                    android:text="重播"
+                    android:textColor="#0000FF"
+                    android:textSize="@dimen/text_title"
+                    android:textStyle="bold" />
+
+                <Button
                     android:id="@+id/btnNext"
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
@@ -301,17 +313,6 @@
                     android:textSize="@dimen/text_title"
                     android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/btnRepet"
-                    android:layout_width="0.0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/transparent"
-                    android:gravity="center_horizontal|top"
-                    android:text="重播"
-                    android:textColor="#0000FF"
-                    android:textSize="@dimen/text_title"
-                    android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>
@@ -377,10 +378,10 @@
         android:layout_width="@dimen/head_view_height"
         android:layout_height="@dimen/head_view_height"
         android:layout_gravity="top|left"
-        android:visibility="gone"
         android:background="@drawable/textbtn_bg_selector"
         android:scaleType="centerInside"
-        android:src="@drawable/back" />
+        android:src="@drawable/back"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/favorite"
@@ -388,8 +389,8 @@
         android:layout_height="30dp"
         android:layout_gravity="top|right"
         android:layout_margin="10dip"
-        android:visibility="gone"
         android:src="@drawable/icon_favorite"
-        android:textSize="@dimen/text_normal" />
+        android:textSize="@dimen/text_normal"
+        android:visibility="gone" />
 
 </RelativeLayout>

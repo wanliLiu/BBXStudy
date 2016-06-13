@@ -48,7 +48,7 @@ public class ScoreActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (MyTools.getCurrentApkType(this) == ApkType.TYPE_CopyRead) {
+        if (MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
             isScreenLandsape = true;
         }
         super.onCreate(savedInstanceState);
@@ -76,7 +76,8 @@ public class ScoreActivity extends BaseActivity {
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.bottomAction);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) layout.getLayoutParams();
-        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
+                MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
             ChannelFast.setText("再来一遍");
             NewChannel.setText("新的复读");
 

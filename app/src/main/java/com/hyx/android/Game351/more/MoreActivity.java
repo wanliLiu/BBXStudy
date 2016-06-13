@@ -54,7 +54,7 @@ public class MoreActivity extends BaseActivity {
     private Handler cacheHander = new Handler() {
         public void handleMessage(Message msg) {
 
-            int index = (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_FastRecord || MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) ? 2 : 3;
+            int index = (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_FastRecord || MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead || MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU) ? 2 : 3;
 
             switch (msg.what) {
                 case 1: {
@@ -121,7 +121,8 @@ public class MoreActivity extends BaseActivity {
         moreSetting = (UITableView) findViewById(R.id.moreSetting);
 
         if (MyTools.getCurrentApkType(ctx) != ApkType.TYPE_FastRecord) {
-            if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+            if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
+                    MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU) {
 //                moreSetting.addBasicItem("记录");// 0
             }
             else
@@ -163,7 +164,8 @@ public class MoreActivity extends BaseActivity {
             toggleButtonAutoDisplay.setChecked(true);
         }
 
-        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
+                MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU) {
 //            findViewById(R.id.inCopy).setVisibility(View.GONE);
 //            findViewById(R.id.inCopy1).setVisibility(View.GONE);
             findViewById(R.id.inCopy2).setVisibility(View.GONE);
@@ -285,15 +287,16 @@ public class MoreActivity extends BaseActivity {
             @Override
             public void onItemClick(int index) {
 
-                if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_FastRecord)
+                if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_FastRecord ||
+                        MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
+                        MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU)
                     index += 1;
 
-                if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead)
-                    index += 1;
 
                 switch (index) {
                     case 0:
-                        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead) {
+                        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
+                                MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU) {
                             startActivity(new Intent(MoreActivity.this, HistoryActivity.class));
                         } else {
                             startActivity(new Intent(MoreActivity.this, WishActivity.class));

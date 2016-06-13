@@ -55,7 +55,8 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         mTabHost = getTabHost();
         mTabHost.addTab(mTabHost.newTabSpec("menu").setIndicator("menu").setContent(new Intent(this, MenuActivity.class)));
 
-        if (MyTools.getCurrentApkType(this) == ApkType.TYPE_CopyRead) {
+        if (MyTools.getCurrentApkType(this) == ApkType.TYPE_CopyRead ||
+                MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
             ((RadioButton) findViewById(R.id.favorite_check)).setText("记录");
             mTabHost.addTab(mTabHost.newTabSpec("His").setIndicator("His").setContent(new Intent(this, HistoryActivity.class)));
         } else {
@@ -67,12 +68,14 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
             mTabHost.addTab(mTabHost.newTabSpec("fastrecord").setIndicator("fastrecord").setContent(new Intent(this, WishActivity.class)));
         } else
             mTabHost.addTab(mTabHost.newTabSpec("history").setIndicator("history").setContent(new Intent(this, HistoryActivity.class)));
+
         mTabHost.addTab(mTabHost.newTabSpec("more").setIndicator("more").setContent(new Intent(this, MoreActivity.class)));
 
         radioGroup = (RadioGroup) findViewById(R.id.groupTab);
         radioGroup.setOnCheckedChangeListener(this);
 
-        if (MyTools.getCurrentApkType(this) == ApkType.TYPE_CopyRead) {
+        if (MyTools.getCurrentApkType(this) == ApkType.TYPE_CopyRead ||
+                MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
             radioGroup.check(R.id.menu_check);
         } else {
             mTabHost.setCurrentTab(1);

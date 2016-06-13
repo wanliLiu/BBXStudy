@@ -56,18 +56,19 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         mTabHost.addTab(mTabHost.newTabSpec("menu").setIndicator("menu").setContent(new Intent(this, MenuActivity.class)));
 
         if (MyTools.getCurrentApkType(this) == ApkType.TYPE_CopyRead ||
-                MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
+                MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU ||
+                MyTools.getCurrentApkType(this) == ApkType.TYPE_21) {
             ((RadioButton) findViewById(R.id.favorite_check)).setText("记录");
             mTabHost.addTab(mTabHost.newTabSpec("His").setIndicator("His").setContent(new Intent(this, HistoryActivity.class)));
         } else {
             mTabHost.addTab(mTabHost.newTabSpec("wish").setIndicator("wish").setContent(new Intent(this, TopicActivity.class)));
         }
 
-        if (MyTools.getCurrentApkType(this) != ApkType.TYPE_21) {
+//        if (MyTools.getCurrentApkType(this) != ApkType.TYPE_21) {
             ((RadioButton) findViewById(R.id.history_check)).setText("收藏");
             mTabHost.addTab(mTabHost.newTabSpec("fastrecord").setIndicator("fastrecord").setContent(new Intent(this, WishActivity.class)));
-        } else
-            mTabHost.addTab(mTabHost.newTabSpec("history").setIndicator("history").setContent(new Intent(this, HistoryActivity.class)));
+//        } else
+//            mTabHost.addTab(mTabHost.newTabSpec("history").setIndicator("history").setContent(new Intent(this, HistoryActivity.class)));
 
         mTabHost.addTab(mTabHost.newTabSpec("more").setIndicator("more").setContent(new Intent(this, MoreActivity.class)));
 
@@ -75,7 +76,8 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         radioGroup.setOnCheckedChangeListener(this);
 
         if (MyTools.getCurrentApkType(this) == ApkType.TYPE_CopyRead ||
-                MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
+                MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU ||
+                MyTools.getCurrentApkType(this) == ApkType.TYPE_21) {
             radioGroup.check(R.id.menu_check);
         } else {
             mTabHost.setCurrentTab(1);

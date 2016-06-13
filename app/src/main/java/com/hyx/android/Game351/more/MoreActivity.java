@@ -54,7 +54,7 @@ public class MoreActivity extends BaseActivity {
     private Handler cacheHander = new Handler() {
         public void handleMessage(Message msg) {
 
-            int index = (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_FastRecord || MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead || MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU) ? 2 : 3;
+            int index = (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_FastRecord || MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead || MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU || MyTools.getCurrentApkType(ctx) == ApkType.TYPE_21) ? 2 : 3;
 
             switch (msg.what) {
                 case 1: {
@@ -122,7 +122,8 @@ public class MoreActivity extends BaseActivity {
 
         if (MyTools.getCurrentApkType(ctx) != ApkType.TYPE_FastRecord) {
             if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
-                    MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU) {
+                    MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU ||
+                    MyTools.getCurrentApkType(this) == ApkType.TYPE_21) {
 //                moreSetting.addBasicItem("记录");// 0
             }
             else
@@ -287,9 +288,11 @@ public class MoreActivity extends BaseActivity {
             @Override
             public void onItemClick(int index) {
 
-                if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_FastRecord ||
-                        MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
-                        MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU)
+//                if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_FastRecord ||
+//                        MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
+//                        MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU ||
+//                        MyTools.getCurrentApkType(ctx) == ApkType.TYPE_21)
+
                     index += 1;
 
 

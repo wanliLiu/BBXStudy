@@ -26,7 +26,6 @@ import com.hyx.android.Game351.modle.SubjectBean;
 import com.hyx.android.Game351.util.ApkType;
 import com.hyx.android.Game351.util.MyTools;
 import com.hyx.android.Game351.view.HeadView;
-import com.hyx.android.Game351.view.HeadView.OnBackBtnListener;
 import com.hyx.android.Game351.view.dialog.DefaultDialog;
 import com.hyx.android.Game351.view.dialog.DialogSelectListener;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
@@ -92,18 +91,19 @@ public class WishActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
-        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_21) {
-            headView.setOnBackBtnListener(new OnBackBtnListener() {
-
-                @Override
-                public void onClick() {
-                    onBackPressed();
-                }
-            });
-        }
+//        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_21) {
+//            headView.setOnBackBtnListener(new OnBackBtnListener() {
+//
+//                @Override
+//                public void onClick() {
+//                    onBackPressed();
+//                }
+//            });
+//        }
 
         if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
-                MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
+                MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU ||
+                MyTools.getCurrentApkType(this) == ApkType.TYPE_21) {
             favoriteList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -332,7 +332,8 @@ public class WishActivity extends BaseActivity {
             }
 
             if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
-                    MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU) {
+                    MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU ||
+                    MyTools.getCurrentApkType(ctx) == ApkType.TYPE_21) {
                 holder.takeAction.setVisibility(View.GONE);
                 holder.actDelete.setVisibility(View.VISIBLE);
                 holder.actDelete.setTag(position);

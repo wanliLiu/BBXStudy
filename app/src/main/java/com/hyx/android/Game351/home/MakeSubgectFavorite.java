@@ -184,7 +184,7 @@ public class MakeSubgectFavorite extends BaseActivity {
         headImag = (ImageView) findViewById(R.id.showimage);
 
         useTime = (TextView) findViewById(R.id.useTime);
-        useTime.setText("00:00");
+        useTime.setVisibility(View.GONE);
         noMp3chinesase = (TextView) findViewById(R.id.chinesase);
 
         playIng = (LinearLayout) findViewById(R.id.chose);

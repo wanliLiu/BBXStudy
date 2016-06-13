@@ -144,7 +144,7 @@ public class MakeSubgect extends BaseActivity {
                 tempMunites = "" + munites;
             }
 
-            useTime.setText(tempMunites + ":" + tempSecond);
+//            useTime.setText(tempMunites + ":" + tempSecond);
 
             handler.sendEmptyMessageDelayed(0, 1000);
         }
@@ -344,6 +344,7 @@ public class MakeSubgect extends BaseActivity {
         headImag = (ImageView) findViewById(R.id.showimage);
 
         useTime = (TextView) findViewById(R.id.useTime);
+        useTime.setVisibility(View.INVISIBLE);
         useTime.setText("00:00");
         noMp3chinesase = (TextView) findViewById(R.id.chinesase);
 
@@ -656,7 +657,8 @@ public class MakeSubgect extends BaseActivity {
             // 当前题目都昨晚了，进行下一个题目的播放
             if (app.isPlayContinue() ||
                     MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
-                    MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
+                    MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU ||
+                    MyTools.getCurrentApkType(this) == ApkType.TYPE_21) {
                 isPlayContinue();
             } else {
                 handler.removeMessages(0);

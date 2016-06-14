@@ -314,7 +314,10 @@ public class MakeSubgectFavorite extends BaseActivity {
         answerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                dealAnswerDisplay(posAdapter.getItem(position));
+                if (dealAnswerDisplay(posAdapter.getItem(position))) {
+                    posAdapter.getItem(position).setShow(false);
+                    posAdapter.notifyDataSetChanged();
+                }
             }
         });
     }
@@ -322,7 +325,8 @@ public class MakeSubgectFavorite extends BaseActivity {
     /**
      *
      */
-    private void dealAnswerDisplay(PositionBean bean) {
+    private boolean dealAnswerDisplay(PositionBean bean) {
+        boolean isOk = false;
         if (bean.getPosition() == answerIndex) {
             String exist = OnimageTextDislay.getText().toString();
             if (TextUtils.isEmpty(exist)) {
@@ -345,11 +349,14 @@ public class MakeSubgectFavorite extends BaseActivity {
                         getIntoNext();
                     }
                 }, 300);
-
             }
+
+            isOk = true;
         } else {
             playErrorSound();
         }
+
+        return isOk;
     }
 
     @Override
@@ -486,7 +493,7 @@ public class MakeSubgectFavorite extends BaseActivity {
 
                 sp.play(recouid, 1f, 1f, 0, 0, 1);
             }
-        }, 100);
+        }, 300);
     }
 
     @Override

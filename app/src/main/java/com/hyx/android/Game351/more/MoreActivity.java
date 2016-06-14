@@ -125,8 +125,7 @@ public class MoreActivity extends BaseActivity {
                     MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU ||
                     MyTools.getCurrentApkType(this) == ApkType.TYPE_21) {
 //                moreSetting.addBasicItem("记录");// 0
-            }
-            else
+            } else
                 moreSetting.addBasicItem("收藏");// 0
         }
 
@@ -166,7 +165,8 @@ public class MoreActivity extends BaseActivity {
         }
 
         if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
-                MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU) {
+                MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU ||
+                MyTools.getCurrentApkType(ctx) == ApkType.TYPE_21) {
 //            findViewById(R.id.inCopy).setVisibility(View.GONE);
 //            findViewById(R.id.inCopy1).setVisibility(View.GONE);
             findViewById(R.id.inCopy2).setVisibility(View.GONE);
@@ -293,7 +293,7 @@ public class MoreActivity extends BaseActivity {
 //                        MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU ||
 //                        MyTools.getCurrentApkType(ctx) == ApkType.TYPE_21)
 
-                    index += 1;
+                index += 1;
 
 
                 switch (index) {

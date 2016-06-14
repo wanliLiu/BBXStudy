@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.hyx.android.Game351.BuildConfig;
 import com.hyx.android.Game351.MainActivity;
 import com.hyx.android.Game351.R;
 import com.hyx.android.Game351.base.BaseActivity;
@@ -61,6 +62,12 @@ public class LoginActivity extends BaseActivity {
                 pwdInput.setText(app.getUserPassword());
             }
         }
+
+        if (BuildConfig.DEBUG) {
+            accountInput.setText("18905162199");
+            pwdInput.setText("xgn111");
+        }
+
 
         if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
                 MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU ||

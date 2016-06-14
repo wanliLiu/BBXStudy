@@ -96,11 +96,6 @@
                     android:textSize="@dimen/text_normal" />
             </com.hyx.android.Game351.view.MarqueeView>
 
-            <View
-                android:id="@+id/dkldks"
-                android:layout_width="match_parent"
-                android:layout_height="5dip"
-                android:background="@drawable/transparent" />
         </LinearLayout>
 
         <FrameLayout
@@ -203,44 +198,25 @@
                 </LinearLayout>
             </RelativeLayout>
 
-            <LinearLayout
+            <ScrollView
                 android:id="@+id/chose"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="invisible">
 
-                <Button
-                    android:id="@+id/btn1"
-                    android:layout_width="0.0dip"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/transparent"
-                    android:gravity="top|center_horizontal"
-                    android:paddingBottom="10dip"
-                    android:paddingLeft="10dip"
-                    android:paddingRight="10dip"
-                    android:paddingTop="5dip"
-                    android:text="Left"
-                    android:textColor="#0000FF"
-                    android:textSize="@dimen/text_normal_big"
-                    android:textStyle="bold" />
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
 
-                <Button
-                    android:id="@+id/btn2"
-                    android:layout_width="0.0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/transparent"
-                    android:gravity="top|center_horizontal"
-                    android:paddingBottom="10dip"
-                    android:paddingLeft="10dip"
-                    android:paddingRight="10dip"
-                    android:paddingTop="5dip"
-                    android:text="Right"
-                    android:textColor="#0000FF"
-                    android:textSize="@dimen/text_normal_big"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    <com.hyx.android.Game351.view.AutoWrapListView
+                        android:id="@+id/answerList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </ScrollView>
         </FrameLayout>
 
         <LinearLayout

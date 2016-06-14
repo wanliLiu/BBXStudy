@@ -18,11 +18,11 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -43,11 +43,13 @@ import com.hyx.android.Game351.data.HttpUtil;
 import com.hyx.android.Game351.data.Result;
 import com.hyx.android.Game351.modle.HistoryBean;
 import com.hyx.android.Game351.modle.MenuDataBean;
+import com.hyx.android.Game351.modle.PositionBean;
 import com.hyx.android.Game351.modle.SubjectBean;
 import com.hyx.android.Game351.util.ApkType;
 import com.hyx.android.Game351.util.MLog;
 import com.hyx.android.Game351.util.MyTools;
 import com.hyx.android.Game351.util.SP;
+import com.hyx.android.Game351.view.AutoWrapListView;
 import com.hyx.android.Game351.view.HeadView;
 import com.hyx.android.Game351.view.HeadView.OnActionBtnListener;
 import com.hyx.android.Game351.view.HeadView.OnBackBtnListener;
@@ -60,6 +62,7 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -84,21 +87,24 @@ public class MakeSubgect extends BaseActivity {
     private MarqueeView enContainer, chContainer;
     //copy read
     private TextView copyAnswerCh, copyAnswerEn;
-    private LinearLayout playIng;
-    private View voiceRecod;
+    private View voiceRecod, playIng;
     private TextView recordTime;
     private ImageView voiceLevel;
-    private Button btnLeft, btnRight, answerDisplay, addFavorite, chinesDis;
+    private Button answerDisplay, addFavorite, chinesDis;
     private menuAdapter adapter;
     private GridView faslist;
     private boolean isDisplayEn, isDisplayCH = true;
     private ImageLoader imageLoader;
     private DisplayImageOptions options;
     private String FistId, secodeId;
+
     private int subjectNum = 0;
-    private String[] answer;
-    private List<OneDisplay> answerDis = new ArrayList<MakeSubgect.OneDisplay>();
     private int answerIndex = 0;
+
+    private PosAdapter posAdapter;
+    private AutoWrapListView answerList;
+
+
     // 记录时间
     private int seconds = 0;
     private int downloadIndex = 0;
@@ -122,6 +128,7 @@ public class MakeSubgect extends BaseActivity {
     private String text = "";
     private int errorTime = 0;
     private boolean isFromButton = false;
+
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
 
@@ -187,8 +194,7 @@ public class MakeSubgect extends BaseActivity {
                             break;
                         case MP3Download:
                             temp = dataBeans.get(downloadIndex).getMp3_addr();
-                            if (TextUtils.isEmpty(temp)
-                                    || dataBeans.get(subjectNum).getIs_select() == 2) {
+                            if (TextUtils.isEmpty(temp)) {
                                 downLoadHandler.sendEmptyMessage(NextOnew);
                             } else {
                                 temp = Constants.ResourceAddress + "res" + FistId + "/res" + secodeId + "/audio/" + dataBeans.get(downloadIndex).getMp3_addr();
@@ -332,6 +338,11 @@ public class MakeSubgect extends BaseActivity {
 
         headView = (HeadView) findViewById(R.id.headView);
 
+        answerList = (AutoWrapListView) findViewById(R.id.answerList);
+        posAdapter = new PosAdapter(ctx);
+        answerList.setAdapter(posAdapter);
+        answerList.setDividerHeight(0);
+        answerList.setDividerWidth(0);
 
         haveMp3 = (RelativeLayout) findViewById(R.id.haveMp3);
         haveMp3.setVisibility(View.GONE);
@@ -348,7 +359,7 @@ public class MakeSubgect extends BaseActivity {
         useTime.setText("00:00");
         noMp3chinesase = (TextView) findViewById(R.id.chinesase);
 
-        playIng = (LinearLayout) findViewById(R.id.chose);
+        playIng = findViewById(R.id.chose);
         voiceRecod = findViewById(R.id.voiceRecodAtte);
         recordTime = (TextView) findViewById(R.id.recordTime);
         voiceLevel = (ImageView) findViewById(R.id.voiceLevel);
@@ -361,10 +372,6 @@ public class MakeSubgect extends BaseActivity {
         enContainer.setVisibility(View.INVISIBLE);
         chContainer.setVisibility(View.INVISIBLE);
 
-        btnLeft = (Button) findViewById(R.id.btn1);
-        btnLeft.setOnClickListener(this);
-        btnRight = (Button) findViewById(R.id.btn2);
-        btnRight.setOnClickListener(this);
         answerDisplay = (Button) findViewById(R.id.answerDisplay);
         answerDisplay.setOnClickListener(this);
         addFavorite = (Button) findViewById(R.id.addFavorite);
@@ -474,6 +481,45 @@ public class MakeSubgect extends BaseActivity {
             }
         });
 
+        answerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                dealAnswerDisplay(posAdapter.getItem(position));
+            }
+        });
+    }
+
+    /**
+     *
+     */
+    private void dealAnswerDisplay(PositionBean bean) {
+        if (bean.getPosition() == answerIndex) {
+            String exist = OnimageTextDislay.getText().toString();
+            if (TextUtils.isEmpty(exist)) {
+                exist = bean.getStr() + " ";
+            } else {
+                exist += bean.getStr() + " ";
+            }
+
+            if (isWorld())
+                exist = exist.trim();
+
+            OnimageTextDislay.setText(exist);
+            OnimageTextDislay.setVisibility(View.VISIBLE);
+            answerIndex++;
+            if (answerIndex == posAdapter.getCount()) {
+                OnimageTextDislay.postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        getIntoNext();
+                    }
+                }, 300);
+
+            }
+        } else {
+            playErrorSound();
+        }
     }
 
     @Override
@@ -498,10 +544,10 @@ public class MakeSubgect extends BaseActivity {
                 break;
             case R.id.favorite:
             case R.id.addFavorite:
-                if (dataBeans.get(subjectNum).getIs_select() == 1) {
+                if (dataBeans.get(subjectNum).getIs_select() == 1 || dataBeans.get(subjectNum).getIs_select() == 2) {
                     FavoriteRecord(subjectNum, addFavorite);
                 } else {
-                    MyToast("亲，翻译题不能收藏！！！");
+                    MyToast("不能收藏！！！");
                 }
 
                 break;
@@ -525,83 +571,6 @@ public class MakeSubgect extends BaseActivity {
                 getIntoNext();
             }
             break;
-            case R.id.btn1:
-                if (answerIndex < answerDis.size()) {
-                    if (answerDis.get(answerIndex).getLeftDisplay().rightOrError) {// 选择正确
-                        String exist = OnimageTextDislay.getText().toString();
-                        if (TextUtils.isEmpty(exist)) {
-                            exist = answerDis.get(answerIndex).getLeftDisplay().answer
-                                    + " ";
-                        } else {
-                            exist += answerDis.get(answerIndex).getLeftDisplay().answer
-                                    + " ";
-                        }
-                        OnimageTextDislay.setText(exist);
-                        OnimageTextDislay.setVisibility(View.VISIBLE);
-                        answerIndex++;
-                        if (answerIndex == answerDis.size()) {
-                            OnimageTextDislay.postDelayed(new Runnable() {
-
-                                @Override
-                                public void run() {
-                                    getIntoNext();
-                                }
-                            }, 300);
-
-                        } else {
-                            ChangeAnswerDisplay();
-                        }
-
-                    } else {
-                        isNextButtonClick = true;
-                        // // 选择错误，从新来
-                        // answerIndex = 0;
-                        // ChangeAnswerDisplay();
-                        // 给出提示音
-                        playErrorSound();
-                    }
-                }
-                break;
-            case R.id.btnNext: {
-                isNextButtonClick = true;
-                getIntoNext();
-            }
-            break;
-            case R.id.btn2:
-                if (answerIndex < answerDis.size()) {
-                    if (answerDis.get(answerIndex).getRightDisplay().rightOrError) {// 选择正确
-                        String exist = OnimageTextDislay.getText().toString();
-                        if (TextUtils.isEmpty(exist)) {
-                            exist = answerDis.get(answerIndex).getRightDisplay().answer
-                                    + " ";
-                        } else {
-                            exist += answerDis.get(answerIndex).getRightDisplay().answer
-                                    + " ";
-                        }
-                        OnimageTextDislay.setText(exist);
-                        OnimageTextDislay.setVisibility(View.VISIBLE);
-                        answerIndex++;
-                        if (answerIndex == answerDis.size()) {
-                            OnimageTextDislay.postDelayed(new Runnable() {
-
-                                @Override
-                                public void run() {
-                                    getIntoNext();
-                                }
-                            }, 300);
-                        } else {
-                            ChangeAnswerDisplay();
-                        }
-                    } else {
-                        isNextButtonClick = true;
-                        // 选择错误，从新来
-                        // answerIndex = 0;
-                        // ChangeAnswerDisplay();
-                        // 给出提示音
-                        playErrorSound();
-                    }
-                }
-                break;
             default:
                 break;
         }
@@ -947,41 +916,6 @@ public class MakeSubgect extends BaseActivity {
 
     }
 
-    /**
-     * 打乱数据
-     */
-    private void putDataToDisplay() {
-        answerDis.clear();
-        if (answer.length == 1) {
-            OneDisplay tepDisplay = new OneDisplay();
-            tepDisplay.setRightDisplay(new anArray(answer[0], true));
-            tepDisplay.setLeftDisplay(new anArray("", false));
-            answerDis.add(tepDisplay);
-        } else {
-            for (int i = 0; i < answer.length; i += 2) {
-                OneDisplay tepDisplay = new OneDisplay();
-                int rd = Math.random() > 0.5 ? 1 : 0;
-                if (rd == 1) {
-                    tepDisplay.setRightDisplay(new anArray(answer[i], true));
-                    tepDisplay.setLeftDisplay(new anArray(answer[i + 1], false));
-                } else {
-                    tepDisplay.setRightDisplay(new anArray(answer[i + 1], false));
-                    tepDisplay.setLeftDisplay(new anArray(answer[i], true));
-                }
-
-                answerDis.add(tepDisplay);
-            }
-        }
-    }
-
-    /**
-     * 显示
-     */
-    private void ChangeAnswerDisplay() {
-        btnRight.setText(answerDis.get(answerIndex).getRightDisplay().answer);
-        btnLeft.setText(answerDis.get(answerIndex).getLeftDisplay().answer);
-    }
-
     /********************************** 进入一个题目吧当前所有的音频文件和图片都下载到缓存目录中 *************************************/
 
     /**
@@ -1002,6 +936,34 @@ public class MakeSubgect extends BaseActivity {
     }
 
     /**
+     * 看是否是单词
+     */
+    private boolean isWorld() {
+        return dataBeans.get(subjectNum).getIs_select() == 2;
+    }
+
+    /**
+     * @param str
+     */
+    private void dealPosition(String str) {
+        answerIndex = 0;
+
+        String[] answer = str.split("\\|");
+
+        List<PositionBean> WordsPos = new ArrayList<>();
+        for (int i = 0; i < answer.length; i++) {
+            WordsPos.add(new PositionBean(i, answer[i]));
+        }
+
+        //打乱排序
+        Collections.shuffle(WordsPos);
+
+        posAdapter.setIsWorld(isWorld());
+        posAdapter.setList(WordsPos);
+
+    }
+
+    /**
      * 播放音频
      */
     private void showImageAndMp3() {
@@ -1019,9 +981,7 @@ public class MakeSubgect extends BaseActivity {
         if (dataBeans.get(subjectNum).getIs_select() == 1 ||
                 dataBeans.get(subjectNum).getIs_select() == 2) {
             if (!isFromButton) {
-                answer = dataBeans.get(subjectNum).getAnswer().split("\\|");
-                putDataToDisplay();
-                ChangeAnswerDisplay();
+                dealPosition(dataBeans.get(subjectNum).getAnswer());
             }
 
         } else {
@@ -1079,7 +1039,7 @@ public class MakeSubgect extends BaseActivity {
             headImag.setImageResource(R.drawable.no_image);
         }
 
-        if (!(TextUtils.isEmpty(dataBeans.get(subjectNum).getMp3_addr())) && (dataBeans.get(subjectNum).getIs_select() == 1 || dataBeans.get(subjectNum).getIs_select() == 3)) {
+        if (!(TextUtils.isEmpty(dataBeans.get(subjectNum).getMp3_addr())) && (dataBeans.get(subjectNum).getIs_select() == 1 || dataBeans.get(subjectNum).getIs_select() == 2 || dataBeans.get(subjectNum).getIs_select() == 3)) {
             haveMp3.setVisibility(View.VISIBLE);
             noMp3.setVisibility(View.GONE);
             chContainer.setVisibility(View.VISIBLE);
@@ -1120,6 +1080,7 @@ public class MakeSubgect extends BaseActivity {
                             } else {
                                 startPlay.setEnabled(true);
                                 playIng.setVisibility(View.VISIBLE);
+                                answerList.requestLayout();
                                 voiceRecod.setVisibility(View.GONE);
                                 // 连续播放
                                 if (app.isPlayContinue() && isRunning) {
@@ -1131,10 +1092,6 @@ public class MakeSubgect extends BaseActivity {
                                         }
                                     }, app.getPlayTime());
                                 }
-
-
-                                autoDisplay();
-
                             }
                         }
                     });
@@ -1151,11 +1108,8 @@ public class MakeSubgect extends BaseActivity {
                 StartRecord();
             } else {
                 playIng.setVisibility(View.VISIBLE);
+                answerList.requestLayout();
                 voiceRecod.setVisibility(View.GONE);
-
-                if (dataBeans.get(subjectNum).getIs_select() == 2) {
-                    autoDisplay();
-                }
             }
             haveMp3.setVisibility(View.GONE);
             noMp3.setVisibility(View.VISIBLE);
@@ -1189,13 +1143,17 @@ public class MakeSubgect extends BaseActivity {
                 dataBeans.get(subjectNum).getIs_select() == 4) {
             temp = dataBeans.get(subjectNum).getAnswer();
         } else {
+            String[] answer = dataBeans.get(subjectNum).getAnswer().split("\\|");
             for (int i = 0; i < answer.length; i++) {
 
-                if (i % 2 == 0) {
-                    temp += answer[i] + " ";
-                }
+//                if (i % 2 == 0) {
+                temp += answer[i] + " ";
+//                }
             }
         }
+
+        if (isWorld())
+            temp = temp.trim();
 
         return temp;
     }
@@ -1204,7 +1162,6 @@ public class MakeSubgect extends BaseActivity {
      * Creates a constant cache file path given a target cache directory and an
      * image key.
      *
-     * @param cacheDir
      * @param key
      * @return
      */
@@ -1278,9 +1235,6 @@ public class MakeSubgect extends BaseActivity {
                 MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
             copyAnswerCh.setTextSize(TypedValue.COMPLEX_UNIT_SP, app.getFontSize());
             copyAnswerEn.setTextSize(TypedValue.COMPLEX_UNIT_SP, app.getFontSize());
-        } else {
-            btnLeft.setTextSize(TypedValue.COMPLEX_UNIT_SP, app.getFontSize());
-            btnRight.setTextSize(TypedValue.COMPLEX_UNIT_SP, app.getFontSize());
         }
         OnimageTextDislay.setTextSize(app.getFontSize());
     }
@@ -1439,75 +1393,6 @@ public class MakeSubgect extends BaseActivity {
                 }
             }, 500);
 //			MyToast("网络连接出错！");
-        }
-    }
-
-    private void autoDisplay() {
-        if (app.isAutoDisplay() && app.getShowtime() > 0) {
-            if (answerIndex < answerDis.size()) {
-
-                answerIndex++;
-                if (answerIndex == answerDis.size()) {
-                    OnimageTextDislay.postDelayed(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            getIntoNext();
-                        }
-                    }, app.getShowtime());
-
-                } else {
-                    OnimageTextDislay.postDelayed(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            ChangeAnswerDisplay();
-                            autoDisplay();
-                        }
-                    }, app.getShowtime());
-
-                }
-            }
-        }
-    }
-
-    /**
-     * @author acer
-     */
-    private class OneDisplay {
-        public anArray leftDisplay;
-        public anArray rightDisplay;
-
-        public anArray getLeftDisplay() {
-            return leftDisplay;
-        }
-
-        public void setLeftDisplay(anArray leftDisplay) {
-            this.leftDisplay = leftDisplay;
-        }
-
-        public anArray getRightDisplay() {
-            return rightDisplay;
-        }
-
-        public void setRightDisplay(anArray rightDisplay) {
-            this.rightDisplay = rightDisplay;
-        }
-
-    }
-
-    /**
-     * 选择答案的组合
-     *
-     * @author acer
-     */
-    private class anArray {
-        public String answer;
-        public boolean rightOrError;
-
-        public anArray(String answer, boolean isRight) {
-            this.answer = answer;
-            rightOrError = isRight;
         }
     }
 

@@ -14,8 +14,9 @@ public class SubjectBean implements Serializable {
     private String pic_addr;
     private String subject_sort_id;
     private String answer;
-    //1---听力
-    //2---看
+    //1---句子
+    //2---单词
+
     //3---复述过关
     //4---口语过关‍
     private int is_select;

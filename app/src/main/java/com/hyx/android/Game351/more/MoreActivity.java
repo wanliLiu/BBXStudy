@@ -393,6 +393,9 @@ public class MoreActivity extends BaseActivity {
         if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_21)
             size -= 10;
 
+        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead)
+            size -= 5;
+
         return size;
     }
 

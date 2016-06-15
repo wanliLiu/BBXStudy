@@ -246,7 +246,7 @@ public class MyApplication extends Application {
     /**
      * 连续播放的时间
      *
-     * @param time
+     * @param size
      */
     public void SetFontSize(int size) {
         SP.getEdit(this).putInt(SP.SUBJECTFONT, size).commit();
@@ -259,6 +259,8 @@ public class MyApplication extends Application {
         int sp = SP.getSp(this).getInt(SP.SUBJECTFONT, 0) + 14;
         if (MyTools.getCurrentApkType(this) == ApkType.TYPE_21)
             sp += 10;
+        if (MyTools.getCurrentApkType(this) == ApkType.TYPE_CopyRead)
+            sp += 5;
         return sp;
     }
 

@@ -496,11 +496,22 @@ public class MakeSubgect extends BaseActivity {
     }
 
     /**
+     * @param str
+     * @return
+     */
+    private boolean isEqualTheSame(String str) {
+        String[] temp = dataBeans.get(subjectNum).getAnswer().split("\\|");
+
+        return str.equalsIgnoreCase(temp[answerIndex]);
+    }
+
+    /**
      *
      */
     private boolean dealAnswerDisplay(PositionBean bean) {
         boolean isOk = false;
-        if (bean.getPosition() == answerIndex) {
+        //能对上号，或是相等
+        if (bean.getPosition() == answerIndex || isEqualTheSame(bean.getStr())) {
             String exist = OnimageTextDislay.getText().toString();
             if (TextUtils.isEmpty(exist)) {
                 exist = bean.getStr() + " ";

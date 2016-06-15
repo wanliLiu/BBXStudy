@@ -321,12 +321,23 @@ public class MakeSubgectFavorite extends BaseActivity {
         });
     }
 
+
+    /**
+     * @param str
+     * @return
+     */
+    private boolean isEqualTheSame(String str) {
+        String[] temp = dataBeans.get(subjectNum).getFavorite().getAnswer().split("\\|");
+
+        return str.equalsIgnoreCase(temp[answerIndex]);
+    }
+
     /**
      *
      */
     private boolean dealAnswerDisplay(PositionBean bean) {
         boolean isOk = false;
-        if (bean.getPosition() == answerIndex) {
+        if (bean.getPosition() == answerIndex || isEqualTheSame(bean.getStr())) {
             String exist = OnimageTextDislay.getText().toString();
             if (TextUtils.isEmpty(exist)) {
                 exist = bean.getStr() + " ";

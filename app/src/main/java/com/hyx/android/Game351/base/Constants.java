@@ -34,7 +34,7 @@ public class Constants {
     public static final String UserAddress = BuildConfig.Address;
     public static final String GuestAddress = BuildConfig.GuestAddress;//体验接口地址
     public static final String ResourceAddress = "http://www.tgbbx.com/resources/";
-    public static final String ServerTopidAddress = "http://www.tgbbx.com/api/api6_3.php";
+    public static final String ServerTopidAddress = "http://www.tgbbx.com/apinew/api6_3.php";
     public static final String ServerTopicAdd = "http://www.tgbbx.com/";
     public static String ServerDataAddress = "";
 

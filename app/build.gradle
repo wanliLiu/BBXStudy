@@ -10,8 +10,8 @@ android {
 
     defaultConfig {
         buildConfigField "int", "APK_TYPE", "0"
-        buildConfigField "String", "GuestAddress", "\"http://www.tgbbx.com/api/api6_6.php\""
-        buildConfigField "String", "Address", "\"http://www.tgbbx.com/api/api6_4.php\""
+        buildConfigField "String", "GuestAddress", "\"http://www.tgbbx.com/apinew/api6_6.php\""
+        buildConfigField "String", "Address", "\"http://www.tgbbx.com/apinew/api6_4.php\""
         minSdkVersion 12
         targetSdkVersion 22
     }
@@ -67,7 +67,7 @@ android {
 
         Type21 {
             applicationId "com.hyx.android.Game351"
-            buildConfigField "String", "Address", "\"http://www.tgbbx.com/api/api6_2.php\""
+            buildConfigField "String", "Address", "\"http://www.tgbbx.com/apinew/api6_2.php\""
             buildConfigField "int", "APK_TYPE", "0"
             versionCode 20160615
             versionName "9.1.3"
@@ -89,8 +89,8 @@ android {
 
         Meiju {
             applicationId "com.tiegan.meiju"
-            buildConfigField "String", "GuestAddress", "\"http://www.tgbbx.com/api/api6_dytest.php\""
-            buildConfigField "String", "Address", "\"http://www.tgbbx.com/api/api6_dy.php\""
+            buildConfigField "String", "GuestAddress", "\"http://www.tgbbx.com/apinew/api6_dytest.php\""
+            buildConfigField "String", "Address", "\"http://www.tgbbx.com/apinew/api6_dy.php\""
             buildConfigField "int", "APK_TYPE", "3"
             versionCode 20160615
             versionName "9.1.3"

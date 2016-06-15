@@ -46,11 +46,11 @@
         <activity android:name=".favorite.WishActivity" />
         <activity android:name=".history.HistoryActivity" />
         <activity android:name=".more.MoreActivity" />
-        <activity
-            android:name="cn.smssdk.SMSSDKUIShell"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <!--<activity-->
+        <!--android:name="cn.smssdk.SMSSDKUIShell"-->
+        <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
+        <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"-->
+        <!--android:windowSoftInputMode="stateHidden|adjustResize" />-->
 
         <!-- 统计用，service用于保证一定能够向服务器上传数据 -->
         <service

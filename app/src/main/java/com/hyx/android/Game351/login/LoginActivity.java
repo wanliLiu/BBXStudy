@@ -75,7 +75,7 @@ public class LoginActivity extends BaseActivity {
             findViewById(R.id.actionBar).setVisibility(View.GONE);
         }
 
-        SMSSDK.initSDK(this, APPKEY, APPSECRET);
+//        SMSSDK.initSDK(this, APPKEY, APPSECRET);
     }
 
     @Override

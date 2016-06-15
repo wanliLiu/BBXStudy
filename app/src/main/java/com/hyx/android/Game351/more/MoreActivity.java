@@ -388,7 +388,7 @@ public class MoreActivity extends BaseActivity {
      * @return
      */
     private int getFontSize() {
-        int size = getFontSize();
+        int size = app.getFontSize();
 
         if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_21)
             size -= 10;

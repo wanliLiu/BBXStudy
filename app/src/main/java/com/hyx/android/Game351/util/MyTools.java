@@ -2,6 +2,7 @@ package com.hyx.android.Game351.util;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -269,5 +270,24 @@ public class MyTools {
         }
 
         return ApkType.TYPE_21;
+    }
+
+
+    /**
+     * 获取软件版本号
+     *
+     * @param ctx
+     * @return
+     */
+    public static String getAppVersionName(Context ctx) {
+        String result;
+        try {
+            PackageManager pm = ctx.getPackageManager();// 获得包管理器
+            PackageInfo pi = pm.getPackageInfo(ctx.getPackageName(), PackageManager.GET_ACTIVITIES);
+            result = String.valueOf(pi.versionName);
+        } catch (Exception e) {
+            result = "0.0";
+        }
+        return result;
     }
 }

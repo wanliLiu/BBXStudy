@@ -151,7 +151,7 @@ public class MakeSubgect extends BaseActivity {
                 tempMunites = "" + munites;
             }
 
-//            useTime.setText(tempMunites + ":" + tempSecond);
+            useTime.setText(tempMunites + ":" + tempSecond);
 
             handler.sendEmptyMessageDelayed(0, 1000);
         }
@@ -355,7 +355,9 @@ public class MakeSubgect extends BaseActivity {
         headImag = (ImageView) findViewById(R.id.showimage);
 
         useTime = (TextView) findViewById(R.id.useTime);
-        useTime.setVisibility(View.INVISIBLE);
+        if (MyTools.getCurrentApkType(ctx) != ApkType.TYPE_21)
+            useTime.setVisibility(View.INVISIBLE);
+
         useTime.setText("00:00");
         noMp3chinesase = (TextView) findViewById(R.id.chinesase);
 
@@ -434,6 +436,7 @@ public class MakeSubgect extends BaseActivity {
         }
 
         --subjectNum;
+        isFromButton = false;
         if (subjectNum >= 0) {
             showImageAndMp3();
         } else {
@@ -523,7 +526,9 @@ public class MakeSubgect extends BaseActivity {
 
             isOk = true;
         } else {
-            playErrorSound();
+            isNextButtonClick = true;
+            if (bean.isShow())
+                playErrorSound();
         }
 
         return isOk;
@@ -544,6 +549,7 @@ public class MakeSubgect extends BaseActivity {
                         MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
                     copyAnswerEn.setText(getString());
                 } else {
+                    isNextButtonClick = true;
                     enContainer.setVisibility(View.VISIBLE);
                     textEnDis.setText(getString());
                     enContainer.startMarquee();
@@ -638,8 +644,8 @@ public class MakeSubgect extends BaseActivity {
             // 当前题目都昨晚了，进行下一个题目的播放
             if (app.isPlayContinue() ||
                     MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
-                    MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU ||
-                    MyTools.getCurrentApkType(this) == ApkType.TYPE_21) {
+                    MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
+                //||MyTools.getCurrentApkType(this) == ApkType.TYPE_21
                 isPlayContinue();
             } else {
                 handler.removeMessages(0);
@@ -807,7 +813,7 @@ public class MakeSubgect extends BaseActivity {
 
                 sp.play(recouid, 1f, 1f, 0, 0, 1);
             }
-        }, 300);
+        }, 350);
     }
 
     @Override
@@ -951,7 +957,11 @@ public class MakeSubgect extends BaseActivity {
      * 看是否是单词
      */
     private boolean isWorld() {
-        return dataBeans.get(subjectNum).getIs_select() == 2;
+        try {
+            return dataBeans.get(subjectNum).getIs_select() == 2;
+        } catch (Exception e) {
+        }
+        return false;
     }
 
     /**
@@ -973,6 +983,7 @@ public class MakeSubgect extends BaseActivity {
         posAdapter.setIsWorld(isWorld());
         posAdapter.setList(WordsPos);
 
+        OnimageTextDislay.setTextSize(TypedValue.COMPLEX_UNIT_SP, isWorld() ? app.getFontSize() + 10 : app.getFontSize());
     }
 
     /**
@@ -995,10 +1006,10 @@ public class MakeSubgect extends BaseActivity {
             if (!isFromButton) {
                 dealPosition(dataBeans.get(subjectNum).getAnswer());
             }
-
         } else {
             startPlay.setEnabled(false);
         }
+
         if (favoriteState(subjectNum)) {
             if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU) {
                 ((ImageView) findViewById(R.id.favorite)).setImageResource(R.drawable.icon_favorite_have);
@@ -1248,7 +1259,8 @@ public class MakeSubgect extends BaseActivity {
             copyAnswerCh.setTextSize(TypedValue.COMPLEX_UNIT_SP, app.getFontSize());
             copyAnswerEn.setTextSize(TypedValue.COMPLEX_UNIT_SP, app.getFontSize());
         }
-        OnimageTextDislay.setTextSize(app.getFontSize());
+
+        OnimageTextDislay.setTextSize(TypedValue.COMPLEX_UNIT_SP, isWorld() ? app.getFontSize() + 10 : app.getFontSize());
     }
 
     @Override

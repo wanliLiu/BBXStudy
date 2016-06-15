@@ -193,7 +193,8 @@ public class MyApplication extends Application {
      * @return
      */
     public boolean isAutoDisplay() {
-        return SP.getSp(this).getBoolean(SP.isAutoDisplay, false);
+//        return SP.getSp(this).getBoolean(SP.isAutoDisplay, false);
+        return false;
     }
 
     /**

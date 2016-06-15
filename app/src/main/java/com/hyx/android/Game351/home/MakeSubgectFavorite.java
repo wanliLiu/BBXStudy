@@ -9,6 +9,7 @@ import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -85,7 +86,6 @@ public class MakeSubgectFavorite extends BaseActivity {
     private int downloadIndex = 0;
     private int currentDownload = 0;
     private MediaPlayer mediaPlayer = null;
-    private boolean isNextButtonClick = false;
     private int currentIndex = 0;
     private boolean isRunning = true;
     private TextView OnimageTextDislay;
@@ -265,6 +265,7 @@ public class MakeSubgectFavorite extends BaseActivity {
         }
 
         --subjectNum;
+        isFromButton = false;
         if (subjectNum >= 0) {
             showImageAndMp3();
         } else {
@@ -301,8 +302,6 @@ public class MakeSubgectFavorite extends BaseActivity {
 
             @Override
             public void onClick() {
-                isNextButtonClick = true;
-
                 if (mediaPlayer != null && mediaPlayer.isPlaying()) {
                     mediaPlayer.stop();
                     mediaPlayer.release();
@@ -353,7 +352,8 @@ public class MakeSubgectFavorite extends BaseActivity {
 
             isOk = true;
         } else {
-            playErrorSound();
+            if (bean.isShow())
+                playErrorSound();
         }
 
         return isOk;
@@ -424,13 +424,11 @@ public class MakeSubgectFavorite extends BaseActivity {
                 }
                 break;
             case R.id.btnRepet: {
-                isNextButtonClick = true;
                 subjectNum--;
                 getIntoNext();
             }
             break;
             case R.id.btnNext: {
-                isNextButtonClick = true;
                 getIntoNext();
             }
             default:
@@ -493,7 +491,7 @@ public class MakeSubgectFavorite extends BaseActivity {
 
                 sp.play(recouid, 1f, 1f, 0, 0, 1);
             }
-        }, 300);
+        }, 350);
     }
 
     @Override
@@ -533,7 +531,11 @@ public class MakeSubgectFavorite extends BaseActivity {
      * 看是否是单词
      */
     private boolean isWorld() {
-        return dataBeans.get(subjectNum).getFavorite().getIs_select() == 2;
+        try {
+            return dataBeans.get(subjectNum).getFavorite().getIs_select() == 2;
+        } catch (Exception e) {
+        }
+        return false;
     }
 
     /**
@@ -555,7 +557,9 @@ public class MakeSubgectFavorite extends BaseActivity {
         posAdapter.setIsWorld(isWorld());
         posAdapter.setList(WordsPos);
 
+        OnimageTextDislay.setTextSize(TypedValue.COMPLEX_UNIT_SP, isWorld() ? app.getFontSize() + 10 : app.getFontSize());
     }
+
     /**
      * 播放音频
      */
@@ -812,7 +816,7 @@ public class MakeSubgectFavorite extends BaseActivity {
             copyAnswerCh.setTextSize(app.getFontSize());
             copyAnswerEn.setTextSize(app.getFontSize());
         }
-        OnimageTextDislay.setTextSize(app.getFontSize());
+        OnimageTextDislay.setTextSize(TypedValue.COMPLEX_UNIT_SP, isWorld() ? app.getFontSize() + 10 : app.getFontSize());
     }
 
     @Override

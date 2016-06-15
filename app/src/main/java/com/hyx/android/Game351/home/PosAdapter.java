@@ -31,14 +31,15 @@ public class PosAdapter extends AutoWrapAdapter<PositionBean> {
         ViewHolder holder = new ViewHolder(convertView);
 
         PositionBean bean = getItem(position);
-        holder.title.setTextSize(TypedValue.COMPLEX_UNIT_SP, app.getFontSize());
         holder.title.setText(bean.getStr());
         holder.title.setVisibility(bean.isShow() ? View.VISIBLE : View.INVISIBLE);
 
         if (isWrold) {
-            holder.title.setTextSize(TypedValue.COMPLEX_UNIT_SP, app.getFontSize() + 10);
+            holder.title.setTextSize(TypedValue.COMPLEX_UNIT_SP, app.getFontSize() + 20);
             int _10dp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, ctx.getResources().getDisplayMetrics());
             holder.title.setPadding(holder.title.getPaddingLeft() + _10dp, holder.title.getPaddingTop(), holder.title.getPaddingRight() + _10dp, holder.title.getPaddingBottom());
+        } else {
+            holder.title.setTextSize(TypedValue.COMPLEX_UNIT_SP, app.getFontSize());
         }
 
         return convertView;

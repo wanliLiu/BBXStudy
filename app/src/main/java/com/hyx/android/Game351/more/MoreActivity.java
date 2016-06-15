@@ -384,14 +384,27 @@ public class MoreActivity extends BaseActivity {
 
     }
 
+    /**
+     * @return
+     */
+    private int getFontSize() {
+        int size = getFontSize();
+
+        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_21)
+            size -= 10;
+
+        return size;
+    }
+
+
     @Override
     protected void onResume() {
         super.onResume();
         // getpkginfo("com.hyx.android.Game351");
 
         seekBar.setProgress(app.getPlayTime() - 200);
-        fontSeekBar.setProgress(app.getFontSize() - 14);
-        fontTextView.setText("做题字体的大小（" + app.getFontSize() + "）");
+        fontSeekBar.setProgress(getFontSize() - 14);
+        fontTextView.setText("做题字体的大小（" + getFontSize() + "）");
 
         timeProgress
                 .setText("连续播放时间间隔（"

@@ -542,11 +542,29 @@ public class MakeSubgectFavorite extends BaseActivity {
      * 看是否是单词
      */
     private boolean isWorld() {
+
+        boolean isworld = false;
+
         try {
-            return dataBeans.get(subjectNum).getFavorite().getIs_select() == 2;
+            if (dataBeans.get(subjectNum).getFavorite().getIs_select() == 2) {
+                isworld = true;
+            }
         } catch (Exception e) {
         }
-        return false;
+
+        if (!isworld) {
+            String[] temp = dataBeans.get(subjectNum).getFavorite().getAnswer().split("\\|");
+            isworld = true;
+            for (int i = temp.length - 1; i >= 0; i--) {
+                if (temp[i].length() > 1) {
+                    isworld = false;
+                    break;
+                }
+            }
+        }
+
+
+        return isworld;
     }
 
     /**
@@ -568,7 +586,7 @@ public class MakeSubgectFavorite extends BaseActivity {
         posAdapter.setIsWorld(isWorld());
         posAdapter.setList(WordsPos);
 
-        OnimageTextDislay.setTextSize(TypedValue.COMPLEX_UNIT_SP, isWorld() ? app.getFontSize() + 10 : app.getFontSize());
+        OnimageTextDislay.setTextSize(TypedValue.COMPLEX_UNIT_SP, isWorld() ? app.getFontSize() + 20 : app.getFontSize());
     }
 
     /**
@@ -827,7 +845,7 @@ public class MakeSubgectFavorite extends BaseActivity {
             copyAnswerCh.setTextSize(app.getFontSize());
             copyAnswerEn.setTextSize(app.getFontSize());
         }
-        OnimageTextDislay.setTextSize(TypedValue.COMPLEX_UNIT_SP, isWorld() ? app.getFontSize() + 10 : app.getFontSize());
+        OnimageTextDislay.setTextSize(TypedValue.COMPLEX_UNIT_SP, isWorld() ? app.getFontSize() + 20 : app.getFontSize());
     }
 
     @Override

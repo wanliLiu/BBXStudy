@@ -10,7 +10,9 @@ import android.net.NetworkInfo;
 import com.hyx.android.Game351.DBDevicesManger;
 import com.hyx.android.Game351.login.CheckService;
 import com.hyx.android.Game351.util.ACache;
+import com.hyx.android.Game351.util.ApkType;
 import com.hyx.android.Game351.util.FileUtil;
+import com.hyx.android.Game351.util.MyTools;
 import com.hyx.android.Game351.util.SP;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
@@ -250,8 +252,14 @@ public class MyApplication extends Application {
         SP.getEdit(this).putInt(SP.SUBJECTFONT, size).commit();
     }
 
+    /**
+     * @return
+     */
     public int getFontSize() {
-        return SP.getSp(this).getInt(SP.SUBJECTFONT, 0) + 14;
+        int sp = SP.getSp(this).getInt(SP.SUBJECTFONT, 0) + 14;
+        if (MyTools.getCurrentApkType(this) == ApkType.TYPE_21)
+            sp += 10;
+        return sp;
     }
 
     public void setUserPhonew(String phone) {

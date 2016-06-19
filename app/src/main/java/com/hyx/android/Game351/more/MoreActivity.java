@@ -1,8 +1,6 @@
 package com.hyx.android.Game351.more;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -16,8 +14,6 @@ import android.widget.TextView;
 
 import com.hyx.android.Game351.R;
 import com.hyx.android.Game351.base.BaseActivity;
-import com.hyx.android.Game351.favorite.WishActivity;
-import com.hyx.android.Game351.history.HistoryActivity;
 import com.hyx.android.Game351.login.LoginActivity;
 import com.hyx.android.Game351.util.ApkType;
 import com.hyx.android.Game351.util.MyTools;
@@ -54,8 +50,9 @@ public class MoreActivity extends BaseActivity {
     private Handler cacheHander = new Handler() {
         public void handleMessage(Message msg) {
 
-            int index = (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_FastRecord || MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead || MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU || MyTools.getCurrentApkType(ctx) == ApkType.TYPE_21) ? 2 : 3;
+//            int index = (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_FastRecord || MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead || MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU || MyTools.getCurrentApkType(ctx) == ApkType.TYPE_21) ? 2 : 3;
 
+            int index = 0;
             switch (msg.what) {
                 case 1: {
                     showProgress();
@@ -129,14 +126,14 @@ public class MoreActivity extends BaseActivity {
                 moreSetting.addBasicItem("收藏");// 0
         }
 
-        moreSetting.addBasicItem("使用说明");// 1
+//        moreSetting.addBasicItem("使用说明");// 1
 //        if (app.isVIPuser())
 //            moreSetting.addBasicItem("你已经是VIP 欢迎你", R.drawable.transparent);// 2
 //        else
-        moreSetting.addBasicItem("升级到VIP", R.drawable.transparent);// 2
+//        moreSetting.addBasicItem("升级到VIP", R.drawable.transparent);// 2
         moreSetting.addBasicItem("清除缓存（0.0kb)", R.drawable.transparent);// 3
-        moreSetting.addBasicItem("关于我们");// 4
-        moreSetting.addBasicItem("好评", R.drawable.transparent);// 5
+//        moreSetting.addBasicItem("关于我们");// 4
+//        moreSetting.addBasicItem("好评", R.drawable.transparent);// 5
 //        moreSetting.addBasicItem("退出登录", R.drawable.transparent);// 6
 //        moreSetting.addBasicItem("个人空间", R.drawable.transparent);// 7
 
@@ -288,79 +285,97 @@ public class MoreActivity extends BaseActivity {
             @Override
             public void onItemClick(int index) {
 
+                final DefaultDialog dialog = new DefaultDialog(MoreActivity.this);
+                dialog.setDescription("你确定清除缓存？");
+                dialog.setBtnCancle("暂不清除");
+                dialog.setBtnOk("清除");
+                dialog.setDialogTitle("提示");
+                dialog.setDialogListener(new DialogSelectListener() {
+
+                    @Override
+                    public void onChlidViewClick(View paramView) {
+                        dialog.dismiss();
+                        if (paramView.getId() == R.id.btn_ok) {
+                            cacheHander.sendEmptyMessage(1);
+                        }
+                    }
+                });
+
+                dialog.show();
+
 //                if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_FastRecord ||
 //                        MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
 //                        MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU ||
 //                        MyTools.getCurrentApkType(ctx) == ApkType.TYPE_21)
 
-                index += 1;
-
-
-                switch (index) {
-                    case 0:
-                        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
-                                MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU) {
-                            startActivity(new Intent(MoreActivity.this, HistoryActivity.class));
-                        } else {
-                            startActivity(new Intent(MoreActivity.this, WishActivity.class));
-                        }
-
-                        break;
-                    case 1:
-                        startActivity(new Intent(MoreActivity.this, InstructionActivity.class));
-                        break;
-                    case 2: {
-                        //弹出支付界面
-//                            if (!app.isVIPuser())
-//                            {
-                        showNeedToAiPlay();
+//                index += 1;
+//
+//
+//                switch (index) {
+//                    case 0:
+//                        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
+//                                MyTools.getCurrentApkType(ctx) == ApkType.TYPE_MEIJU) {
+//                            startActivity(new Intent(MoreActivity.this, HistoryActivity.class));
+//                        } else {
+//                            startActivity(new Intent(MoreActivity.this, WishActivity.class));
+//                        }
+//
+//                        break;
+//                    case 1:
+//                        startActivity(new Intent(MoreActivity.this, InstructionActivity.class));
+//                        break;
+//                    case 2: {
+//                        //弹出支付界面
+////                            if (!app.isVIPuser())
+////                            {
+//                        showNeedToAiPlay();
+////                            }
+//                    }
+//                    break;
+//                    case 3: {
+//                        final DefaultDialog dialog = new DefaultDialog(MoreActivity.this);
+//                        dialog.setDescription("你确定清除缓存？");
+//                        dialog.setBtnCancle("暂不清除");
+//                        dialog.setBtnOk("清除");
+//                        dialog.setDialogTitle("提示");
+//                        dialog.setDialogListener(new DialogSelectListener() {
+//
+//                            @Override
+//                            public void onChlidViewClick(View paramView) {
+//                                dialog.dismiss();
+//                                if (paramView.getId() == R.id.btn_ok) {
+//                                    cacheHander.sendEmptyMessage(1);
+//                                }
 //                            }
-                    }
-                    break;
-                    case 3: {
-                        final DefaultDialog dialog = new DefaultDialog(MoreActivity.this);
-                        dialog.setDescription("你确定清除缓存？");
-                        dialog.setBtnCancle("暂不清除");
-                        dialog.setBtnOk("清除");
-                        dialog.setDialogTitle("提示");
-                        dialog.setDialogListener(new DialogSelectListener() {
-
-                            @Override
-                            public void onChlidViewClick(View paramView) {
-                                dialog.dismiss();
-                                if (paramView.getId() == R.id.btn_ok) {
-                                    cacheHander.sendEmptyMessage(1);
-                                }
-                            }
-                        });
-
-                        dialog.show();
-                    }
-                    break;
-                    case 4:
-                        startActivity(new Intent(MoreActivity.this, AboutUsActivity.class));
-                        break;
-                    case 5: {
-                        Uri uri = Uri.parse("http://m.anzhi.com/info_1807031.html");
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                        try {
-                            startActivity(intent);
-                        } catch (ActivityNotFoundException e) {
-//                          e.printStackTrace();
-//                          Toast.makeText(context, "Couldn't launch the market !", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    break;
-                    case 6:
-
-                        break;
-                    case 7:
-//                    	startActivity(new Intent(MoreActivity.this, PersionPosition.class));
-                        break;
-                    default:
-                        break;
-                }
+//                        });
+//
+//                        dialog.show();
+//                    }
+//                    break;
+//                    case 4:
+//                        startActivity(new Intent(MoreActivity.this, AboutUsActivity.class));
+//                        break;
+//                    case 5: {
+//                        Uri uri = Uri.parse("http://m.anzhi.com/info_1807031.html");
+//                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//                        try {
+//                            startActivity(intent);
+//                        } catch (ActivityNotFoundException e) {
+////                          e.printStackTrace();
+////                          Toast.makeText(context, "Couldn't launch the market !", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//
+//                    break;
+//                    case 6:
+//
+//                        break;
+//                    case 7:
+////                    	startActivity(new Intent(MoreActivity.this, PersionPosition.class));
+//                        break;
+//                    default:
+//                        break;
+//                }
             }
         });
 

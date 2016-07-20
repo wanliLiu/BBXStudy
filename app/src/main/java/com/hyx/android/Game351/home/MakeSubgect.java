@@ -660,7 +660,8 @@ public class MakeSubgect extends BaseActivity {
                 isPlayContinue();
             } else {
                 handler.removeMessages(0);
-                if (!isNextButtonClick && !app.isAutoDisplay()) {
+                //!isNextButtonClick &&
+                if (!app.isAutoDisplay()) {
                     upLoadScore();
                 } else {
                     // 不能参加排名

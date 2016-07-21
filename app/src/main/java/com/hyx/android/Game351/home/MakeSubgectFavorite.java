@@ -763,7 +763,7 @@ public class MakeSubgectFavorite extends BaseActivity {
         }
 
         if (isWorld())
-            temp = temp.trim();
+            temp = temp.replaceAll(" ", "");
 
         return temp;
     }

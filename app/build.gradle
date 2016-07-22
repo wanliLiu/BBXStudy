@@ -67,6 +67,7 @@ android {
 
         Type21 {
             applicationId "com.hyx.android.Game351"
+            buildConfigField "String", "GuestAddress", "\"http://www.tgbbx.com/apinew/api6_6.php\""
             buildConfigField "String", "Address", "\"http://www.tgbbx.com/apinew/api6_2.php\""
             buildConfigField "int", "APK_TYPE", "0"
             versionCode 20160721

@@ -560,7 +560,7 @@ public class MakeSubgect extends BaseActivity {
                         MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
                     copyAnswerEn.setText(getString());
                 } else {
-//                    isNextButtonClick = true;
+                    isNextButtonClick = true;
                     enContainer.setVisibility(View.VISIBLE);
                     textEnDis.setText(getString());
                     enContainer.startMarquee();

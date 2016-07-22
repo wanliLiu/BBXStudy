@@ -537,7 +537,7 @@ public class MakeSubgect extends BaseActivity {
 
             isOk = true;
         } else {
-            isNextButtonClick = true;
+//            isNextButtonClick = true;
             if (bean.isShow())
                 playErrorSound();
         }
@@ -560,7 +560,7 @@ public class MakeSubgect extends BaseActivity {
                         MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
                     copyAnswerEn.setText(getString());
                 } else {
-                    isNextButtonClick = true;
+//                    isNextButtonClick = true;
                     enContainer.setVisibility(View.VISIBLE);
                     textEnDis.setText(getString());
                     enContainer.startMarquee();
@@ -590,7 +590,7 @@ public class MakeSubgect extends BaseActivity {
                 }
                 break;
             case R.id.btnRepet: {
-                isNextButtonClick = true;
+//                isNextButtonClick = true;
                 subjectNum--;
                 getIntoNext();
             }
@@ -661,7 +661,7 @@ public class MakeSubgect extends BaseActivity {
             } else {
                 handler.removeMessages(0);
                 //!isNextButtonClick &&
-                if (!app.isAutoDisplay()) {
+                if (!isNextButtonClick && !app.isAutoDisplay()) {
                     upLoadScore();
                 } else {
                     // 不能参加排名

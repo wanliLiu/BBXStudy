@@ -128,7 +128,7 @@ public class ScoreActivity extends BaseActivity {
                     for (SubjectBean subjectBean : temp) {
                         buffer.append(index + "." + "\n");
                         buffer.append("问题：" + subjectBean.getQuestion() + "\n");
-                        buffer.append("答案：" + getString(subjectBean.getAnswer().split("\\|")) + "\n\n");
+                        buffer.append("答案：" + getString(subjectBean) + "\n\n");
                         ++index;
                     }
                     if (buffer.length() > 0) {
@@ -175,17 +175,51 @@ public class ScoreActivity extends BaseActivity {
     }
 
     /**
-     * @return
+     * 看是否是单词
      */
-    private String getString(String[] answer) {
-        String temp = "";
+    private boolean isWorld(SubjectBean data) {
 
-        for (int i = 0; i < answer.length; i++) {
+        boolean isworld = false;
 
-            if (i % 2 == 0) {
-                temp += answer[i] + " ";
+        try {
+            if (data.getIs_select() == 2) {
+                isworld = true;
+            }
+        } catch (Exception e) {
+        }
+
+        if (!isworld) {
+            String[] temp = data.getAnswer().split("\\|");
+            isworld = true;
+            for (int i = temp.length - 1; i >= 0; i--) {
+                if (temp[i].length() > 1) {
+                    isworld = false;
+                    break;
+                }
             }
         }
+
+
+        return isworld;
+    }
+
+    /**
+     * @return
+     */
+    private String getString(SubjectBean data) {
+
+        String temp = "";
+
+        String[] answer = data.getAnswer().split("\\|");
+        for (int i = 0; i < answer.length; i++) {
+
+//                if (i % 2 == 0) {
+            temp += answer[i] + " ";
+//                }
+        }
+
+        if (isWorld(data))
+            temp = temp.replaceAll(" ", "");
 
         return temp;
     }

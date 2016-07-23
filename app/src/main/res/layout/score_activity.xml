@@ -77,7 +77,7 @@
             android:layout_alignParentTop="true"
             android:gravity="center_horizontal"
             android:padding="15dip"
-            android:text="点击下一题或选错或自动播放不能参加排名" />
+            android:text="点下一题或显示答案不能参加排名" />
 
         <LinearLayout
             android:id="@+id/dslkd0212"

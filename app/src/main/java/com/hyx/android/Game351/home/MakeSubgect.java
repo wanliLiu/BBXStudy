@@ -577,7 +577,7 @@ public class MakeSubgect extends BaseActivity {
                 break;
             case R.id.chinesDis:
                 if (subjectNum < dataBeans.size()) {
-                    if (dataBeans.get(subjectNum).getIs_select() == 1) {
+                    if (dataBeans.get(subjectNum).getIs_select() == 1 || dataBeans.get(subjectNum).getIs_select() == 2) {
                         if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_CopyRead ||
                                 MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
                             copyAnswerCh.setText(dataBeans.get(subjectNum).getQuestion());

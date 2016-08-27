@@ -17,12 +17,21 @@ public class PosAdapter extends AutoWrapAdapter<PositionBean> {
 
     private boolean isWrold = false;
 
+    private int color_text = 0;
+
     public PosAdapter(Context context) {
         super(context);
     }
 
     public void setIsWorld(boolean misWorld) {
         isWrold = misWorld;
+    }
+
+    /**
+     * @param colorReid
+     */
+    public void setTextColor(int colorReid) {
+        color_text = colorReid;
     }
 
     @Override
@@ -33,6 +42,10 @@ public class PosAdapter extends AutoWrapAdapter<PositionBean> {
         PositionBean bean = getItem(position);
         holder.title.setText(bean.getStr());
         holder.title.setVisibility(bean.isShow() ? View.VISIBLE : View.INVISIBLE);
+
+        if (color_text != 0) {
+            holder.title.setTextColor(ctx.getResources().getColor(color_text));
+        }
 
         if (isWrold) {
             holder.title.setTextSize(TypedValue.COMPLEX_UNIT_SP, app.getFontSize() + 20);

@@ -31,4 +31,8 @@
     <color name="color_post_bar_actionBar_background">#F5F5F5</color>
     <color name="backgound">#E9E9E9</color>
     <color name="colorb">#0000FF</color>
+
+
+    <color name="color_makesubject_bg">#a0e75a</color>
+    <color name="color_text">#353535</color>
 </resources>

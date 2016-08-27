@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
 import com.hyx.android.Game351.base.BaseActivity;
+import com.hyx.android.Game351.base.Constants;
 import com.hyx.android.Game351.login.LoginActivity;
 import com.hyx.android.Game351.util.MyTools;
 import com.hyx.android.Game351.util.SP;
@@ -39,7 +40,7 @@ public class WeclomeActivity extends BaseActivity {
         if (SP.getSp(ctx).getBoolean(MyTools.getAppVersionName(this), true)) {   //主要是用于更新用户，在第一次使用新版本时，清除登陆信息
             SP.getEdit(ctx).putBoolean(MyTools.getAppVersionName(this), false).commit();
 
-            app.SetFontSize(2);
+            app.SetFontSize(Constants.defaultFontSize);
         }
     }
 

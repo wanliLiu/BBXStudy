@@ -45,7 +45,7 @@ public class MyApplication extends Application {
 
         if (IsFistTimeUse()) {
             MarketIsFirstTime();
-            SetFontSize(2);
+            SetFontSize(Constants.defaultFontSize);
         }
     }
 

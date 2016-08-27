@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:marquee="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/makebg"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -63,7 +64,7 @@
                 android:padding="5dip"
                 marquee:autoStart="true"
                 marquee:pause="700"
-                marquee:speed="10">
+                marquee:speed="15">
 
                 <TextView
                     android:id="@+id/textChinestDis"
@@ -83,7 +84,7 @@
                 android:padding="5dip"
                 marquee:autoStart="true"
                 marquee:pause="700"
-                marquee:speed="10">
+                marquee:speed="15">
 
                 <TextView
                     android:id="@+id/textEnDis"
@@ -310,6 +311,7 @@
                 android:gravity="center_horizontal"
                 android:padding="10dip"
                 android:text="显示答案"
+                android:textColor="@color/color_text"
                 android:textSize="@dimen/text_normal" />
 
             <Button
@@ -322,6 +324,7 @@
                 android:gravity="center_horizontal"
                 android:padding="10dip"
                 android:text="收藏"
+                android:textColor="@color/color_text"
                 android:textSize="@dimen/text_normal" />
 
             <Button
@@ -334,6 +337,7 @@
                 android:gravity="center_horizontal"
                 android:padding="10dip"
                 android:text="显示中文"
+                android:textColor="@color/color_text"
                 android:textSize="@dimen/text_normal" />
         </LinearLayout>
     </RelativeLayout>

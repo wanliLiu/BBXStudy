@@ -38,6 +38,9 @@ public class Constants {
     public static final String ServerTopicAdd = "http://www.tgbbx.com/";
     public static String ServerDataAddress = "";
 
+    //默认字体大小20
+    public static final int defaultFontSize = 6;
+
     static {
         ServerDataAddress = UserAddress;
     }

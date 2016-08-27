@@ -6,10 +6,10 @@ import android.content.res.TypedArray;
 import android.graphics.Paint;
 import android.os.Build;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Interpolator;
@@ -28,7 +28,6 @@ import com.hyx.android.Game351.R;
  */
 public class MarqueeView extends LinearLayout {
     private static final int TEXTVIEW_VIRTUAL_WIDTH = 2000;
-    private static final String TAG = MarqueeView.class.getSimpleName();
     /**
      * Control the speed. The lower this value, the faster it will scroll.
      */
@@ -38,7 +37,6 @@ public class MarqueeView extends LinearLayout {
      */
     private static final int DEFAULT_ANIMATION_PAUSE = 2000;
     private TextView mTextField;
-    private ScrollView mScrollView;
     private Animation mMoveTextOut = null;
     private Animation mMoveTextIn = null;
     private Paint mPaint;
@@ -55,28 +53,69 @@ public class MarqueeView extends LinearLayout {
     private boolean mCancelled = false;
     private Runnable mAnimationStartRunnable;
 
-    private boolean mStarted;
+    private int viewWidth = 0;
+
+    private boolean isInit = false;
 
     @SuppressWarnings({"UnusedDeclaration"})
     public MarqueeView(Context context) {
-        super(context);
-        init(context);
+        this(context, null);
     }
 
     @SuppressWarnings({"UnusedDeclaration"})
     public MarqueeView(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        init(context);
-        extractAttributes(attrs);
+        init(attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public MarqueeView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        init(context);
+        init(attrs);
+    }
+
+
+    /**
+     * @param attrs
+     */
+    private void init(AttributeSet attrs) {
+
+        setOrientation(LinearLayout.VERTICAL);
+        setGravity(Gravity.CENTER_HORIZONTAL);
+
+        setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+
+        // init helper
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+        mPaint.setStrokeWidth(1);
+        mPaint.setStrokeCap(Paint.Cap.ROUND);
+
+        mInterpolator = new LinearInterpolator();
+
         extractAttributes(attrs);
+    }
+
+    /**
+     * @param attrs
+     */
+    private void extractAttributes(AttributeSet attrs) {
+        if (getContext() == null) {
+            return;
+        }
+
+        TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.asia_ivity_android_marqueeview_MarqueeView);
+
+        if (a == null) {
+            return;
+        }
+
+        mSpeed = a.getInteger(R.styleable.asia_ivity_android_marqueeview_MarqueeView_speed, DEFAULT_SPEED);
+        mAnimationPause = a.getInteger(R.styleable.asia_ivity_android_marqueeview_MarqueeView_pause, DEFAULT_ANIMATION_PAUSE);
+        mAutoStart = a.getBoolean(R.styleable.asia_ivity_android_marqueeview_MarqueeView_autoStart, false);
+
+        a.recycle();
     }
 
     /**
@@ -107,55 +146,14 @@ public class MarqueeView extends LinearLayout {
         this.mInterpolator = interpolator;
     }
 
-    private void extractAttributes(AttributeSet attrs) {
-        if (getContext() == null) {
-            return;
-        }
-
-        TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.asia_ivity_android_marqueeview_MarqueeView);
-
-        if (a == null) {
-            return;
-        }
-
-        mSpeed = a.getInteger(R.styleable.asia_ivity_android_marqueeview_MarqueeView_speed, DEFAULT_SPEED);
-        mAnimationPause = a.getInteger(R.styleable.asia_ivity_android_marqueeview_MarqueeView_pause, DEFAULT_ANIMATION_PAUSE);
-        mAutoStart = a.getBoolean(R.styleable.asia_ivity_android_marqueeview_MarqueeView_autoStart, false);
-
-        a.recycle();
-    }
-
-    private void init(Context context) {
-        // init helper
-        mPaint = new Paint();
-        mPaint.setAntiAlias(true);
-        mPaint.setStrokeWidth(1);
-        mPaint.setStrokeCap(Paint.Cap.ROUND);
-
-        mInterpolator = new LinearInterpolator();
-    }
-
     @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        super.onLayout(changed, l, t, r, b);
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        viewWidth = MeasureSpec.getSize(widthMeasureSpec);
 
-        if (getChildCount() == 0 || getChildCount() > 1) {
-            throw new RuntimeException("MarqueeView must have exactly one child element.");
-        }
-
-        if (changed) {
-            View v = getChildAt(0);
-            if (!(v instanceof TextView)) {
-                throw new RuntimeException("The child view of this MarqueeView must be a TextView instance.");
-            }
-
-            initView(getContext());
-
+        if (!isInit) {
+            isInit = true;
             prepareAnimation();
-
-            if (mAutoStart) {
-                startMarquee();
-            }
         }
     }
 
@@ -168,9 +166,11 @@ public class MarqueeView extends LinearLayout {
         }
 
         mCancelled = false;
-        mStarted = true;
     }
 
+    /**
+     *
+     */
     private void startTextFieldAnimation() {
         mAnimationStartRunnable = new Runnable() {
             public void run() {
@@ -184,41 +184,45 @@ public class MarqueeView extends LinearLayout {
      * Disables the animations.
      */
     public void reset() {
-        mCancelled = true;
+        try {
+            mCancelled = true;
 
-        if (mAnimationStartRunnable != null) {
-            removeCallbacks(mAnimationStartRunnable);
+            if (mAnimationStartRunnable != null) {
+                removeCallbacks(mAnimationStartRunnable);
+            }
+
+            mTextField.clearAnimation();
+
+            mMoveTextOut.reset();
+            mMoveTextIn.reset();
+
+            invalidate();
+        } catch (Exception e) {
+            e.printStackTrace();
+
         }
 
-        mTextField.clearAnimation();
-        mStarted = false;
-
-        mMoveTextOut.reset();
-        mMoveTextIn.reset();
-
-//        mScrollView.removeView(mTextField);
-//        mScrollView.addView(mTextField);
-
-        invalidate();
     }
 
+    /**
+     *
+     */
     private void prepareAnimation() {
+
+        if (viewWidth == 0) return;
+
+        if (TextUtils.isEmpty(mTextField.getText().toString()))
+            return;
+
         // Measure
         mPaint.setTextSize(mTextField.getTextSize());
         mPaint.setTypeface(mTextField.getTypeface());
         float mTextWidth = mPaint.measureText(mTextField.getText().toString());
 
         // See how much functions are needed at all
-        mMarqueeNeeded = mTextWidth > getMeasuredWidth();
+        mMarqueeNeeded = mTextWidth > viewWidth;
 
-        mTextDifference = Math.abs((mTextWidth - getMeasuredWidth())) + 5;
-
-//        if (true) {
-//            Log.d(TAG, "mTextWidth       : " + mTextWidth);
-//            Log.d(TAG, "measuredWidth    : " + getMeasuredWidth());
-//            Log.d(TAG, "mMarqueeNeeded   : " + mMarqueeNeeded);
-//            Log.d(TAG, "mTextDifference  : " + mTextDifference);
-//        }
+        mTextDifference = Math.abs((mTextWidth - viewWidth)) + 5;
 
         final int duration = (int) (mTextDifference * mSpeed);
 
@@ -256,7 +260,7 @@ public class MarqueeView extends LinearLayout {
 
             public void onAnimationEnd(Animation animation) {
 
-                cutTextView();
+//                cutTextView();
 
                 if (mCancelled) {
                     return;
@@ -267,64 +271,76 @@ public class MarqueeView extends LinearLayout {
             public void onAnimationRepeat(Animation animation) {
             }
         });
+
+        if (mAutoStart) {
+            postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startMarquee();
+                }
+            }, 500);
+        }
     }
 
-    private void initView(Context context) {
-        // Scroll View
-        LayoutParams sv1lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        sv1lp.gravity = Gravity.CENTER_HORIZONTAL;
-        mScrollView = new ScrollView(context);
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
 
-        // Scroll View 1 - Text Field
-        mTextField = (TextView) getChildAt(0);
-        removeView(mTextField);
+        if (getChildAt(0) instanceof TextView) {
+            mTextField = (TextView) getChildAt(0);
+            removeView(mTextField);
 
-        mScrollView.addView(mTextField, new ScrollView.LayoutParams(TEXTVIEW_VIRTUAL_WIDTH, LayoutParams.WRAP_CONTENT));
+            LayoutParams sv1lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+            sv1lp.gravity = Gravity.CENTER_HORIZONTAL;
+            ScrollView mScrollView = new ScrollView(getContext());
 
-        mTextField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            mScrollView.addView(mTextField, new ScrollView.LayoutParams(TEXTVIEW_VIRTUAL_WIDTH, LayoutParams.WRAP_CONTENT));
 
-            }
+            addView(mScrollView, sv1lp);
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            mTextField.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
 
-            }
+                }
 
-            @Override
-            public void afterTextChanged(Editable editable) {
-                final boolean continueAnimation = mStarted;
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
 
-                reset();
-                prepareAnimation();
+                }
 
-                cutTextView();
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    if (!TextUtils.isEmpty(editable.toString())) {
+                        reset();
 
-                post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (continueAnimation) {
-                            startMarquee();
-                        }
+                        isInit = false;
+
+//                        cutTextView();
+
+                        requestLayout();
                     }
-                });
-            }
-        });
-
-        addView(mScrollView, sv1lp);
+                }
+            });
+        }
     }
 
+    /**
+     *
+     */
     private void expandTextView() {
         ViewGroup.LayoutParams lp = mTextField.getLayoutParams();
         lp.width = 2000;
         mTextField.setLayoutParams(lp);
     }
 
+    /**
+     *
+     */
     private void cutTextView() {
-        if (mTextField.getWidth() != getMeasuredWidth()) {
+        if (mTextField.getWidth() != viewWidth) {
             ViewGroup.LayoutParams lp = mTextField.getLayoutParams();
-            lp.width = getMeasuredWidth();
+            lp.width = viewWidth;
             mTextField.setLayoutParams(lp);
         }
     }

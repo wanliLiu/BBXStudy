@@ -70,8 +70,8 @@ android {
             buildConfigField "String", "GuestAddress", "\"http://www.tgbbx.com/apinew/api6_6.php\""
             buildConfigField "String", "Address", "\"http://www.tgbbx.com/apinew/api6_2.php\""
             buildConfigField "int", "APK_TYPE", "0"
-            versionCode 20160721
-            versionName "9.1.4"
+            versionCode 20160827
+            versionName "9.1.5"
         }
 
         CopyRead {

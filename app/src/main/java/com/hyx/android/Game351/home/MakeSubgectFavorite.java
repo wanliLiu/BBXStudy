@@ -81,6 +81,10 @@ public class MakeSubgectFavorite extends BaseActivity {
     private AutoWrapListView answerList;
 
 
+    //所有都点对
+    private boolean isAllOkay = true;
+
+
     // 记录时间
     private int seconds = 0;
     private int downloadIndex = 0;
@@ -239,6 +243,32 @@ public class MakeSubgectFavorite extends BaseActivity {
             findViewById(R.id.btnNext).setOnClickListener(this);
 
         }
+
+
+        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_21) {
+            findViewById(R.id.makebg).setBackgroundColor(getResources().getColor(R.color.color_makesubject_bg));
+            posAdapter.setTextColor(R.color.color_text);
+            OnimageTextDislay.setTextColor(getResources().getColor(R.color.color_text));
+            OnimageTextDislay.setBackgroundColor(getResources().getColor(R.color.color_makesubject_bg));
+
+            textChinestDis.setTextColor(getResources().getColor(R.color.color_text));
+            textEnDis.setTextColor(getResources().getColor(R.color.color_text));
+
+            enContainer.setBackgroundColor(getResources().getColor(R.color.color_makesubject_bg));
+            chContainer.setBackgroundColor(getResources().getColor(R.color.color_makesubject_bg));
+            enContainer.setVisibility(View.GONE);
+            chContainer.setVisibility(View.GONE);
+
+            RelativeLayout.LayoutParams paramsInCopy2 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            paramsInCopy2.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+            findViewById(R.id.inCopy2).setLayoutParams(paramsInCopy2);
+
+
+            RelativeLayout.LayoutParams paramsInCopy1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            paramsInCopy1.addRule(RelativeLayout.BELOW, R.id.inCopy);
+            paramsInCopy1.addRule(RelativeLayout.ABOVE, R.id.dklsl12);
+            findViewById(R.id.inCopy1).setLayoutParams(paramsInCopy1);
+        }
     }
 
     private void imageInit() {
@@ -313,6 +343,11 @@ public class MakeSubgectFavorite extends BaseActivity {
         answerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_21) {
+                    enContainer.setVisibility(View.GONE);
+                    chContainer.setVisibility(View.GONE);
+                }
+
                 if (dealAnswerDisplay(posAdapter.getItem(position))) {
                     posAdapter.getItem(position).setShow(false);
                     posAdapter.notifyDataSetChanged();
@@ -336,7 +371,7 @@ public class MakeSubgectFavorite extends BaseActivity {
      *
      */
     private boolean dealAnswerDisplay(PositionBean bean) {
-        boolean isOk = false;
+        //能对上号，或是相等
         if (bean.getPosition() == answerIndex || isEqualTheSame(bean.getStr())) {
             String exist = OnimageTextDislay.getText().toString();
             if (TextUtils.isEmpty(exist)) {
@@ -346,28 +381,39 @@ public class MakeSubgectFavorite extends BaseActivity {
             }
 
             if (isWorld())
-                exist = exist.trim();
+                exist = exist.replaceAll(" ", "");
 
             OnimageTextDislay.setText(exist);
             OnimageTextDislay.setVisibility(View.VISIBLE);
             answerIndex++;
             if (answerIndex == posAdapter.getCount()) {
-                OnimageTextDislay.postDelayed(new Runnable() {
+                if (!isAllOkay) {
+                    //没有做对,继续来一次
+                    MyToast("请在试一次!");
+                    showImageAndMp3();
+                    return false;
+                } else {
+                    //全部做对了,下一题
+                    OnimageTextDislay.postDelayed(new Runnable() {
 
-                    @Override
-                    public void run() {
-                        getIntoNext();
-                    }
-                }, 300);
+                        @Override
+                        public void run() {
+                            getIntoNext();
+                        }
+                    }, 300);
+                }
             }
 
-            isOk = true;
+            return true;
+
         } else {
+            isAllOkay = false;
+//            isNextButtonClick = true;
             if (bean.isShow())
                 playErrorSound();
         }
 
-        return isOk;
+        return false;
     }
 
     @Override
@@ -406,7 +452,13 @@ public class MakeSubgectFavorite extends BaseActivity {
                         MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
                     copyAnswerEn.setText(getString());
                 } else {
-                    enContainer.setVisibility(View.VISIBLE);
+                    if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_21) {
+                        if (enContainer.getVisibility() != View.VISIBLE)
+                            enContainer.setVisibility(View.VISIBLE);
+                        else
+                            enContainer.setVisibility(View.GONE);
+                    } else
+                        enContainer.setVisibility(View.VISIBLE);
                     textEnDis.setText(getString());
                     enContainer.startMarquee();
                 }
@@ -427,7 +479,13 @@ public class MakeSubgectFavorite extends BaseActivity {
                                 MyTools.getCurrentApkType(this) == ApkType.TYPE_MEIJU) {
                             copyAnswerCh.setText(dataBeans.get(subjectNum).getFavorite().getQuestion());
                         } else {
-                            chContainer.setVisibility(View.VISIBLE);
+                            if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_21) {
+                                if (chContainer.getVisibility() != View.VISIBLE)
+                                    chContainer.setVisibility(View.VISIBLE);
+                                else
+                                    chContainer.setVisibility(View.GONE);
+                            } else
+                                chContainer.setVisibility(View.VISIBLE);
                             textChinestDis.setText(dataBeans.get(subjectNum).getFavorite().getQuestion());
                             chContainer.startMarquee();
                         }
@@ -594,12 +652,20 @@ public class MakeSubgectFavorite extends BaseActivity {
      */
     private void showImageAndMp3() {
 
+        isAllOkay = true;
+
         headView.setTitle(dataBeans.get(subjectNum).getTitle());
 
         textEnDis.setText("");
         textChinestDis.setText("");
-        enContainer.setVisibility(View.INVISIBLE);
-        chContainer.setVisibility(View.INVISIBLE);
+
+        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_21) {
+            enContainer.setVisibility(View.GONE);
+            chContainer.setVisibility(View.GONE);
+        } else {
+            enContainer.setVisibility(View.INVISIBLE);
+            chContainer.setVisibility(View.INVISIBLE);
+        }
 
         if (!isFromButton) {
             answerIndex = 0;
@@ -672,7 +738,11 @@ public class MakeSubgectFavorite extends BaseActivity {
         if (!(TextUtils.isEmpty(dataBeans.get(subjectNum).getFavorite().getMp3_addr())) && (dataBeans.get(subjectNum).getFavorite().getIs_select() == 1 || dataBeans.get(subjectNum).getFavorite().getIs_select() == 2 || dataBeans.get(subjectNum).getFavorite().getIs_select() == 3)) {
             haveMp3.setVisibility(View.VISIBLE);
             noMp3.setVisibility(View.GONE);
-            chContainer.setVisibility(View.VISIBLE);
+            if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_21) {
+                chContainer.setVisibility(View.GONE);
+            } else {
+                chContainer.setVisibility(View.VISIBLE);
+            }
             String tempString = Constants.ResourceAddress + "res" + dataBeans.get(subjectNum).getFistId() + "/res" + dataBeans.get(subjectNum).getSecodeId() + "/audio/" + dataBeans.get(subjectNum).getFavorite().getMp3_addr();
             MLog.e(tempString);
             File file = createFilePath(tempString);
@@ -738,7 +808,13 @@ public class MakeSubgectFavorite extends BaseActivity {
             }
             haveMp3.setVisibility(View.GONE);
             noMp3.setVisibility(View.VISIBLE);
-            chContainer.setVisibility(View.INVISIBLE);
+
+            if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_21) {
+                chContainer.setVisibility(View.GONE);
+            } else {
+                chContainer.setVisibility(View.INVISIBLE);
+            }
+
             noMp3chinesase.setText(dataBeans.get(subjectNum).getFavorite().getQuestion());
         }
     }
@@ -846,16 +922,21 @@ public class MakeSubgectFavorite extends BaseActivity {
             copyAnswerEn.setTextSize(app.getFontSize());
         }
         OnimageTextDislay.setTextSize(TypedValue.COMPLEX_UNIT_SP, isWorld() ? app.getFontSize() + 20 : app.getFontSize());
+
+        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_21) {
+            textEnDis.setTextSize(TypedValue.COMPLEX_UNIT_SP, isWorld() ? app.getFontSize() + 20 : app.getFontSize());
+            textChinestDis.setTextSize(TypedValue.COMPLEX_UNIT_SP, isWorld() ? app.getFontSize() + 20 : app.getFontSize());
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        isRunning = false;
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-            mediaPlayer.release();
-            mediaPlayer = null;
-        }
+//        isRunning = false;
+//        if (mediaPlayer != null) {
+//            mediaPlayer.stop();
+//            mediaPlayer.release();
+//            mediaPlayer = null;
+//        }
     }
 }

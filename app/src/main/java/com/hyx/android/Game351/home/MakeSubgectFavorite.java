@@ -268,6 +268,8 @@ public class MakeSubgectFavorite extends BaseActivity {
             paramsInCopy1.addRule(RelativeLayout.BELOW, R.id.inCopy);
             paramsInCopy1.addRule(RelativeLayout.ABOVE, R.id.dklsl12);
             findViewById(R.id.inCopy1).setLayoutParams(paramsInCopy1);
+
+            headImag.setImageResource(R.drawable.transparent);
         }
     }
 
@@ -732,7 +734,11 @@ public class MakeSubgectFavorite extends BaseActivity {
                 }
             }
         } else {
-            headImag.setImageResource(R.drawable.no_image);
+            if (MyTools.getCurrentApkType(this) == ApkType.TYPE_21)
+                headImag.setImageResource(R.drawable.transparent);
+            else
+                headImag.setImageResource(R.drawable.no_image);
+
         }
 
         if (!(TextUtils.isEmpty(dataBeans.get(subjectNum).getFavorite().getMp3_addr())) && (dataBeans.get(subjectNum).getFavorite().getIs_select() == 1 || dataBeans.get(subjectNum).getFavorite().getIs_select() == 2 || dataBeans.get(subjectNum).getFavorite().getIs_select() == 3)) {

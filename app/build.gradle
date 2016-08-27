@@ -77,15 +77,15 @@ android {
         CopyRead {
             applicationId "com.tgbbx"
             buildConfigField "int", "APK_TYPE", "1"
-            versionCode 20160721
-            versionName "9.1.4"
+            versionCode 20160827
+            versionName "9.1.5"
         }
 
         FastRecord {
             applicationId "com.tgbbx2"
             buildConfigField "int", "APK_TYPE", "2"
-            versionCode 20160721
-            versionName "9.1.4"
+            versionCode 20160827
+            versionName "9.1.5"
         }
 
         Meiju {
@@ -93,8 +93,8 @@ android {
             buildConfigField "String", "GuestAddress", "\"http://www.tgbbx.com/apinew/api6_dytest.php\""
             buildConfigField "String", "Address", "\"http://www.tgbbx.com/apinew/api6_dy.php\""
             buildConfigField "int", "APK_TYPE", "3"
-            versionCode 20160721
-            versionName "9.1.4"
+            versionCode 20160827
+            versionName "9.1.5"
         }
 
 

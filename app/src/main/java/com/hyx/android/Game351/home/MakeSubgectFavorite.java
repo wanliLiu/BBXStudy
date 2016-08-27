@@ -389,7 +389,7 @@ public class MakeSubgectFavorite extends BaseActivity {
             if (answerIndex == posAdapter.getCount()) {
                 if (!isAllOkay) {
                     //没有做对,继续来一次
-                    MyToast("请在试一次!");
+                    MyToast("请再试一次!");
                     showImageAndMp3();
                     return false;
                 } else {

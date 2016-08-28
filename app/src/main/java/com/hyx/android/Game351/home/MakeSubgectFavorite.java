@@ -929,10 +929,6 @@ public class MakeSubgectFavorite extends BaseActivity {
         }
         OnimageTextDislay.setTextSize(TypedValue.COMPLEX_UNIT_SP, isWorld() ? app.getFontSize() + 20 : app.getFontSize());
 
-        if (MyTools.getCurrentApkType(ctx) == ApkType.TYPE_21) {
-            textEnDis.setTextSize(TypedValue.COMPLEX_UNIT_SP, isWorld() ? app.getFontSize() + 20 : app.getFontSize());
-            textChinestDis.setTextSize(TypedValue.COMPLEX_UNIT_SP, isWorld() ? app.getFontSize() + 20 : app.getFontSize());
-        }
     }
 
     @Override

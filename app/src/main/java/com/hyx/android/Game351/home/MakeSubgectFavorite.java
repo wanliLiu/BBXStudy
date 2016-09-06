@@ -275,10 +275,13 @@ public class MakeSubgectFavorite extends BaseActivity {
 
     private void imageInit() {
         imageLoader = ImageLoader.getInstance();
-        options = new DisplayImageOptions.Builder().cacheInMemory(true)
-                .cacheOnDisk(true).considerExifParams(true)
+        options = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .considerExifParams(true)
                 .displayer(new FadeInBitmapDisplayer(250, true, true, false))// 是否图片加载好后渐入的动画时间
-                .bitmapConfig(Bitmap.Config.RGB_565).build();
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .build();
     }
 
     /**
@@ -729,6 +732,10 @@ public class MakeSubgectFavorite extends BaseActivity {
                     if (bm != null) {
                         headImag.setImageBitmap(bm);
                     } else {
+                        if (MyTools.getCurrentApkType(this) == ApkType.TYPE_21)
+                            headImag.setImageResource(R.drawable.transparent);
+                        else
+                            headImag.setImageResource(R.drawable.no_image);
                         imageLoader.displayImage(tempString, headImag, options);
                     }
                 }

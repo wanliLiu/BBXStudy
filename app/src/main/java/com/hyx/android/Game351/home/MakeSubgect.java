@@ -1147,6 +1147,10 @@ public class MakeSubgect extends BaseActivity {
                     if (bm != null) {
                         headImag.setImageBitmap(bm);
                     } else {
+                        if (MyTools.getCurrentApkType(this) == ApkType.TYPE_21)
+                            headImag.setImageResource(R.drawable.transparent);
+                        else
+                            headImag.setImageResource(R.drawable.no_image);
                         imageLoader.displayImage(tempString, headImag, options);
                     }
                 }

@@ -579,7 +579,7 @@ public class MakeSubgect extends BaseActivity {
             return true;
 
         } else {
-            isAllOkay = false;
+//            isAllOkay = false;
 //            isNextButtonClick = true;
             if (bean.isShow())
                 playErrorSound();

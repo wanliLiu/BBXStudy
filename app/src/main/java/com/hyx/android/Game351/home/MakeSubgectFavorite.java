@@ -412,7 +412,7 @@ public class MakeSubgectFavorite extends BaseActivity {
             return true;
 
         } else {
-            isAllOkay = false;
+//            isAllOkay = false;
 //            isNextButtonClick = true;
             if (bean.isShow())
                 playErrorSound();

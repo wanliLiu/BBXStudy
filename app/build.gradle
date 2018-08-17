@@ -5,15 +5,18 @@ def releaseTime() {
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.0'
+    compileSdkVersion 28
+    buildToolsVersion '28.0.2'
 
     defaultConfig {
         buildConfigField "int", "APK_TYPE", "0"
         buildConfigField "String", "GuestAddress", "\"http://www.tgbbx.com/apinew/api6_6sh.php\""
         buildConfigField "String", "Address", "\"http://www.tgbbx.com/apinew/api6_4.php\""
-        minSdkVersion 12
+        minSdkVersion 16
         targetSdkVersion 22
+
+        //android 3.0  flavor
+        flavorDimensions "packageChannel"
     }
 
     sourceSets {
@@ -70,22 +73,22 @@ android {
             buildConfigField "String", "GuestAddress", "\"http://www.tgbbx.com/apinew/api6_6.php\""
             buildConfigField "String", "Address", "\"http://www.tgbbx.com/apinew/api6_2.php\""
             buildConfigField "int", "APK_TYPE", "0"
-            versionCode 20160908
-            versionName "9.1.6"
+            versionCode 20180817
+            versionName "9.1.7"
         }
 
         CopyRead {
             applicationId "com.tgbbx"
             buildConfigField "int", "APK_TYPE", "1"
-            versionCode 20160908
-            versionName "9.1.6"
+            versionCode 20180817
+            versionName "9.1.7"
         }
 
         FastRecord {
             applicationId "com.tgbbx2"
             buildConfigField "int", "APK_TYPE", "2"
-            versionCode 20160908
-            versionName "9.1.6"
+            versionCode 20180817
+            versionName "9.1.7"
         }
 
         Meiju {
@@ -93,8 +96,8 @@ android {
             buildConfigField "String", "GuestAddress", "\"http://www.tgbbx.com/apinew/api6_dytest.php\""
             buildConfigField "String", "Address", "\"http://www.tgbbx.com/apinew/api6_dy.php\""
             buildConfigField "int", "APK_TYPE", "3"
-            versionCode 20160908
-            versionName "9.1.6"
+            versionCode 20180817
+            versionName "9.1.7"
         }
 
 
@@ -105,37 +108,22 @@ android {
     }
     //修改生成的Apk名
     applicationVariants.all { variant ->
-        variant.outputs.each { output ->
+        variant.outputs.all { output ->
             def outputFile = output.outputFile
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 // 输出apk名称为Haioo_v1.0_2015-01-15_wandoujia-xxx.apk
-                def fileName = outputFile.name.replace("app", "BBXStudy-v${variant.versionName}-${releaseTime()}");
-//_${variant.productFlavors[0].name}
-                output.outputFile = new File(outputFile.parent, fileName)
+                def fileName = outputFile.name.replace("app", "BBXStudy-v${variant.versionName}-${releaseTime()}")
+                outputFileName = fileName
+                outputFile.delete()
             }
         }
     }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':library')
-    compile 'com.loopj.android:android-async-http:1.4.9'
-    compile files('libs/alipaysdk.jar')
-    compile files('libs/alipaysecsdk.jar')
-    compile files('libs/alipayutdid.jar')
-    compile files('libs/fastjson-1.1.27-android.jar')
-    compile files('libs/gson-2.2.4.jar')
-    compile files('libs/library_photoview.jar')
-    compile files('libs/ShareSDK-Core-2.4.2.jar')
-    compile files('libs/ShareSDK-QQ-2.4.2.jar')
-    compile files('libs/ShareSDK-QZone-2.4.2.jar')
-    compile files('libs/ShareSDK-SinaWeibo-2.4.2.jar')
-    compile files('libs/ShareSDK-Wechat-2.4.2.jar')
-    compile files('libs/ShareSDK-Wechat-Core-2.4.2.jar')
-    compile files('libs/ShareSDK-Wechat-Favorite-2.4.2.jar')
-    compile files('libs/ShareSDK-Wechat-Moments-2.4.2.jar')
-    compile files('libs/universal-image-loader-1.9.2-SNAPSHOT-with-sources.jar')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':library')
+    implementation 'com.loopj.android:android-async-http:1.4.9'
 }
 
 task copyNativeLibs(type: Copy) {

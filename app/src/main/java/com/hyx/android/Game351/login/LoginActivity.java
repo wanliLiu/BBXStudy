@@ -64,8 +64,8 @@ public class LoginActivity extends BaseActivity {
         }
 
         if (BuildConfig.DEBUG) {
-            accountInput.setText("selene");
-            pwdInput.setText("mindset408");
+            accountInput.setText("王平和");
+            pwdInput.setText("xgn408");
         }
 
 
